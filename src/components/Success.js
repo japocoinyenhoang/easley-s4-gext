@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import Header from './Header';
-import Footer from './Footer';
-import Wizard from './Wizard';
 
 class Success extends Component {
   render() {
     return (
       <div className="success-page">
-        <Header />
-        <Wizard />
         <div className="success-page__icons">
 
         </div>
@@ -18,7 +13,6 @@ class Success extends Component {
         <div className="success-page__btn download-btn">
           <button>Download your presentation</button>
         </div>
-        <Footer />
       </div>
     );
   }

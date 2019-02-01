@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import Header from './Header';
-import Footer from './Footer';
-import Wizard from './Wizard';
 
 class Fill extends Component {
   render() {
     return (
       <div className="fill-page">
-        <Header />
-        <Wizard />
         <div className="fill-page__form">
           <form>
             <label for=""></label>
@@ -21,7 +16,6 @@ class Fill extends Component {
         <div className="fill-page__btn next-btn">
           <button type="button">Next</button>
         </div>
-        <Footer />
       </div>
     );
   }
