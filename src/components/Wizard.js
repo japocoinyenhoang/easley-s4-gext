@@ -9,13 +9,13 @@ class Wizard extends Component {
         <nav>
           <ul className="wizard-list">
             <li className="wizard__item step1">
-              <Link to="/choose">Choose your template</Link>
+              <Link to="steps/choose">Choose your template</Link>
             </li>
             <li className="wizard__item step2">
-              <Link to="/fill">Fill the fields</Link>
+              <Link to="steps/fill">Fill the fields</Link>
             </li>
             <li className="wizard__item step3">
-              <Link to="/success">Review and download</Link>
+              <Link to="steps/success">Review and download</Link>
             </li>
           </ul>
         </nav>
