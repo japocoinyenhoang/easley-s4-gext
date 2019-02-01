@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom';
 
 class Fill extends Component {
   render() {
@@ -11,10 +12,10 @@ class Fill extends Component {
           </form>
         </div>
         <div className="fill-page__btn back-btn">
-          <button type="button">Back</button>
+          <button type="button"><Link to="/choose">Back</Link></button>
         </div>
         <div className="fill-page__btn next-btn">
-          <button type="button">Next</button>
+          <button type="button"><Link to="/success">Next</Link></button>
         </div>
       </div>
     );
