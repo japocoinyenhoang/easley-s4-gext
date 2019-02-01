@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
+import logo from './images/logo__gext_st.png';
+import logoHeader from './images/logo__gext_header.png';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+
         <header>
           <div className="header__logo">
-            <img src="" alt=""></img>
+            <img src={logoHeader} alt="Gext logo"></img>
           </div>
           <div className="header__link"><a>How it works</a></div>
         </header>
+
         <main>
           <div className="home-page">
           {/* header */}
             <div>
+              <img src={logo} alt="Gext logo"></img>
+              <h2>Presentations with <span>superpowers</span></h2>
               <button>Sign in</button>
             </div>
           {/* footer */}
@@ -46,6 +52,7 @@ class App extends Component {
             {/* footer */}
           </div>
         </main>
+
         <footer>
 
         </footer>
