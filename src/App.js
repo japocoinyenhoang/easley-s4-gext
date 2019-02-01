@@ -6,18 +6,19 @@ import Steps from './components/Steps';
 import Footer from './components/Footer';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-  }
+
   render() {
     return (
       <div className="app-container">
-      <Switch>
-        <Route exact path="/" component={Home}></Route>
-        <Route path="/steps/:id" render={props => <Steps match={props.match}/>}/>
-      </Switch>
-
-        <Footer />
+        <div className="container-fluid">
+          <Switch>
+            <Route exact path="/" component={Home}></Route>
+            <Route path="/steps/:id" render={props => <Steps match={props.match}/>}/>
+          </Switch>
+          <div className="row">
+            <Footer />
+          </div>
+        </div>
       </div>
     );
   }
