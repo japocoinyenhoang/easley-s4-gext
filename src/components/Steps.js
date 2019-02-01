@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Route, Switch} from 'react-router-dom';
 import Header from './Header';
 import Wizard from './Wizard';
 import Choose from './Choose';
@@ -13,9 +14,11 @@ class Steps extends Component {
         <Header />
         <main className="main-container">
           <Wizard />
-          <Choose />
-          <Fill />
-          <Success />
+          <Switch>
+            <Route exact path="/choose" component={Choose}/>
+            <Route path="/fill" component={Fill}/>
+            <Route path="/success" component={Success}/>
+          </Switch>
         </main>
         <Footer />
       </div>
