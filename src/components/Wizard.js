@@ -9,13 +9,13 @@ class Wizard extends Component {
         <nav>
           <ul className="wizard-list">
             <li className="wizard__item step1">
-              <Link to="steps/choose">Choose your template</Link>
+              <Link to={`${this.props.match.url}/choose`}>Choose your template</Link>
             </li>
             <li className="wizard__item step2">
-              <Link to="steps/fill">Fill the fields</Link>
+              <Link to={`${this.props.match.url}/fill`}>Fill the fields</Link>
             </li>
             <li className="wizard__item step3">
-              <Link to="steps/success">Review and download</Link>
+              <Link to={`${this.props.match.url}/success`}>Review and download</Link>
             </li>
           </ul>
         </nav>

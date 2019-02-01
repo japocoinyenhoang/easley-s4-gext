@@ -13,9 +13,9 @@ class Steps extends Component {
       <div className="steps-container">
         <Header />
         <main className="main-container">
-          <Wizard />
+          <Wizard match = {this.props.match}/>
           <Switch>
-            <Route exact path="/choose" component={Choose}/>
+            <Route exact path="/steps/choose" component={Choose}/>
             <Route path="/fill" component={Fill}/>
             <Route path="/success" component={Success}/>
           </Switch>

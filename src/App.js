@@ -14,9 +14,7 @@ class App extends Component {
       <div className="app-container">
       <Switch>
         <Route exact path="/" component={Home}></Route>
-        <Route path="/steps/:id" render={props => {
-              <Steps match={props.match}/>
-            }}></Route>
+        <Route path="/steps/:id" render={props => <Steps match={props.match}/>}/>
       </Switch>
 
         <Footer />
