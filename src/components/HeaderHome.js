@@ -5,7 +5,9 @@ class HeaderHome extends Component {
     return (
       <header className="header-container container-fluid">
         <div className="col-12 d-flex justify-content-end">
-          <div className="header__link"><a>How it works</a></div>
+          <div className="header__link">
+            <a>How it works</a>
+          </div>
         </div>
       </header>
     );
