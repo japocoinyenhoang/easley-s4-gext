@@ -7,7 +7,7 @@ class Fill extends Component {
       <div className="fill-page">
         <div className="fill-page__form">
           <form>
-            <label for=""></label>
+            <label htmlFor=""></label>
             <input id="" type="text"></input>
           </form>
         </div>
