@@ -13,7 +13,7 @@ class App extends Component {
         <div className="container-fluid">
           <Switch>
             <Route exact path="/" component={Home}></Route>
-            <Route path="/steps" render={props => <Steps match={props.match}/>}/>
+            <Route path="/steps" render={props => <Steps />}/>
           </Switch>
           <div className="row">
             <Footer />

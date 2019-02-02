@@ -13,7 +13,7 @@ class Steps extends Component {
       <div className="steps-container">
         <Header />
         <main className="main-container">
-          <Wizard match = {this.props.match}/>
+          <Wizard />
           <Switch>
             <Route path="/steps/choose" component={Choose}/>
             <Route path="/steps/fill" component={Fill}/>
