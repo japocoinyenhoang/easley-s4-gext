@@ -5,10 +5,10 @@ class Choose extends Component {
     return (
       <div className="choose-page">
         <div className="choose-page__btn select-btn">
-          <button type="button">Select template</button>
+          <button type="button" className="btn btn-secondary btn-lg">Select template</button>
         </div>
         <div className="choose-page__btn upload-btn">
-          <button type="button">Upload template</button>
+          <button type="button" className="btn btn-secondary btn-lg">Upload template</button>
         </div>
       </div>
     );

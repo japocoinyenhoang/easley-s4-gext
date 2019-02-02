@@ -3,8 +3,12 @@ import React, {Component} from "react";
 class HeaderHome extends Component {
   render() {
     return (
-      <header className="header-container">
-        <div className="header__link"><a>How it works</a></div>
+      <header className="header-container container-fluid">
+        <div className="col-12 d-flex justify-content-end">
+          <div className="header__link">
+            <a>How it works</a>
+          </div>
+        </div>
       </header>
     );
   }

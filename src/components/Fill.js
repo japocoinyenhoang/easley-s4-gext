@@ -11,11 +11,13 @@ class Fill extends Component {
             <input id="" type="text"></input>
           </form>
         </div>
-        <div className="fill-page__btn back-btn">
-          <button type="button"><Link to="/choose">Back</Link></button>
-        </div>
-        <div className="fill-page__btn next-btn">
-          <button type="button"><Link to="/success">Next</Link></button>
+        <div className="row d-flex justify-content-around">
+          <div className="fill-page__btn back-btn">
+            <button type="button" className="btn btn-light"><Link to="/steps/choose">Back</Link></button>
+          </div>
+          <div className="fill-page__btn next-btn">
+            <button type="button" className="btn btn-light"><Link to="/steps/success">Next</Link></button>
+          </div>
         </div>
       </div>
     );

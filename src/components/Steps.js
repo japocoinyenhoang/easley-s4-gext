@@ -15,12 +15,11 @@ class Steps extends Component {
         <main className="main-container">
           <Wizard />
           <Switch>
-            <Route exact path="/choose" component={Choose}/>
-            <Route path="/fill" component={Fill}/>
-            <Route path="/success" component={Success}/>
+            <Route path="/steps/choose" component={Choose}/>
+            <Route path="/steps/fill" component={Fill}/>
+            <Route path="/steps/success" component={Success}/>
           </Switch>
         </main>
-        <Footer />
       </div>
     );
   }
