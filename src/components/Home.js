@@ -3,6 +3,7 @@ import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext_st.png';
 import Steps from './Steps';
 import {Link} from 'react-router-dom';
+import googleIco from '../images/btn_google.svg';
 
 class Home extends Component {
   render (){
@@ -17,7 +18,7 @@ class Home extends Component {
               <img src={logo} alt="Gext logo"></img>
               <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
-                <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary">Sign in</button></Link>
+                <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary"><img src={googleIco} alt="google search ico" /> Sign in</button></Link>
               </div>
             </div>
           </main>
