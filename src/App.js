@@ -11,10 +11,10 @@ class App extends Component {
     super(props);
     this.state={
       presentationId: '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY',
-      apiKey : {sendApiKey},
-      clientId : '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
-      discoveryDocs : ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
-      scopes : "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
+      apiKey: {sendApiKey},
+      clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
+      discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
+      scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
       inputs: {
         name: '',
         email: '',
@@ -22,14 +22,29 @@ class App extends Component {
       },
       signIn: false,
     }
+
+    this.updateStateLogin = this.updateStateLogin.bind(this);
+  }
+
+  updateStateLogin(isSignedIn){
+    if (isSignedIn) {
+      this.setState({
+        signIn: true
+      })
+    }else{
+      this.setState({
+        signIn: false
+      })
+    }
   }
 
   render() {
+    const{discoveryDocs, clientId, scopes,signIn} = this.state;
     return (
       <div className="app-container">
         <div className="container-fluid">
           <Switch>
-            <Route exact path="/" render={props => <Home clientId={this.state.clientId}/>}/>
+            <Route exact path="/" render={props => <Home clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={this.updateStateLogin} signIn={signIn} />}/>
             <Route path="/steps" render={props => <Steps />}/>
           </Switch>
           <div className="row">
