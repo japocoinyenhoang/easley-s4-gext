@@ -9,6 +9,7 @@ class Header extends Component {
         <div className="header__logo col-auto mr-auto">
           <Link to="/"><img src={logoHeader} alt="Gext logo"></img></Link>
         </div>
+        <button type="button" onClick={this.props.handleSignoutClick}>Sign Out</button>
         <div className="header__link col-auto"><a>How it works</a></div>
       </header>
     );

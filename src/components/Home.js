@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext_st.png';
-import Steps from './Steps';
-import {Link} from 'react-router-dom';
-import googleIco from '../images/btn_google.svg';
+import ApiLogin from './ApiLogin';
 
 class Home extends Component {
+
   render (){
+    const {clientId, discoveryDocs, scopes, updateStateLogin, signIn } = this.props;
     return (
       <div className="home-page">
         <div className="row">
@@ -18,7 +18,7 @@ class Home extends Component {
               <img src={logo} alt="Gext logo"></img>
               <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
-                <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary"><img src={googleIco} alt="google search ico" /> Sign in</button></Link>
+                <ApiLogin  clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn}/>
               </div>
             </div>
           </main>
