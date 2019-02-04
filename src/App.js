@@ -22,62 +22,7 @@ class App extends Component {
       },
       signIn: false,
     }
-    this.handleClick = this.handleClick.bind(this);
   }
-
-  componentDidMount() {
-    this.loadGapi();
-  }
-
-  loadGapi() {
-    const script = document.createElement("script");
-
-    script.src = "https://apis.google.com/js/client.js";
-
-    script.onload = () => {
-      window.gapi.load('client', () => {
-        window.gapi.client.setApiKey(this.state.API_KEY);
-        window.gapi.client.load('slides', 'v1', () => {
-          this.setState({ gapiReady: true });
-        });
-      });
-    };
-
-    document.body.appendChild(script);
-  }
-
-  handleClick(e){
-    console.log('has clicado');
-    window.gapi.auth2.getAuthInstance().signIn();
-    window.gapi.load('client:auth2', this.initClient());
-  }
-
-  initClient() {
-    window.gapi.client.init({
-      discoveryDocs: this.state.DISCOVERY_DOCS,
-      clientId: this.state.CLIENT_ID,
-      scope: this.state.SCOPES
-    }).then(function () {
-      // Listen for sign-in state changes.
-      window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus());
-
-      // Handle the initial sign-in state.
-      this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
-      this.authorizeButton.onclick = this.handleAuthClick;
-      this.signoutButton.onclick = this.handleSignoutClick;
-    });
-  }
-
-  //En proceso para que funcione el ternario que te lleva a una página u otra según estés o no logueado, habrá que mirar para que se acople como updateSigninStatus()
-  signIn= async () =>{
-    this.setState({
-      signIn: true,
-    })
-
-  }
-
-
-
 
   render() {
     return (
