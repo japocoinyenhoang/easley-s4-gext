@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { createHashHistory } from 'history';
 import config from './config';
+import googleIco from '../images/btn_google.svg';
+
+export const history = createHashHistory();
 
 class GoogleLogin extends Component{
 
@@ -58,14 +61,14 @@ class GoogleLogin extends Component{
                //Profile data
                alert("Successfull login from google : "+ e.displayName )
                console.log( e );
-               return;
+               history.push("/steps/choose");
            }
        }.bind(this));
    }
 
    render(){
        return(
-           <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary" onClick={ () => this.googleLogin() }>Sign in</button></Link>
+           <button type="button" className="btn-light btn-outline-secondary" onClick={ () => this.googleLogin() }><img src={googleIco} alt="Google sign in logo"/>Sign in</button>
        )
    }
 }

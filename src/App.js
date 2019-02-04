@@ -30,7 +30,7 @@ class App extends Component {
         <div className="container-fluid">
           <Switch>
             {/* Cuando podamos usar el ternario poner: */}
-            {/* {this.state.signIn ?(<Route path="/steps" render={props => <Steps />}/>) : (<Route exact path="/" render={props => <Home handleClick={this.handleClick}/>}/>)} */}
+            {/* {this.state.signIn ? <Route path="/steps" render={props => <Steps />}/> : <Route exact path="/" render={props => <Home signIn={this.state.signIn}/>}/>} */}
             <Route exact path="/" render={props => <Home />}/>
             <Route path="/steps" render={props => <Steps />}/>
           </Switch>
