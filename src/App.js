@@ -19,7 +19,8 @@ class App extends Component {
         name: '',
         email: '',
         phoneNumber: '',
-      }
+      },
+      signIn: false,
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -79,17 +80,11 @@ class App extends Component {
     });
   }
 
-  updateSigninStatus(isSignedIn){
-     // if(isSignedIn){
-    //   //pasame a "/steps/choose"
-    //   //<Route path="/steps" render={props => <Steps />}/>
-    //   loadSlidesApi();
-    // } else {
-    //   //pintas Home "/"
-    // }
-  }
-
-  signIn(){
+  //En proceso para que funcione el ternario que te lleva a una página u otra según estés o no logueado, habrá que mirar para que se acople como updateSigninStatus()
+  signIn= async () =>{
+    this.setState({
+      signIn: true,
+    })
 
   }
 
@@ -101,8 +96,7 @@ class App extends Component {
       <div className="app-container">
         <div className="container-fluid">
           <Switch>
-            <Route exact path="/" render={props => <Home handleClick={this.handleClick}/>}/>
-            <Route path="/steps" render={props => <Steps />}/>
+            {this.state.signIn ?(<Route path="/steps" render={props => <Steps />}/>) : (<Route exact path="/" render={props => <Home handleClick={this.handleClick}/>}/>)}
           </Switch>
           <div className="row">
             <Footer />
