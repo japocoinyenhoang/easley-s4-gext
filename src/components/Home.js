@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext_st.png';
-import Steps from './Steps';
 import {Link} from 'react-router-dom';
 
 class Home extends Component {

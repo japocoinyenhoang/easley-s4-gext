@@ -5,7 +5,6 @@ import Wizard from './Wizard';
 import Choose from './Choose';
 import Fill from './Fill';
 import Success from './Success';
-import Footer from './Footer';
 
 class Steps extends Component {
   render() {

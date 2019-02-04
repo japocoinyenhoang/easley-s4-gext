@@ -46,18 +46,6 @@ class App extends Component {
     document.body.appendChild(script);
   }
 
-  // loadClientWhenGapiReady= (script) => {
-  //   if(script.getAttribute('gapi_processed')){
-  //     if(window.location.hostname==='localhost'){
-  //       gapi.client.load("http://localhost:8080/_ah/api/discovery/v1/apis/metafields/v1/rest")
-  //     }
-  //   }
-  //   else{
-  //     setTimeout(() => {this.loadClientWhenGapiReady(script)}, 100);
-  //   }
-  // }
-
-
   handleClick(e){
     console.log('has clicado');
     window.gapi.auth2.getAuthInstance().signIn();
