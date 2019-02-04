@@ -10,7 +10,6 @@ class ApiLogin extends Component {
         this.initClient = this.initClient.bind(this);
         this.updateSigninStatus = this.updateSigninStatus.bind(this);
         this.handleAuthClick = this.handleAuthClick.bind(this);
-        this.handleSignoutClick = this.handleSignoutClick.bind(this);
     }
 
     // Created the script apis google
@@ -69,12 +68,6 @@ class ApiLogin extends Component {
         window.gapi.auth2.getAuthInstance().signIn();
     }
 
-    /**
-     *  Sign out the user upon button click.
-     */
-    handleSignoutClick(event) {
-        window.gapi.auth2.getAuthInstance().signOut();
-    }
 
     render() {
         if (this.props.signIn) {

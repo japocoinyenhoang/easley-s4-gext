@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext_st.png';
-// import GoogleLogin from './GoogleLogIn';
 import ApiLogin from './ApiLogin';
 
 class Home extends Component {
@@ -19,7 +18,6 @@ class Home extends Component {
               <img src={logo} alt="Gext logo"></img>
               <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
-                {/* <GoogleLogin signIn={this.props.signIn} clientId={this.props.clientId}/> */}
                 <ApiLogin  clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn}/>
               </div>
             </div>

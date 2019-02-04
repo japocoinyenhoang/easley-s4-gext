@@ -24,6 +24,7 @@ class App extends Component {
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
+    this.handleSignoutClick = this.handleSignoutClick.bind(this);
   }
 
   updateStateLogin(isSignedIn){
@@ -38,6 +39,10 @@ class App extends Component {
     }
   }
 
+  handleSignoutClick() {
+    window.gapi.auth2.getAuthInstance().signOut();
+  }
+
   render() {
     const{discoveryDocs, clientId, scopes,signIn} = this.state;
     return (
@@ -45,7 +50,7 @@ class App extends Component {
         <div className="container-fluid">
           <Switch>
             <Route exact path="/" render={props => <Home clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={this.updateStateLogin} signIn={signIn} />}/>
-            <Route path="/steps" render={props => <Steps />}/>
+            <Route path="/steps" render={props => <Steps handleSignoutClick={this.handleSignoutClick} signIn={signIn}/>}/>
           </Switch>
           <div className="row">
             <Footer />
