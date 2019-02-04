@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-
+import {Link} from 'react-router-dom';
 import config from './config';
 
 class GoogleLogin extends Component{
-   constructor(props) {
-       super(props)
-   }
 
    componentDidMount(){
        (function() {
@@ -68,7 +65,7 @@ class GoogleLogin extends Component{
 
    render(){
        return(
-           <button onClick={ () => this.googleLogin() }/>
+           <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary" onClick={ () => this.googleLogin() }>Sign in</button></Link>
        )
    }
 }

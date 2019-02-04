@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext_st.png';
 import GoogleLogin from './GoogleLogIn';
-import {Link} from 'react-router-dom';
 
 class Home extends Component {
 
@@ -18,7 +17,7 @@ class Home extends Component {
               <img src={logo} alt="Gext logo"></img>
               <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
-                <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary">Sign in</button></Link>
+
                 <GoogleLogin/>
               </div>
             </div>
