@@ -11,10 +11,10 @@ class App extends Component {
     super(props);
     this.state={
       presentationId: '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY',
-      API_KEY : {sendApiKey},
-      CLIENT_ID : '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
-      DISCOVERY_DOCS : ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
-      SCOPES : "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
+      apiKey : {sendApiKey},
+      clientId : '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
+      discoveryDocs : ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
+      scopes : "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
       inputs: {
         name: '',
         email: '',
@@ -29,9 +29,7 @@ class App extends Component {
       <div className="app-container">
         <div className="container-fluid">
           <Switch>
-            {/* Cuando podamos usar el ternario poner: */}
-            {/* {this.state.signIn ? <Route path="/steps" render={props => <Steps />}/> : <Route exact path="/" render={props => <Home signIn={this.state.signIn}/>}/>} */}
-            <Route exact path="/" render={props => <Home />}/>
+            <Route exact path="/" render={props => <Home clientId={this.state.clientId}/>}/>
             <Route path="/steps" render={props => <Steps />}/>
           </Switch>
           <div className="row">

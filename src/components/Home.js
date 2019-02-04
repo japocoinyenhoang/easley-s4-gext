@@ -17,7 +17,7 @@ class Home extends Component {
               <img src={logo} alt="Gext logo"></img>
               <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
-                <GoogleLogin signIn={this.props.signIn}/>
+                <GoogleLogin signIn={this.props.signIn} clientId={this.props.clientId}/>
               </div>
             </div>
           </main>
