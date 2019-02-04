@@ -29,7 +29,10 @@ class App extends Component {
       <div className="app-container">
         <div className="container-fluid">
           <Switch>
-            {this.state.signIn ?(<Route path="/steps" render={props => <Steps />}/>) : (<Route exact path="/" render={props => <Home handleClick={this.handleClick}/>}/>)}
+            {/* Cuando podamos usar el ternario poner: */}
+            {/* {this.state.signIn ?(<Route path="/steps" render={props => <Steps />}/>) : (<Route exact path="/" render={props => <Home handleClick={this.handleClick}/>}/>)} */}
+            <Route exact path="/" render={props => <Home />}/>
+            <Route path="/steps" render={props => <Steps />}/>
           </Switch>
           <div className="row">
             <Footer />
