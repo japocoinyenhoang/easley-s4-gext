@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext_st.png';
-import Steps from './Steps';
+import GoogleLogin from './GoogleLogIn';
 import {Link} from 'react-router-dom';
 
 class Home extends Component {
+
   render (){
     return (
       <div className="home-page">
@@ -18,6 +19,7 @@ class Home extends Component {
               <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
                 <Link to = "/steps/choose"><button type="button" className="btn-light btn-outline-secondary" onClick={this.props.handleClick}>Sign in</button></Link>
+                <GoogleLogin/>
               </div>
             </div>
           </main>

@@ -4,7 +4,6 @@ import './App.scss';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
-import GoogleLogin from './components/GoogleLogIn';
 import {sendApiKey} from './components/Credentials';
 
 class App extends Component {
@@ -38,7 +37,6 @@ class App extends Component {
     return (
       <div className="app-container">
         <div className="container-fluid">
-          <GoogleLogin/>
           <Switch>
             <Route exact path="/" render={props => <Home handleClick={this.handleClick}/>}/>
             <Route path="/steps" render={props => <Steps />}/>

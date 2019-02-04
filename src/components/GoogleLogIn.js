@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import {sendApiKey} from './Credentials'
+
+import config from './config';
 
 class GoogleLogin extends Component{
    constructor(props) {
-      super(props)
-      this.getUserGoogleProfile = this.getUserGoogleProfile.bind(this);
-      this.googleSignInCallback = this.googleSignInCallback.bind(this);
-      this.googleLogin = this.googleLogin.bind(this);
+       super(props)
    }
 
    componentDidMount(){
@@ -22,11 +20,12 @@ class GoogleLogin extends Component{
 
    //Triggering login for google
    googleLogin = () => {
+       let response = null;
        window.gapi.auth.signIn({
            callback: function(authResponse) {
                this.googleSignInCallback( authResponse )
-           },
-           clientid: sendApiKey.google, //Google client Id
+           }.bind( this ),
+           clientid: config.google, //Google client Id
            cookiepolicy: "single_host_origin",
            requestvisibleactions: "http://schema.org/AddAction",
            scope: "https://www.googleapis.com/auth/plus.login email"
@@ -42,7 +41,7 @@ class GoogleLogin extends Component{
                } else if (e["error"]) {
                    console.log('Import error', 'Error occured while importing data')
                }
-           });
+           }.bind(this));
        } else {
            console.log('Oops... Error occured while importing data')
        }
@@ -64,12 +63,12 @@ class GoogleLogin extends Component{
                console.log( e );
                return;
            }
-       });
+       }.bind(this));
    }
 
    render(){
        return(
-           <button title="google login" alt="google" onClick={ () => this.googleLogin() }/>
+           <button onClick={ () => this.googleLogin() }/>
        )
    }
 }
