@@ -45,7 +45,10 @@ class Fill extends Component {
     window.gapi.client.slides.presentations.batchUpdate({
       presentationId: presentationId,
       requests: requests
-    })
+    }).then((response) => {
+      console.log(response);
+      console.log("??????");
+    });
   }
 
   render() {
