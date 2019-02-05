@@ -75,7 +75,7 @@ class App extends Component {
   }
 
   render() {
-    const{discoveryDocs, clientId, scopes,signIn} = this.state;
+    const{discoveryDocs, clientId, scopes,signIn, inputs} = this.state;
     return (
       <div className="app-container">
         <div className="container-fluid">
@@ -91,7 +91,10 @@ class App extends Component {
                      signIn={signIn}
                      handleInputName={this.handleInputName}
                      handleInputEmail={this.handleInputEmail}
-                     handleInputPhone={this.handleInputPhone} />}/>
+                     handleInputPhone={this.handleInputPhone}
+                     name={inputs.name}
+                     email={inputs.email}
+                     phone={inputs.phoneNumber}/>}/>
           </Switch>
           <div className="row">
             <Footer />
