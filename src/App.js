@@ -44,13 +44,13 @@ class App extends Component {
   }
 
   render() {
-    const{discoveryDocs, clientId, scopes,signIn} = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, apiKey } = this.state;
     return (
       <div className="app-container">
         <div className="container-fluid">
           <Switch>
             <Route exact path="/" render={props => <Home clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={this.updateStateLogin} signIn={signIn} />}/>
-            <Route path="/steps" render={props => <Steps handleSignoutClick={this.handleSignoutClick} signIn={signIn}/>}/>
+            <Route path="/steps" render={props => <Steps handleSignoutClick={this.handleSignoutClick} signIn={signIn} clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} apiKey={apiKey} />}/>
           </Switch>
           <div className="row">
             <Footer />

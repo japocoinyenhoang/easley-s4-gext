@@ -8,14 +8,15 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-    if (this.props.signIn) {
+    const{discoveryDocs, clientId, scopes, signIn, handleSignoutClick, apiKey} = this.props;
+    if (signIn) {
       return (
         <div className="steps-container">
-          <Header handleSignoutClick={this.props.handleSignoutClick} />
+          <Header handleSignoutClick={handleSignoutClick} />
           <main className="main-container">
             <Wizard />
             <Switch>
-              <Route path="/steps/choose" component={Choose}/>
+              <Route path="/steps/choose" render={props => <Choose clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} apiKey={apiKey} signIn={signIn}/>}/>
               <Route path="/steps/fill" component={Fill}/>
               <Route path="/steps/success" component={Success}/>
             </Switch>
