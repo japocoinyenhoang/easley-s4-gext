@@ -68,11 +68,10 @@ class ApiLogin extends Component {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 
-
   render() {
     if (this.props.signIn) {
       return <Redirect to='/steps/choose' />
-    }else{
+    } else {
       return <button onClick={this.handleAuthClick}>Log in</button>
     }
   }
