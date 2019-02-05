@@ -53,5 +53,20 @@
   margin: 30px auto;
 }
 
+// success
+.success-page__icons{
+  display: flex;
+  justify-content: center;
+}
 
+.fas{
+  font-size: 90px;
+  color: lightgrey;
+  margin: 40px;
+}
+
+.link-success{
+  text-decoration: none !important;
+  color: white !important;
+}
 
