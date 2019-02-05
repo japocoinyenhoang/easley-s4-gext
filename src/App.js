@@ -94,7 +94,7 @@ class App extends Component {
                      handleInputPhone={this.handleInputPhone}
                      name={inputs.name}
                      email={inputs.email}
-                     phone={inputs.phoneNumber}/>}/>
+                     phoneNumber={inputs.phoneNumber}/>}/>
           </Switch>
           <div className="row">
             <Footer />

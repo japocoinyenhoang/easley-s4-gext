@@ -14,7 +14,7 @@ class Fill extends Component {
        * Load Slides API client library.
        */
       loadSlidesApi() {
-        window.gapi.client.load('slides', 'v1').then(this.listSlides());
+        window.gapi.client.load('slides', 'v1').then(this.listSlides);
       }
 
       /**
@@ -49,7 +49,7 @@ class Fill extends Component {
                   containsText:{
                     text: '{{phoneNumber}}'
                   },
-                  replaceText: this.props.phone
+                  replaceText: this.props.phoneNumber
                 }
               });
 
@@ -61,17 +61,17 @@ class Fill extends Component {
               console.log("??????");
             });
 
-          window.gapi.client.slides.presentations.batchUpdate({
-            presentationId: presentationId,
-            // resource: resource
-          }, (err, res) => {
-            console.log("reeeee");
-            if (err) {
-              console.log(err);
-            } else {
-              console.log(res);
-            }
-          });
+          // window.gapi.client.slides.presentations.batchUpdate({
+          //   presentationId: presentationId,
+          //   resource: resource
+          // }, (err, res) => {
+          //   console.log("reeeee");
+          //   if (err) {
+          //     console.log(err);
+          //   } else {
+          //     console.log(res);
+          //   }
+          // });
 
       //   window.gapi.client.slides.presentations.get({
       //     presentationId: presentationId
@@ -123,7 +123,7 @@ class Fill extends Component {
             <button type="button" className="btn btn-light"><Link to="/steps/choose">Back</Link></button>
           </div>
           <div className="fill-page__btn next-btn">
-            <button type="button" className="btn btn-light" onClick={this.loadSlidesApi()}><Link to="/steps/success">Next</Link></button>
+            <button type="button" className="btn btn-light" onClick={this.loadSlidesApi}><Link to="/steps/success">Next</Link></button>
           </div>
         </div>
       </div>

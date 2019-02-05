@@ -8,7 +8,7 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-    const {signIn, handleSignoutClick, handleInputName, handleInputEmail, handleInputPhone, name, email, phone} = this.props;
+    const {signIn, handleSignoutClick, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber} = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -23,7 +23,7 @@ class Steps extends Component {
                       handleInputPhone={handleInputPhone}
                       name={name}
                       email={email}
-                      phone={phone}/>} />
+                      phoneNumber={phoneNumber}/>} />
               <Route path="/steps/success" component={Success}/>
             </Switch>
           </main>
