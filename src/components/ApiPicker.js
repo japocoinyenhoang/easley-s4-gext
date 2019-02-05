@@ -18,7 +18,6 @@ class ApiPicker extends Component {
     this.handleAuthResult = this.handleAuthResult.bind(this);
     this.createPicker = this.createPicker.bind(this);
     this.pickerCallback = this.pickerCallback.bind(this);
-
   }
 
   componentDidMount(){
@@ -94,7 +93,7 @@ class ApiPicker extends Component {
   }
 
   pickerCallback(data) {
-    console.log('2');
+    console.log('pickerCallback');
     let url = 'nothing';
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       let doc = data[window.google.picker.Response.DOCUMENTS][0];
