@@ -3,12 +3,19 @@ import {Link} from 'react-router-dom';
 
 class Fill extends Component {
   render() {
+    const {handleInputName, handleInputEmail, handleInputPhone} = this.props;
     return (
       <div className="fill-page">
         <div className="fill-page__form">
           <form>
-            <label htmlFor=""></label>
-            <input id="" type="text"></input>
+            <label htmlFor="name">Name:</label>
+            <input id="name" type="text" onKeyUp={handleInputName}/>
+            <label htmlFor="email">Email </label>
+            <input id="email" type="email" onKeyUp={handleInputEmail}></input>
+            <label htmlFor="phone">Phone Number: </label>
+            <input id="phone" type="number" onKeyUp={handleInputPhone}></input>
+
+
           </form>
         </div>
         <div className="row d-flex justify-content-around">

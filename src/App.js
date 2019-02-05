@@ -25,7 +25,38 @@ class App extends Component {
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
+    this.handleInputName=this.handleInputName.bind(this);
+    this.handleInputEmail=this.handleInputEmail.bind(this);
+    this.handleInputPhone=this.handleInputPhone.bind(this);
+
+
   }
+
+  handleInputName (e){
+    const {inputs}=this.state;
+    const newName= {...inputs, name: e.currentTarget.value};
+    this.setState({
+      inputs:newName
+    })
+  }
+
+  handleInputEmail (e){
+    const {inputs}=this.state;
+    const newEmail= {...inputs, email: e.currentTarget.value};
+    this.setState({
+      inputs:newEmail
+    })
+  }
+
+
+  handleInputPhone (e){
+    const {inputs}=this.state;
+    const newPhone= {...inputs, phoneNumber: e.currentTarget.value};
+    this.setState({
+      inputs:newPhone
+    })
+  }
+
 
   updateStateLogin(isSignedIn){
     if (isSignedIn) {
@@ -49,8 +80,18 @@ class App extends Component {
       <div className="app-container">
         <div className="container-fluid">
           <Switch>
-            <Route exact path="/" render={props => <Home clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={this.updateStateLogin} signIn={signIn} />}/>
-            <Route path="/steps" render={props => <Steps handleSignoutClick={this.handleSignoutClick} signIn={signIn}/>}/>
+            <Route exact path="/" render={props =>
+              <Home clientId={clientId}
+                    discoveryDocs={discoveryDocs}
+                    scopes={scopes}
+                    updateStateLogin={this.updateStateLogin}
+                    signIn={signIn} />}/>
+            <Route path="/steps" render={props =>
+              <Steps handleSignoutClick={this.handleSignoutClick}
+                     signIn={signIn}
+                     handleInputName={this.handleInputName}
+                     handleInputEmail={this.handleInputEmail}
+                     handleInputPhone={this.handleInputPhone} />}/>
           </Switch>
           <div className="row">
             <Footer />
