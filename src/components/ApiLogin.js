@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import '../index.scss';
-import btn_google from '../images/btn_google.svg';
+import btn_google from '../images/btn_google_signin.png';
 
 class ApiLogin extends Component {
     constructor(props) {
@@ -74,7 +74,7 @@ class ApiLogin extends Component {
         if (this.props.signIn) {
           return <Redirect to='/steps/choose' />
         }else{
-          return <button onClick={this.handleAuthClick}><img src={btn_google} alt="google logo"/>Log in</button>
+          return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo"/></button>
         }
     }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import HeaderHome from './HeaderHome';
-import logo from '../images/logo__gext_st.png';
+import logo from '../images/logo__gext.png';
 import ApiLogin from './ApiLogin';
 
 class Home extends Component {
@@ -12,11 +12,11 @@ class Home extends Component {
         <div className="row">
           <HeaderHome />
         </div>
-        <div className="row">
+        <div className="row home-content">
           <main className="main-container container-fluid">
+            <h1 className="d-none">Gext, presentations with superpowers</h1>
             <div className="col-12 d-flex flex-column align-items-center">
               <img src={logo} alt="Gext logo"></img>
-              <h2>Presentations with <span>superpowers</span></h2>
               <div className="home-page__btn">
                 <ApiLogin  clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn}/>
               </div>

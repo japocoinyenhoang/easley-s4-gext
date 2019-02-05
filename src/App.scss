@@ -1,4 +1,57 @@
-.App {
-  text-align: center;
+@import './stylesheets/core/colors';
+
+// header
+
+.header-container{
+  margin-top: 15px;
 }
+
+.google-signout{
+  height: 30px;
+}
+
+.btn-signout{
+  height: 40px;
+}
+
+// home page
+.google-signin{
+  max-width: 380px;
+  width: 200px;
+}
+
+.app-container{
+  height: 100vh;
+}
+
+.footer-container{
+  margin-bottom: 0;
+}
+
+.home-page{
+  height: 90%;
+}
+
+.home-content{
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// steps pages
+.main-container{
+  height: 90%;
+}
+
+.steps-container{
+  height: 90%;
+}
+
+// wizard
+.wizard{
+  margin: 30px auto;
+}
+
+
 
