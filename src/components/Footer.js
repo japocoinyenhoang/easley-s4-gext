@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <footer className="footer-container container-fluid">
         <div className="col-12 d-flex justify-content-center">
-          <div>Developed in Adalab by Triporate Adalabers © | 2019</div>
+          <div className="footer-text">Developed in Adalab by Triporate Adalabers © | 2019</div>
         </div>
       </footer>
     );

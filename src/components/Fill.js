@@ -57,12 +57,14 @@ class Fill extends Component {
       <div className="fill-page">
         <div className="fill-page__form">
           <form>
-            <label htmlFor="name">Name:</label>
-            <input id="name" type="text" onKeyUp={handleInputName} />
-            <label htmlFor="email">Email:</label>
-            <input id="email" type="email" onKeyUp={handleInputEmail}></input>
-            <label htmlFor="phone">Phone Number:</label>
-            <input id="phone" type="number" onKeyUp={handleInputPhone}></input>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
+              <input className="form-control " id="name" type="text" onKeyUp={handleInputName} />
+              <label htmlFor="email">Email:</label>
+              <input className="form-control" id="email" type="email" onKeyUp={handleInputEmail}></input>
+              <label htmlFor="phone">Phone Number:</label>
+              <input className="form-control" id="phone" type="number" onKeyUp={handleInputPhone}></input>
+            </div>
           </form>
         </div>
         <div className="row d-flex justify-content-around">

@@ -75,8 +75,7 @@ class App extends Component {
   render() {
     const{discoveryDocs, clientId, scopes,signIn, inputs} = this.state;
     return (
-      <div className="app-container">
-        <div className="container-fluid">
+      <div className="app-container container-fluid">
           <Switch>
             <Route exact path="/" render={props =>
               <Home clientId={clientId}
@@ -99,7 +98,6 @@ class App extends Component {
           <div className="row">
             <Footer />
           </div>
-        </div>
       </div>
     );
   }
