@@ -9,10 +9,10 @@ class Success extends Component {
         </div>
         <div className="row d-flex justify-content-around">
           <div className="success-page__btn view-btn bg-primary">
-            <button type="button" className="btn btn-secondary">View your presentation</button>
+            <div className="btn btn-secondary"><a href="https://docs.google.com/presentation/d/1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY/">View your presentation</a></div>
           </div>
           <div className="success-page__btn download-btn ">
-            <button type="button" className="btn btn-secondary">Download your presentation</button>
+            <div className="btn btn-secondary"><a href="https://docs.google.com/presentation/d/1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY/edit?usp=download">Download your presentation</a></div>
           </div>
         </div>
       </div>
