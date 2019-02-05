@@ -6,7 +6,7 @@ class HeaderHome extends Component {
       <header className="header-container container-fluid">
         <div className="col-12 d-flex justify-content-end">
           <div className="header__link">
-            <a>How it works</a>
+            <a href="#jj">How it works</a>
           </div>
         </div>
       </header>
