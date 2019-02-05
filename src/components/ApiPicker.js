@@ -41,8 +41,7 @@ class ApiPicker extends Component {
     console.log('onPickerApiLoad');
     this.setState({
       pickerApiLoaded: true
-    })
-    // this.createPicker();
+    });
   }
 
   onAuthApiLoad(){
