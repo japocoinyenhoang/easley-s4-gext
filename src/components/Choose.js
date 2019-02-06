@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import ApiPicker from "./ApiPicker";
 
 class Choose extends Component {
   render() {
-    const{clientId, scopes} = this.props;
+    const { clientId, scopes } = this.props;
     return (
       <div className="choose-page d-flex justify-content-around">
         <div className="choose-page__btn select-btn">

@@ -1,9 +1,9 @@
-import React, {Component} from "react";
-import {Redirect} from 'react-router-dom';
-import {sendApiKey} from './Credentials';
+import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
+import { sendApiKey } from './Credentials';
 
 class ApiPicker extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       pickerApiLoaded: false,

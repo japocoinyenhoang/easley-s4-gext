@@ -1,12 +1,12 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext.png';
 import ApiLogin from './ApiLogin';
 
 class Home extends Component {
 
-  render (){
-    const {clientId, discoveryDocs, scopes, updateStateLogin, signIn } = this.props;
+  render() {
+    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn } = this.props;
     return (
       <div className="home-page">
         <div className="row">
@@ -18,7 +18,7 @@ class Home extends Component {
             <div className="col-12 d-flex flex-column align-items-center">
               <img src={logo} alt="Gext logo"></img>
               <div className="home-page__btn">
-                <ApiLogin  clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn}/>
+                <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} />
               </div>
             </div>
           </main>

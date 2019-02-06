@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import '../index.scss';
 import btn_google from '../images/btn_google_signin.png';
 
@@ -13,7 +13,6 @@ class ApiLogin extends Component {
     this.handleAuthClick = this.handleAuthClick.bind(this);
   }
 
-  // Created the script apis google
   componentDidMount() {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -27,17 +26,10 @@ class ApiLogin extends Component {
     tag.parentNode.insertBefore(script, tag);
   }
 
-  /**
-   *  On load, called to load the auth2 library and API client library.
-   */
   handleClientLoad() {
     window.gapi.load('client:auth2', this.initClient);
   }
 
-  /**
-   *  Initializes the API client library and sets up sign-in state
-   *  listeners.
-   */
   initClient() {
     window.gapi.client
       .init({
@@ -46,36 +38,27 @@ class ApiLogin extends Component {
         scope: this.props.scopes
       })
       .then(() => {
-        // Listen for sign-in state changes.
         window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
 
-        // Handle the initial sign-in state.
         this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
       });
   }
 
-  /**
-   *  Called when the signed in status changes, to update the UI
-   *  appropriately. After a sign-in, the API is called.
-   */
   updateSigninStatus(isSignedIn) {
     this.props.updateStateLogin(isSignedIn);
   }
 
-  /**
-   *  Sign in the user upon button click.
-   */
   handleAuthClick(event) {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 
-    render() {
-        if (this.props.signIn) {
-          return <Redirect to='/steps/choose' />
-        }else{
-          return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo"/></button>
-        }
+  render() {
+    if (this.props.signIn) {
+      return <Redirect to='/steps/choose' />
+    } else {
+      return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
     }
+  }
 }
 
 export default ApiLogin;
