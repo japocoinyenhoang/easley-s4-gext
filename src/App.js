@@ -19,6 +19,7 @@ class App extends Component {
         phoneNumber: '',
       },
       signIn: false,
+      selectedTemplate: '',
       loading: true,
     }
 
@@ -27,7 +28,7 @@ class App extends Component {
     this.handleInputName = this.handleInputName.bind(this);
     this.handleInputEmail = this.handleInputEmail.bind(this);
     this.handleInputPhone = this.handleInputPhone.bind(this);
-
+    this.handleTemplate = this.handleTemplate.bind(this);
   }
 
   handleInputName(e) {
@@ -78,8 +79,18 @@ class App extends Component {
     })
   }
 
+  handleTemplate(msg){
+    this.setState ({
+      selectedTemplate: msg
+    });
+  }
+
   render() {
+<<<<<<< HEAD
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate } = this.state;
+=======
     const { discoveryDocs, clientId, scopes, signIn, loading, inputs } = this.state;
+>>>>>>> dev
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -100,7 +111,9 @@ class App extends Component {
               handleInputPhone={this.handleInputPhone}
               name={inputs.name}
               email={inputs.email}
-              phoneNumber={inputs.phoneNumber} />} />
+              phoneNumber={inputs.phoneNumber}
+              selectedTemplate={selectedTemplate}
+              handleTemplate={this.handleTemplate} />} />
         </Switch>
         <div className="row">
           <Footer />

@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import { sendApiKey } from './Credentials';
 
 class ApiPicker extends Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
       pickerApiLoaded: false,
       oauthToken: '',
       picked: false,
-      message: ''
     }
 
     this.onApiLoad = this.onApiLoad.bind(this);
@@ -71,10 +72,11 @@ class ApiPicker extends Component {
     }
     let message = 'You picked: ' + url;
 
+    this.props.handleTemplate(message);
+
     this.setState({
       picked: true,
-      message: message
-    })
+    });
   }
 
   render() {
@@ -84,7 +86,6 @@ class ApiPicker extends Component {
       return (
         <div>
           <button type="button" className="btn btn-secondary btn-lg" onClick={this.onApiLoad}>Select template</button>
-          <div id="result">{this.state.message}</div>
         </div>
       );
     }
