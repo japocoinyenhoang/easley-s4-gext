@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
+import PropTypes from "prop-types";
 import { sendApiKey } from './Credentials';
 
 class ApiPicker extends Component {
@@ -89,5 +90,10 @@ class ApiPicker extends Component {
     }
   }
 }
+
+ApiPicker.propTypes = {
+  clientId: PropTypes.string,
+  scopes: PropTypes.string,
+};
 
 export default ApiPicker;

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from "prop-types";
 import '../index.scss';
 import btn_google from '../images/btn_google_signin.png';
 import ReactLoading from 'react-loading';
@@ -81,5 +82,14 @@ class ApiLogin extends Component {
 
   }
 }
+
+ApiLogin.propTypes = {
+  discoveryDocs: PropTypes.arrayOf(PropTypes.string),
+  clientId: PropTypes.string,
+  scopes: PropTypes.string,
+  updateStateLogin: PropTypes.func,
+  signIn: PropTypes.bool,
+  loading: PropTypes.bool,
+};
 
 export default ApiLogin;
