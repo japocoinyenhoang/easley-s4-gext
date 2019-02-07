@@ -55,6 +55,12 @@ class Fill extends Component {
     const { handleInputName, handleInputEmail, handleInputPhone } = this.props;
     return (
       <div className="fill-page">
+        <div className="fill-template__result">
+          <div id="result">{this.props.selectedTemplate}</div>
+          <div className="fill-page__btn back-btn">
+              <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
+          </div>
+        </div>
         <div className="fill-page__form">
           <form>
             <div className="form-group">

@@ -19,6 +19,7 @@ class App extends Component {
         phoneNumber: '',
       },
       signIn: false,
+      selectedTemplate: ''
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -26,7 +27,7 @@ class App extends Component {
     this.handleInputName = this.handleInputName.bind(this);
     this.handleInputEmail = this.handleInputEmail.bind(this);
     this.handleInputPhone = this.handleInputPhone.bind(this);
-
+    this.handleTemplate = this.handleTemplate.bind(this);
 
   }
 
@@ -72,8 +73,14 @@ class App extends Component {
     window.gapi.auth2.getAuthInstance().signOut();
   }
 
+  handleTemplate(msg){
+    this.setState ({
+      selectedTemplate: msg
+    });
+  }
+
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -93,7 +100,9 @@ class App extends Component {
               handleInputPhone={this.handleInputPhone}
               name={inputs.name}
               email={inputs.email}
-              phoneNumber={inputs.phoneNumber} />} />
+              phoneNumber={inputs.phoneNumber}
+              selectedTemplate={selectedTemplate}
+              handleTemplate={this.handleTemplate} />} />
         </Switch>
         <div className="row">
           <Footer />
