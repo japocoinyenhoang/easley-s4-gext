@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext.png';
 import ApiLogin from './ApiLogin';
