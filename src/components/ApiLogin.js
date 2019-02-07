@@ -48,7 +48,7 @@ class ApiLogin extends Component {
     this.props.updateStateLogin(isSignedIn);
   }
 
-  handleAuthClick(event) {
+  handleAuthClick() {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 

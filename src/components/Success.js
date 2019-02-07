@@ -16,7 +16,7 @@ class Success extends Component {
           </button></a>
           </div>
           <div className="success-page__btn download-btn">
-          <a classname="link-success" href="https://docs.google.com/presentation/d/1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY/export/pptx"><button className="btn btn-outline-primary">Download your presentation</button></a>
+          <a classname="link-success" href="https://docs.google.com/presentation/d/1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY/export/pptx" download="test.pptx"><button className="btn btn-outline-primary">Download your presentation</button></a>
           </div>
         </div>
       </div>
