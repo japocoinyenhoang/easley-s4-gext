@@ -69,10 +69,10 @@ class Fill extends Component {
         </div>
         <div className="row d-flex justify-content-around">
           <div className="fill-page__btn back-btn">
-            <button type="button" className="btn btn-light"><Link to="/steps/choose">Back</Link></button>
+          <Link to="/steps/choose"><button type="button" className="btn btn-light">Back</button></Link>
           </div>
           <div className="fill-page__btn next-btn">
-            <button type="button" className="btn btn-light" onClick={this.loadSlidesApi}><Link to="/steps/success">Next</Link></button>
+          <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesApi}>Next</button></Link>
           </div>
         </div>
       </div>
