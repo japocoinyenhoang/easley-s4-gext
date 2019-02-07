@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext.png';
 import ApiLogin from './ApiLogin';
@@ -27,5 +28,11 @@ class Home extends Component {
     );
   }
 }
-
+Home.prototype={
+  clientId: PropTypes.string,
+  discoveryDocs: PropTypes.string,
+  scopes: PropTypes.string,
+  updateStateLogin: PropTypes.func,
+  signIn: PropTypes.func
+}
 export default Home;

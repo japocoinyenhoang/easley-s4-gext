@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
 
 class Fill extends Component {
   constructor(props) {
@@ -79,5 +80,13 @@ class Fill extends Component {
     );
   }
 }
+Fill.propTypes = {
+  handleInputName: PropTypes.func,
+  handleInputEmail: PropTypes.func,
+  handleInputPhone: PropTypes.func,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  phoneNumber: PropTypes.number
+  };
 
 export default Fill;

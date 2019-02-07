@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from 'react-router-dom';
+import PropTypes from "prop-types";
 import Header from './Header';
 import Wizard from './Wizard';
 import Choose from './Choose';
@@ -34,6 +35,18 @@ class Steps extends Component {
       return <Redirect to='/' />
     }
   }
+}
+Steps.prototype={
+  clientId: PropTypes.string,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  phoneNumber: PropTypes.string,
+  scopes: PropTypes.string,
+  signIn: PropTypes.func,
+  handleSignoutClick: PropTypes.func,
+  handleInputName: PropTypes.func,
+  handleInputEmail: PropTypes.func,
+  handleInputPhone: PropTypes.func,
 }
 
 export default Steps;

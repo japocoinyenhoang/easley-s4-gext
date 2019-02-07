@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ApiPicker from "./ApiPicker";
+import PropTypes from "prop-types";
+
 
 class Choose extends Component {
   render() {
@@ -19,5 +21,9 @@ class Choose extends Component {
     );
   }
 }
+Choose.propTypes = {
+  clientId: PropTypes.string,
+  scope: PropTypes.string,
+};
 
 export default Choose;

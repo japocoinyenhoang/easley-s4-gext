@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logoHeader from '../images/logo__gext_header.png';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import btn_google from '../images/btn_google.svg';
 
 
@@ -16,6 +17,9 @@ class Header extends Component {
       </header>
     );
   }
+}
+Header.prototype={
+  handleSignoutClick: PropTypes.func
 }
 
 export default Header;
