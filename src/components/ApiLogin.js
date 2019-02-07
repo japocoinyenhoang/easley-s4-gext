@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from "prop-types";
 import '../index.scss';
 import btn_google from '../images/btn_google_signin.png';
+import ReactLoading from 'react-loading';
 
 class ApiLogin extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class ApiLogin extends Component {
     this.initClient = this.initClient.bind(this);
     this.updateSigninStatus = this.updateSigninStatus.bind(this);
     this.handleAuthClick = this.handleAuthClick.bind(this);
+    this.homeOrSteps = this.homeOrSteps.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +27,7 @@ class ApiLogin extends Component {
 
     const tag = document.getElementsByTagName('script')[0];
     tag.parentNode.insertBefore(script, tag);
+
   }
 
   handleClientLoad() {
@@ -52,13 +56,40 @@ class ApiLogin extends Component {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 
-  render() {
-    if (this.props.signIn) {
-      return <Redirect to='/steps/choose' />
+  homeOrSteps(){
+    if(this.props.signIn !== true){
+      return  <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
     } else {
-      return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
+      return <Redirect to= '/steps/choose' />
     }
   }
+
+  render() {
+    if (!this.props.loading){
+      if(!this.props.signIn){
+        return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
+      } else{
+        return <Redirect to= '/steps/choose' />
+      }
+    } else {
+      return(
+        <Fragment>
+          {this.homeOrSteps()}
+        </Fragment>
+      )
+    }
+
+
+  }
 }
+
+ApiLogin.propTypes = {
+  discoveryDocs: PropTypes.arrayOf(PropTypes.string),
+  clientId: PropTypes.string,
+  scopes: PropTypes.string,
+  updateStateLogin: PropTypes.func,
+  signIn: PropTypes.bool,
+  loading: PropTypes.bool,
+};
 
 export default ApiLogin;

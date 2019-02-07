@@ -19,7 +19,8 @@ class App extends Component {
         phoneNumber: '',
       },
       signIn: false,
-      selectedTemplate: ''
+      selectedTemplate: '',
+      loading: true,
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -28,7 +29,6 @@ class App extends Component {
     this.handleInputEmail = this.handleInputEmail.bind(this);
     this.handleInputPhone = this.handleInputPhone.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
-
   }
 
   handleInputName(e) {
@@ -60,17 +60,23 @@ class App extends Component {
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
       this.setState({
-        signIn: true
+        signIn: true,
+        loading: true
       })
     } else {
       this.setState({
-        signIn: false
+        signIn: false,
+        loading: false
       })
     }
   }
 
   handleSignoutClick() {
     window.gapi.auth2.getAuthInstance().signOut();
+    this.setState({
+      signIn: false,
+      loading: false,
+    })
   }
 
   handleTemplate(msg){
@@ -80,7 +86,11 @@ class App extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate } = this.state;
+=======
+    const { discoveryDocs, clientId, scopes, signIn, loading, inputs } = this.state;
+>>>>>>> dev
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -89,7 +99,8 @@ class App extends Component {
               discoveryDocs={discoveryDocs}
               scopes={scopes}
               updateStateLogin={this.updateStateLogin}
-              signIn={signIn} />} />
+              signIn={signIn}
+              loading={loading}/>} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
