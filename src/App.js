@@ -70,6 +70,9 @@ class App extends Component {
 
   handleSignoutClick() {
     window.gapi.auth2.getAuthInstance().signOut();
+    this.setState({
+      signIn: false
+    })
   }
 
   render() {

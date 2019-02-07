@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import '../index.scss';
 import btn_google from '../images/btn_google_signin.png';
+import ReactLoading from 'react-loading';
 
 class ApiLogin extends Component {
   constructor(props) {
@@ -52,11 +53,18 @@ class ApiLogin extends Component {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 
+  // visibility(){
+  //   const hiddenClass = (this.props.signIn === false) ? 'hidden' : '';
+  //   return hiddenClass;
+  // }
+
   render() {
-    if (this.props.signIn) {
-      return <Redirect to='/steps/choose' />
-    } else {
+    if (this.props.signIn === true) {
+      return <Redirect to= '/steps/choose' />
+    }else if (this.props.signIn === false){
       return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
+    }else{
+      return  <ReactLoading type={'spinningBubbles'} color={'#550c5c'} height={667} width={375} />
     }
   }
 }
