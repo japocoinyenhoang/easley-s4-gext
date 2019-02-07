@@ -86,11 +86,7 @@ class App extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate } = this.state;
-=======
-    const { discoveryDocs, clientId, scopes, signIn, loading, inputs } = this.state;
->>>>>>> dev
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loading } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
