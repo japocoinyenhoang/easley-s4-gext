@@ -36,17 +36,5 @@ class Steps extends Component {
     }
   }
 }
-Steps.prototype={
-  clientId: PropTypes.string,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  phoneNumber: PropTypes.string,
-  scopes: PropTypes.string,
-  signIn: PropTypes.func,
-  handleSignoutClick: PropTypes.func,
-  handleInputName: PropTypes.func,
-  handleInputEmail: PropTypes.func,
-  handleInputPhone: PropTypes.func,
-}
 
 export default Steps;

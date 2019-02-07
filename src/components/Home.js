@@ -28,11 +28,5 @@ class Home extends Component {
     );
   }
 }
-Home.prototype={
-  clientId: PropTypes.string,
-  discoveryDocs: PropTypes.string,
-  scopes: PropTypes.string,
-  updateStateLogin: PropTypes.func,
-  signIn: PropTypes.func
-}
+
 export default Home;

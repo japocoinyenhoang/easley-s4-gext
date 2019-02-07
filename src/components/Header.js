@@ -18,7 +18,7 @@ class Header extends Component {
     );
   }
 }
-Header.prototype={
+Header.propTypes={
   handleSignoutClick: PropTypes.func
 }
 

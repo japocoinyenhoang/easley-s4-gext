@@ -90,9 +90,10 @@ class ApiPicker extends Component {
     }
   }
 }
+
 ApiPicker.propTypes = {
   clientId: PropTypes.string,
-  scope: PropTypes.string,
+  scopes: PropTypes.string,
 };
 
 export default ApiPicker;

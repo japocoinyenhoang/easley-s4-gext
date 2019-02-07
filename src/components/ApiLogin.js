@@ -61,12 +61,14 @@ class ApiLogin extends Component {
     }
   }
 }
+
 ApiLogin.propTypes = {
-  discoveryDocs: PropTypes.string,
+  discoveryDocs: PropTypes.arrayOf(PropTypes.string),
   clientId: PropTypes.string,
-  scope: PropTypes.string,
+  scopes: PropTypes.string,
   updateStateLogin: PropTypes.func,
-  signIn: PropTypes.func
+  signIn: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default ApiLogin;

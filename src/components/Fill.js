@@ -87,6 +87,6 @@ Fill.propTypes = {
   name: PropTypes.string,
   email: PropTypes.string,
   phoneNumber: PropTypes.number
-  };
+};
 
 export default Fill;
