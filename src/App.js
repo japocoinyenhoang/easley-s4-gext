@@ -9,7 +9,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      presentationId: '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY',
       clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
@@ -20,7 +19,7 @@ class App extends Component {
       },
       signIn: false,
       selectedTemplate: '',
-      loading: true,
+      loadingHome: true,
       presentationId:''
     }
 
@@ -63,12 +62,12 @@ class App extends Component {
     if (isSignedIn) {
       this.setState({
         signIn: true,
-        loading: true
+        loadingHome: true
       })
     } else {
       this.setState({
         signIn: false,
-        loading: false
+        loadingHome: false
       })
     }
   }
@@ -77,7 +76,7 @@ class App extends Component {
     window.gapi.auth2.getAuthInstance().signOut();
     this.setState({
       signIn: false,
-      loading: false,
+      loadingHome: false,
     })
   }
 
@@ -94,7 +93,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loading, presentationId } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -104,7 +103,7 @@ class App extends Component {
               scopes={scopes}
               updateStateLogin={this.updateStateLogin}
               signIn={signIn}
-              loading={loading}/>} />
+              loadingHome={loadingHome}/>} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
