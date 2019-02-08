@@ -26,12 +26,10 @@ class Fill extends Component {
 
     if(this.props.presentationId !== '') {
 
+      //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
         this.setState({
           loadingForm: false
         });
-
-
-      //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
 
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
     } else if (this.props.presentationId === '') {
@@ -39,9 +37,14 @@ class Fill extends Component {
   }
 
   listSlides() {
-    const presentationId = this.props.presentationId;
 
-    let requests = [];
+    window.gapi.client.slides.presentations.get({
+      presentationId : this.props.presentationId,
+    }).then(function(response){
+      let presentation = response.result
+      console.log(JSON.stringify(presentation).match(/(?<!{){{\s*[\w\.]+\s*}}(?!})/g));
+    })
+    //let requests = [];
     /* requests.push({
       replaceAllText: {
         containsText: {
@@ -67,28 +70,11 @@ class Fill extends Component {
       }
     }); */
 
-    window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: presentationId,
-      requests: requests
-    }).then((response) => {
-
-      console.log(JSON.stringify(response.result).match(/(?<!{){{\s*[\w\.]+\s*}}(?!})/g));
-      console.log("??????");
-    });
-
-  /*   window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: presentationId,
-      requests: requests
-    }).then((response) => {
-      console.log(response);
-      console.log("??????");
-    }); */
   }
-
 
   render() {
     if (!this.state.loadingForm){
-      const { handleInputName, handleInputEmail, handleInputPhone, presentationId } = this.props;
+      const { handleInputName, handleInputEmail, handleInputPhone } = this.props;
       return (
         <div className="fill-page">
           <div className="fill-template__result">
