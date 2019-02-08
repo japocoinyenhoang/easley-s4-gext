@@ -21,6 +21,7 @@ class App extends Component {
       signIn: false,
       selectedTemplate: '',
       loading: true,
+      presentationId:''
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -29,6 +30,7 @@ class App extends Component {
     this.handleInputEmail = this.handleInputEmail.bind(this);
     this.handleInputPhone = this.handleInputPhone.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
+    this.handlePresentationId = this.handlePresentationId.bind(this);
   }
 
   handleInputName(e) {
@@ -85,8 +87,14 @@ class App extends Component {
     });
   }
 
+  handlePresentationId(id){
+    this.setState ({
+      presentationId: id
+    });
+  }
+
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loading } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loading, presentationId } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -109,7 +117,10 @@ class App extends Component {
               email={inputs.email}
               phoneNumber={inputs.phoneNumber}
               selectedTemplate={selectedTemplate}
-              handleTemplate={this.handleTemplate} />} />
+              handleTemplate={this.handleTemplate}
+              presentationId= {presentationId}
+              handlePresentationId={this.handlePresentationId}
+              />} />
         </Switch>
         <div className="row">
           <Footer />

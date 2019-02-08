@@ -3,57 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 
 class Fill extends Component {
-  constructor(props) {
-    super(props);
-
-    this.loadSlidesApi = this.loadSlidesApi.bind(this);
-    this.listSlides = this.listSlides.bind(this);
-  }
-
-  loadSlidesApi() {
-    window.gapi.client.load('slides', 'v1').then(this.listSlides);
-  }
-
-  listSlides() {
-    const presentationId = '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY';
-
-    let requests = [];
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{name}}'
-        },
-        replaceText: this.props.name
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{email}}'
-        },
-        replaceText: this.props.email
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{phoneNumber}}'
-        },
-        replaceText: this.props.phoneNumber
-      }
-    });
-
-    window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: presentationId,
-      requests: requests
-    }).then((response) => {
-      console.log(response);
-      console.log("??????");
-    });
-  }
 
   render() {
-    const { handleInputName, handleInputEmail, handleInputPhone } = this.props;
+    const { handleInputName, handleInputEmail, handleInputPhone, presentationId } = this.props;
     return (
       <div className="fill-page">
         <div className="fill-template__result">
@@ -90,9 +42,6 @@ Fill.propTypes = {
   handleInputName: PropTypes.func,
   handleInputEmail: PropTypes.func,
   handleInputPhone: PropTypes.func,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  phoneNumber: PropTypes.number
 };
 
 export default Fill;

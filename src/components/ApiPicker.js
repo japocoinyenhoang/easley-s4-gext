@@ -20,6 +20,12 @@ class ApiPicker extends Component {
     this.createPicker = this.createPicker.bind(this);
     this.pickerCallback = this.pickerCallback.bind(this);
     this.onAuthApiLoad = this.onAuthApiLoad.bind(this);
+    this.loadSlidesApi = this.loadSlidesApi.bind(this);
+    this.listSlides = this.listSlides.bind(this);
+  }
+
+  componentWillUnmount(){
+    this.loadSlidesApi();
   }
 
   onApiLoad() {
@@ -66,17 +72,75 @@ class ApiPicker extends Component {
 
   pickerCallback(data) {
     let url = 'nothing';
+    let templateName ='nothing selected';
+    let templateId = '';
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       let doc = data[window.google.picker.Response.DOCUMENTS][0];
       url = doc[window.google.picker.Document.URL];
+      templateName = doc.name;
+      templateId = doc.id;
+      console.log(doc.id);
     }
-    let message = 'You picked: ' + url;
+    let message = 'You picked: ' + templateName;
 
     this.props.handleTemplate(message);
+    this.props.handlePresentationId(templateId);
 
     this.setState({
       picked: true,
     });
+
+  }
+
+  loadSlidesApi() {
+    window.gapi.client.load('slides', 'v1').then(this.listSlides);
+  }
+
+  listSlides() {
+    const presentationId = this.state.presentationId;
+
+    let requests = [];
+    /* requests.push({
+      replaceAllText: {
+        containsText: {
+          text: '{{name}}'
+        },
+        replaceText: this.props.name
+      }
+    });
+    requests.push({
+      replaceAllText: {
+        containsText: {
+          text: '{{email}}'
+        },
+        replaceText: this.props.email
+      }
+    });
+    requests.push({
+      replaceAllText: {
+        containsText: {
+          text: '{{phoneNumber}}'
+        },
+        replaceText: this.props.phoneNumber
+      }
+    }); */
+
+    window.gapi.client.slides.presentations.batchUpdate({
+      presentationId: presentationId,
+      requests: requests
+    }).then((response) => {
+
+      console.log(JSON.stringify(response.result).match(/(?<!{){{\s*[\w\.]+\s*}}(?!})/g));
+      console.log("??????");
+    });
+
+  /*   window.gapi.client.slides.presentations.batchUpdate({
+      presentationId: presentationId,
+      requests: requests
+    }).then((response) => {
+      console.log(response);
+      console.log("??????");
+    }); */
   }
 
   render() {
@@ -95,6 +159,9 @@ class ApiPicker extends Component {
 ApiPicker.propTypes = {
   clientId: PropTypes.string,
   scopes: PropTypes.string,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  phoneNumber: PropTypes.string
 };
 
 export default ApiPicker;
