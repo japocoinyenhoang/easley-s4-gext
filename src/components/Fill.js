@@ -11,19 +11,21 @@ class Fill extends Component {
       loadingForm: true,
     }
 
-    this.loadSlidesApi = this.loadSlidesApi.bind(this);
+    /*this.loadSlidesApi = this.loadSlidesApi.bind(this);*/
     this.listSlides = this.listSlides.bind(this);
+    this.execute = this.execute.bind(this);
+    this.loadClient = this.loadClient.bind(this);
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.presentationId !== prevProps.presentationId) {
-      this.loadSlidesApi();
+      this.loadClient();
     }
   }
 
   loadSlidesApi() {
-
+    /*window.gapi.client.load('slides', 'v1').then(this.execute);*/
     if(this.props.presentationId !== '') {
 
         this.setState({
@@ -33,9 +35,30 @@ class Fill extends Component {
 
       //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
 
-      window.gapi.client.load('slides', 'v1').then(this.listSlides);
+      /*window.gapi.client.load('slides', 'v1').then(this.execute);*/
     } else if (this.props.presentationId === '') {
     }
+  }
+
+  loadClient() {
+    console.log('soy loadclient');
+    return window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/slides/v1/rest")
+        .then(this.execute)
+  }
+
+  execute() {
+    console.log('soy execute');
+    console.log(window.gapi.client.drive);
+    return window.gapi.client.drive.files.copy({
+      "fileId": "1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY",
+      "resource": {}
+    })
+        .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+              function(err) { console.error("Execute error", err); })
+        .then(this.listSlides())
   }
 
   listSlides() {
