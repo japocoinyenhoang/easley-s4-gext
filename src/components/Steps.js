@@ -5,6 +5,7 @@ import Wizard from './Wizard';
 import Choose from './Choose';
 import Fill from './Fill';
 import Success from './Success';
+import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSteppers';
 
 class Steps extends Component {
   render() {
@@ -14,7 +15,8 @@ class Steps extends Component {
         <div className="steps-container">
           <Header handleSignoutClick={handleSignoutClick} />
           <main className="main-container">
-            <Wizard />
+          <Wizard/>
+            <HorizontalLabelPositionBelowStepper />
             <Switch>
               <Route path="/steps/choose" render={props => <Choose clientId={clientId} scopes={scopes} handleTemplate={handleTemplate}/>} />
               <Route path="/steps/fill" render={props =>
