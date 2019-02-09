@@ -4,6 +4,24 @@ import './App.scss';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#ad33ad',
+      main: '#990099',
+      dark: '#6b006b',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#5b5b5b',
+      main: '#333333',
+      dark: '#232323',
+      contrastText: '#000',
+    },
+  },
+});
 
 class App extends Component {
   constructor(props) {

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import ApiPicker from "./ApiPicker";
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 
 class Choose extends Component {
   render() {
-    const { clientId, scopes, handleTemplate } = this.props;
+    const { clientId, scopes, handleTemplate, } = this.props;
     return (
       <div className="choose-page d-flex justify-content-around">
         <div className="choose-page__btn select-btn">
@@ -14,7 +17,10 @@ class Choose extends Component {
           />
         </div>
         <div className="choose-page__btn upload-btn">
-          <button type="button" className="btn btn-secondary btn-lg">Upload template</button>
+          <Button variant="contained" size="large" color="secondary">Upload template</Button>
+          <Button variant="outlined" size="large" color="primary">
+          Large
+        </Button>
         </div>
       </div>
     );
