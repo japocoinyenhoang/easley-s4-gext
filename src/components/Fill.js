@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 
-const mockData = ['name', 'email', 'phone'];
+const mockData = ['name', 'email', 'phoneNumber'];
 
 class Fill extends Component {
   constructor(props) {
@@ -25,29 +25,18 @@ class Fill extends Component {
     const presentationId = '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY';
 
     let requests = [];
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{name}}'
-        },
-        replaceText: this.props.name
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{email}}'
-        },
-        replaceText: this.props.email
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{phoneNumber}}'
-        },
-        replaceText: this.props.phoneNumber
-      }
+
+    this.props.inputs.map(item => {
+      requests.push({
+        replaceAllText: {
+          containsText: {
+            text: `{{${item[0]}}}`
+          },
+          replaceText: item[1]
+        }
+      });
+
+      return requests;
     });
 
     window.gapi.client.slides.presentations.batchUpdate({
@@ -104,3 +93,4 @@ Fill.propTypes = {
 };
 
 export default Fill;
+
