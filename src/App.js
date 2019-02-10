@@ -81,7 +81,7 @@ class App extends Component {
     })
   }
 
-  handleTemplate(msg){
+  handleTemplate(msg, id){
     this.setState ({
       selectedTemplate: msg
     });

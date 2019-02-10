@@ -74,15 +74,15 @@ class ApiPicker extends Component {
       templateName = doc.name;
       templateId = doc.id;
       console.log(doc.id);
+      let message = 'You picked: ' + templateName;
+
+      this.props.handleTemplate(message);
+      this.props.handlePresentationId(templateId);
+
+      this.setState({
+        picked: true,
+       });
     }
-    let message = 'You picked: ' + templateName;
-
-    this.props.handleTemplate(message);
-    this.props.handlePresentationId(templateId);
-
-    this.setState({
-      picked: true,
-    });
   }
 
   render() {

@@ -17,16 +17,17 @@ class Fill extends Component {
     this.listSlides = this.listSlides.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(prevProps) {
     const data = mockData;
     this.props.handleInitInputs(data);
-    if (this.props.presentationId !== prevProps.presentationId) {
-      this.loadSlidesApi();
-    }
+
+  }
+
+  componentWillReceiveProps(){
+    this.loadSlidesApi();
   }
 
   loadSlidesApi() {
-
     if(this.props.presentationId !== '') {
 
       //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
