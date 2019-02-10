@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
+import ReactLoading from 'react-loading';
 
 const mockData = ['name', 'email', 'phone'];
 
 class Fill extends Component {
   constructor(props) {
     super(props);
+
+    this.state={
+      loadingForm: true,
+    }
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
@@ -15,17 +20,35 @@ class Fill extends Component {
   componentDidMount() {
     const data = mockData;
     this.props.handleInitInputs(data);
+    if (this.props.presentationId !== prevProps.presentationId) {
+      this.loadSlidesApi();
+    }
   }
 
   loadSlidesApi() {
-    window.gapi.client.load('slides', 'v1').then(this.listSlides);
+
+    if(this.props.presentationId !== '') {
+
+      //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
+        this.setState({
+          loadingForm: false
+        });
+
+      window.gapi.client.load('slides', 'v1').then(this.listSlides);
+    } else if (this.props.presentationId === '') {
+    }
   }
 
   listSlides() {
-    const presentationId = '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY';
 
-    let requests = [];
-    requests.push({
+    window.gapi.client.slides.presentations.get({
+      presentationId : this.props.presentationId,
+    }).then(function(response){
+      let presentation = response.result
+      console.log(JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g));
+    })
+    //let requests = [];
+    /* requests.push({
       replaceAllText: {
         containsText: {
           text: '{{name}}'
@@ -48,21 +71,14 @@ class Fill extends Component {
         },
         replaceText: this.props.phoneNumber
       }
-    });
+    }); */
 
-    window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: presentationId,
-      requests: requests
-    }).then((response) => {
-      console.log(response);
-      console.log("??????");
-    });
   }
 
   render() {
-    const { handleInputs } = this.props;
-
-    return (
+    if (!this.state.loadingForm){
+      const { handleInputs } = this.props;
+      return (
       <div className="fill-page">
         <div className="fill-template__result">
           <div id="result">{this.props.selectedTemplate}</div>
@@ -85,22 +101,27 @@ class Fill extends Component {
         <div className="row d-flex justify-content-around">
           <div className="fill-page__btn back-btn">
           <Link to="/steps/choose"><button type="button" className="btn btn-light">Back</button></Link>
-          </div>
           <div className="fill-page__btn next-btn">
-          <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesApi}>Next</button></Link>
+            <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesApi}>Next</button></Link>
+            </div>
           </div>
         </div>
       </div>
-    );
+      );
+    }  else {
+        return(
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+        )
+       }
+
   }
+
 }
+
 Fill.propTypes = {
   handleInputName: PropTypes.func,
   handleInputEmail: PropTypes.func,
   handleInputPhone: PropTypes.func,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  phoneNumber: PropTypes.number
 };
 
 export default Fill;
