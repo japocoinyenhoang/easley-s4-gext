@@ -49,12 +49,12 @@ class Fill extends Component {
   }
 
   render() {
-    const { handleInputs } = this.props;
+    const { handleInputs, selectedTemplate } = this.props;
 
     return (
       <div className="fill-page">
         <div className="fill-template__result">
-          <div id="result">{this.props.selectedTemplate}</div>
+          <div id="result">{selectedTemplate}</div>
           <div className="fill-page__btn back-btn">
               <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
           </div>
@@ -84,12 +84,10 @@ class Fill extends Component {
   }
 }
 Fill.propTypes = {
-  handleInputName: PropTypes.func,
-  handleInputEmail: PropTypes.func,
-  handleInputPhone: PropTypes.func,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  phoneNumber: PropTypes.number
+  handleInitInputs: PropTypes.func,
+  handleInputs: PropTypes.func,
+  inputs: PropTypes.arrayOf,
+  selectedTemplate: PropTypes.func
 };
 
 export default Fill;
