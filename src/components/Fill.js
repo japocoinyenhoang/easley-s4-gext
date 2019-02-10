@@ -2,12 +2,18 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 
+const mockData = ['name', 'email', 'phone'];
+
 class Fill extends Component {
   constructor(props) {
     super(props);
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.handleArrayInputs(mockData);
   }
 
   loadSlidesApi() {
@@ -53,7 +59,8 @@ class Fill extends Component {
   }
 
   render() {
-    const { handleInputName, handleInputEmail, handleInputPhone } = this.props;
+    const { handleInputs } = this.props;
+
     return (
       <div className="fill-page">
         <div className="fill-template__result">
@@ -64,14 +71,14 @@ class Fill extends Component {
         </div>
         <div className="fill-page__form">
           <form>
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input className="form-control " id="name" type="text" onKeyUp={handleInputName} />
-              <label htmlFor="email">Email:</label>
-              <input className="form-control" id="email" type="email" onKeyUp={handleInputEmail}></input>
-              <label htmlFor="phone">Phone Number:</label>
-              <input className="form-control" id="phone" type="number" onKeyUp={handleInputPhone}></input>
-            </div>
+            {mockData.map(item => {
+              return (
+                <div key={item} className="form-group">
+                  <label htmlFor={item}>{item.toUpperCase()}:</label>
+                  <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+                </div>
+              );
+            })}
           </form>
         </div>
         <div className="row d-flex justify-content-around">

@@ -13,11 +13,7 @@ class App extends Component {
       clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
-      inputs: {
-        name: '',
-        email: '',
-        phoneNumber: '',
-      },
+      inputs: [],
       signIn: false,
       selectedTemplate: '',
       loading: true,
@@ -25,37 +21,40 @@ class App extends Component {
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
-    this.handleInputName = this.handleInputName.bind(this);
-    this.handleInputEmail = this.handleInputEmail.bind(this);
-    this.handleInputPhone = this.handleInputPhone.bind(this);
+    this.handleInputs = this.handleInputs.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
+    this.handleArrayInputs = this.handleArrayInputs.bind(this);
   }
 
-  handleInputName(e) {
+  handleInputs(e) {
+    const target = e.currentTarget.id;
+    const value = e.currentTarget.value;
     const { inputs } = this.state;
-    const newName = { ...inputs, name: e.currentTarget.value };
+    let newValue = [];
+
+    newValue = inputs.map(item => {
+      if (item[0] === target){
+        item[1] = value
+      }
+      return item;
+    });
+
     this.setState({
-      inputs: newName
+      inputs: newValue
     })
   }
 
-  handleInputEmail(e) {
-    const { inputs } = this.state;
-    const newEmail = { ...inputs, email: e.currentTarget.value };
+  handleArrayInputs(mockData) {
+    let newArray = [];
+
+    mockData.map(item => {
+      newArray.push([item,'']);
+    });
+
     this.setState({
-      inputs: newEmail
+      inputs: newArray
     })
   }
-
-
-  handleInputPhone(e) {
-    const { inputs } = this.state;
-    const newPhone = { ...inputs, phoneNumber: e.currentTarget.value };
-    this.setState({
-      inputs: newPhone
-    })
-  }
-
 
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
@@ -102,14 +101,11 @@ class App extends Component {
               signIn={signIn}
               clientId={clientId}
               scopes={scopes}
-              handleInputName={this.handleInputName}
-              handleInputEmail={this.handleInputEmail}
-              handleInputPhone={this.handleInputPhone}
-              name={inputs.name}
-              email={inputs.email}
-              phoneNumber={inputs.phoneNumber}
+              handleInputs={this.handleInputs}
+              inputs={inputs}
               selectedTemplate={selectedTemplate}
-              handleTemplate={this.handleTemplate} />} />
+              handleTemplate={this.handleTemplate}
+              handleArrayInputs={this.handleArrayInputs} />} />
         </Switch>
         <div className="row">
           <Footer />
