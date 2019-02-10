@@ -23,13 +23,26 @@ class App extends Component {
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
-    this.handleArrayInputs = this.handleArrayInputs.bind(this);
+    this.handleInitInputs = this.handleInitInputs.bind(this);
+  }
+
+  handleInitInputs(data) {
+    let newArray = [];
+
+    data.map(item => {
+      newArray.push([item,'']);
+    });
+
+    this.setState({
+      inputs: newArray
+    });
   }
 
   handleInputs(e) {
     const target = e.currentTarget.id;
     const value = e.currentTarget.value;
     const { inputs } = this.state;
+
     let newValue = [];
 
     newValue = inputs.map(item => {
@@ -41,19 +54,7 @@ class App extends Component {
 
     this.setState({
       inputs: newValue
-    })
-  }
-
-  handleArrayInputs(mockData) {
-    let newArray = [];
-
-    mockData.map(item => {
-      newArray.push([item,'']);
     });
-
-    this.setState({
-      inputs: newArray
-    })
   }
 
   updateStateLogin(isSignedIn) {
@@ -105,7 +106,7 @@ class App extends Component {
               inputs={inputs}
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
-              handleArrayInputs={this.handleArrayInputs} />} />
+              handleInitInputs={this.handleInitInputs} />} />
         </Switch>
         <div className="row">
           <Footer />

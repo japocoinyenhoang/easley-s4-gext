@@ -13,7 +13,8 @@ class Fill extends Component {
   }
 
   componentDidMount() {
-    this.props.handleArrayInputs(mockData);
+    const data = mockData;
+    this.props.handleInitInputs(data);
   }
 
   loadSlidesApi() {
