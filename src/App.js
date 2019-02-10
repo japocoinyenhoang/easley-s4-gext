@@ -4,9 +4,11 @@ import './App.scss';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-const theme = createMuiTheme({
+
+const themeApp = createMuiTheme({
   palette: {
     primary: {
       light: '#ad33ad',
@@ -21,6 +23,13 @@ const theme = createMuiTheme({
       contrastText: '#000',
     },
   },
+  typography: {
+    fontFamily: [
+      'Roboto',
+      'sans-serif'
+    ].join(','),
+    fontSize: 16
+  }
 });
 
 class App extends Component {
@@ -106,33 +115,38 @@ class App extends Component {
   render() {
     const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loading } = this.state;
     return (
-      <div className="app-container container-fluid">
-        <Switch>
-          <Route exact path="/" render={props =>
-            <Home clientId={clientId}
-              discoveryDocs={discoveryDocs}
-              scopes={scopes}
-              updateStateLogin={this.updateStateLogin}
-              signIn={signIn}
-              loading={loading}/>} />
-          <Route path="/steps" render={props =>
-            <Steps handleSignoutClick={this.handleSignoutClick}
-              signIn={signIn}
-              clientId={clientId}
-              scopes={scopes}
-              handleInputName={this.handleInputName}
-              handleInputEmail={this.handleInputEmail}
-              handleInputPhone={this.handleInputPhone}
-              name={inputs.name}
-              email={inputs.email}
-              phoneNumber={inputs.phoneNumber}
-              selectedTemplate={selectedTemplate}
-              handleTemplate={this.handleTemplate} />} />
-        </Switch>
-        <div className="row">
-          <Footer />
-        </div>
-      </div>
+      <React.Fragment>
+        <CssBaseline />
+        <MuiThemeProvider theme={themeApp}>
+          <div className="app-container container-fluid">
+            <Switch>
+              <Route exact path="/" render={props =>
+                <Home clientId={clientId}
+                  discoveryDocs={discoveryDocs}
+                  scopes={scopes}
+                  updateStateLogin={this.updateStateLogin}
+                  signIn={signIn}
+                  loading={loading}/>} />
+              <Route path="/steps" render={props =>
+                <Steps handleSignoutClick={this.handleSignoutClick}
+                  signIn={signIn}
+                  clientId={clientId}
+                  scopes={scopes}
+                  handleInputName={this.handleInputName}
+                  handleInputEmail={this.handleInputEmail}
+                  handleInputPhone={this.handleInputPhone}
+                  name={inputs.name}
+                  email={inputs.email}
+                  phoneNumber={inputs.phoneNumber}
+                  selectedTemplate={selectedTemplate}
+                  handleTemplate={this.handleTemplate} />} />
+            </Switch>
+            <div className="row">
+              <Footer />
+            </div>
+          </div>
+        </MuiThemeProvider>
+      </React.Fragment>
     );
   }
 }

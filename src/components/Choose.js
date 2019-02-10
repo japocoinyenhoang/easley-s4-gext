@@ -17,10 +17,7 @@ class Choose extends Component {
           />
         </div>
         <div className="choose-page__btn upload-btn">
-          <Button variant="contained" size="large" color="secondary">Upload template</Button>
-          <Button variant="outlined" size="large" color="primary">
-          Large
-        </Button>
+          <Button variant="contained" size="large" color="primary">Upload template</Button>
         </div>
       </div>
     );
