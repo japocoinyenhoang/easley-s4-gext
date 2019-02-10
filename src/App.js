@@ -31,6 +31,7 @@ class App extends Component {
 
     data.map(item => {
       newArray.push([item,'']);
+      return newArray
     });
 
     this.setState({
