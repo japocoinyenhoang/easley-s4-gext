@@ -3,40 +3,33 @@ import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
 
+let keywords = [];
+let eraseMoustache;
+
 class Fill extends Component {
   constructor(props) {
     super(props);
 
     this.state={
       loadingForm: true,
+      moustachesArray : [],
     }
 
     /*this.loadSlidesApi = this.loadSlidesApi.bind(this);*/
     this.listSlides = this.listSlides.bind(this);
-    this.execute = this.execute.bind(this);
-    this.loadClient = this.loadClient.bind(this);
+
+    this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
+    this.listSlidesReplace = this.listSlidesReplace.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
-    if (this.props.presentationId !== prevProps.presentationId) {
-      this.loadClient();
-    }
+  componentDidMount() {
+    this.loadSlidesApi();
+
   }
 
   loadSlidesApi() {
-    /*window.gapi.client.load('slides', 'v1').then(this.execute);*/
     if(this.props.presentationId !== '') {
-
-        this.setState({
-          loadingForm: false
-        });
-
-
-      //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
-
-      /*window.gapi.client.load('slides', 'v1').then(this.execute);*/
-    } else if (this.props.presentationId === '') {
+      window.gapi.client.load('slides', 'v1').then(this.listSlides);
     }
   }
 
@@ -62,100 +55,94 @@ class Fill extends Component {
   }
 
   listSlides() {
-    const presentationId = this.props.presentationId;
+    window.gapi.client.slides.presentations.get({
+      presentationId : this.props.presentationId
+    }).then(response => {
+      let presentation = response.result;
+      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
+      eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
+      this.setState({moustachesArray: [...keywords, ...eraseMoustache]});
+      this.props.handleInitInputs(this.state.moustachesArray);
+    });
+  }
 
+  loadSlidesReplace() {
+    if(this.props.presentationId !== '') {
+      window.gapi.client.load('slides', 'v1').then(this.listSlidesReplace);
+    }
+  }
+
+  listSlidesReplace() {
     let requests = [];
-    /* requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{name}}'
-        },
-        replaceText: this.props.name
-      }
+    this.props.inputs.map(item => {
+      requests.push({
+        replaceAllText: {
+          containsText: {
+            text: `{{${item[0]}}}`
+          },
+          replaceText: item[1]
+        }
+      });
+      return requests;
     });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{email}}'
-        },
-        replaceText: this.props.email
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{phoneNumber}}'
-        },
-        replaceText: this.props.phoneNumber
-      }
-    }); */
 
     window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: presentationId,
-      requests: requests
-    }).then((response) => {
-
-      console.log(JSON.stringify(response.result).match(/(?<!{){{\s*[\w\.]+\s*}}(?!})/g));
-      console.log("??????");
-    });
-
-  /*   window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: presentationId,
+      presentationId: this.props.presentationId,
       requests: requests
     }).then((response) => {
       console.log(response);
-      console.log("??????");
-    }); */
+    });
   }
 
-
   render() {
-    if (!this.state.loadingForm){
-      const { handleInputName, handleInputEmail, handleInputPhone, presentationId } = this.props;
+    const { selectedTemplate, handleInputs } = this.props;
+
+    if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
       return (
         <div className="fill-page">
           <div className="fill-template__result">
-            <div id="result">{this.props.selectedTemplate}</div>
+            <div id="result">{selectedTemplate}</div>
             <div className="fill-page__btn back-btn">
                 <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
             </div>
           </div>
           <div className="fill-page__form">
             <form>
-              <div className="form-group">
-                <label htmlFor="name">Name:</label>
-                <input className="form-control " id="name" type="text" onKeyUp={handleInputName} />
-                <label htmlFor="email">Email:</label>
-                <input className="form-control" id="email" type="email" onKeyUp={handleInputEmail}></input>
-                <label htmlFor="phone">Phone Number:</label>
-                <input className="form-control" id="phone" type="number" onKeyUp={handleInputPhone}></input>
-              </div>
+              {this.state.moustachesArray.map(item => {
+                return (
+                  <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+                  </div>
+                );
+                })
+              }
             </form>
           </div>
           <div className="row d-flex justify-content-around">
             <div className="fill-page__btn back-btn">
-            <Link to="/steps/choose"><button type="button" className="btn btn-light">Back</button></Link>
-            </div>
-            <div className="fill-page__btn next-btn">
-            <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesApi}>Next</button></Link>
+              <Link to="/steps/choose"><button type="button" className="btn btn-light">Back</button></Link>
+              <div className="fill-page__btn next-btn">
+                <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesReplace}>Next</button></Link>
+              </div>
             </div>
           </div>
         </div>
       );
     } else {
-      return(
-           <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+        return(
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
         )
-        }
-
+      }
   }
-
 }
 
 Fill.propTypes = {
-  handleInputName: PropTypes.func,
-  handleInputEmail: PropTypes.func,
-  handleInputPhone: PropTypes.func,
+  handleInitInputs: PropTypes.func,
+  handleInputs: PropTypes.func,
+  inputs: PropTypes.array,
+  selectedTemplate: PropTypes.string
 };
 
 export default Fill;
+

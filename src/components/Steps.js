@@ -8,7 +8,7 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber, selectedTemplate, handleTemplate, presentationId, handlePresentationId } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -25,7 +25,11 @@ class Steps extends Component {
                   phoneNumber={phoneNumber}
                   handlePresentationId={handlePresentationId}/>} />
               <Route path="/steps/fill" render={props =>
-                <Fill handleInputName={handleInputName}
+                <Fill
+                  handleInputs={handleInputs}
+                  inputs={inputs}
+                  handleInitInputs={handleInitInputs}
+                  handleInputName={handleInputName}
                   handleInputEmail={handleInputEmail}
                   handleInputPhone={handleInputPhone}
                   selectedTemplate={selectedTemplate}
