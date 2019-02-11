@@ -9,14 +9,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      presentationId: '1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY',
       clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
       inputs: [],
       signIn: false,
       selectedTemplate: '',
-      loading: true,
+      loadingHome: true,
+      presentationId:''
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -24,19 +24,22 @@ class App extends Component {
     this.handleInputs = this.handleInputs.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
+    this.handlePresentationId = this.handlePresentationId.bind(this);
   }
 
   handleInitInputs(data) {
     let newArray = [];
+    if(data !== undefined) {
+      data.map(item => {
+        newArray.push([item,'']);
+        return newArray
+      });
 
-    data.map(item => {
-      newArray.push([item,'']);
-      return newArray
-    });
+      this.setState({
+        inputs: newArray
+      });
+    }
 
-    this.setState({
-      inputs: newArray
-    });
   }
 
   handleInputs(e) {
@@ -45,7 +48,6 @@ class App extends Component {
     const { inputs } = this.state;
 
     let newValue = [];
-
     newValue = inputs.map(item => {
       if (item[0] === target){
         item[1] = value
@@ -62,12 +64,12 @@ class App extends Component {
     if (isSignedIn) {
       this.setState({
         signIn: true,
-        loading: true
+        loadingHome: true
       })
     } else {
       this.setState({
         signIn: false,
-        loading: false
+        loadingHome: false
       })
     }
   }
@@ -76,18 +78,24 @@ class App extends Component {
     window.gapi.auth2.getAuthInstance().signOut();
     this.setState({
       signIn: false,
-      loading: false,
+      loadingHome: false,
     })
   }
 
-  handleTemplate(msg){
+  handleTemplate(msg, id){
     this.setState ({
       selectedTemplate: msg
     });
   }
 
+  handlePresentationId(id){
+    this.setState ({
+      presentationId: id
+    });
+  }
+
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loading } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -97,7 +105,7 @@ class App extends Component {
               scopes={scopes}
               updateStateLogin={this.updateStateLogin}
               signIn={signIn}
-              loading={loading}/>} />
+              loadingHome={loadingHome}/>} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
@@ -107,7 +115,10 @@ class App extends Component {
               inputs={inputs}
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
-              handleInitInputs={this.handleInitInputs} />} />
+              handleInitInputs={this.handleInitInputs}
+              presentationId= {presentationId}
+              handlePresentationId={this.handlePresentationId}
+              />} />
         </Switch>
         <div className="row">
           <Footer />
