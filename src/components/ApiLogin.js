@@ -65,7 +65,7 @@ class ApiLogin extends Component {
   }
 
   render() {
-    if (!this.props.loading){
+    if (!this.props.loadingHome){
       if(!this.props.signIn){
         return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
       } else{
@@ -78,8 +78,6 @@ class ApiLogin extends Component {
         </Fragment>
       )
     }
-
-
   }
 }
 
@@ -89,7 +87,7 @@ ApiLogin.propTypes = {
   scopes: PropTypes.string,
   updateStateLogin: PropTypes.func,
   signIn: PropTypes.bool,
-  loading: PropTypes.bool,
+  loadingHome: PropTypes.bool,
 };
 
 export default ApiLogin;

@@ -6,7 +6,7 @@ import ApiLogin from './ApiLogin';
 class Home extends Component {
 
   render() {
-    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loading } = this.props;
+    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loadingHome } = this.props;
     return (
       <div className="home-page">
         <div className="row">
@@ -18,7 +18,7 @@ class Home extends Component {
             <div className="col-12 d-flex flex-column align-items-center">
               <img src={logo} alt="Gext logo"></img>
               <div className="home-page__btn">
-                <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} loading={loading} />
+                <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} loadingHome={loadingHome} />
               </div>
             </div>
           </main>

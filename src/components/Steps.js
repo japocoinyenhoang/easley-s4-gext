@@ -9,7 +9,7 @@ import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSt
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber, selectedTemplate, handleTemplate } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -18,15 +18,24 @@ class Steps extends Component {
           <Wizard/>
             <HorizontalLabelPositionBelowStepper />
             <Switch>
-              <Route path="/steps/choose" render={props => <Choose clientId={clientId} scopes={scopes} handleTemplate={handleTemplate}/>} />
-              <Route path="/steps/fill" render={props =>
-                <Fill handleInputName={handleInputName}
-                  handleInputEmail={handleInputEmail}
-                  handleInputPhone={handleInputPhone}
+              <Route path="/steps/choose" render={props =>
+                <Choose clientId={clientId}
+                  scopes={scopes}
+                  handleTemplate={handleTemplate}
                   name={name}
                   email={email}
                   phoneNumber={phoneNumber}
-                  selectedTemplate={selectedTemplate} />} />
+                  handlePresentationId={handlePresentationId}/>} />
+              <Route path="/steps/fill" render={props =>
+                <Fill
+                  handleInputs={handleInputs}
+                  inputs={inputs}
+                  handleInitInputs={handleInitInputs}
+                  handleInputName={handleInputName}
+                  handleInputEmail={handleInputEmail}
+                  handleInputPhone={handleInputPhone}
+                  selectedTemplate={selectedTemplate}
+                  presentationId={presentationId} />} />
               <Route path="/steps/success" component={Success} />
             </Switch>
           </main>
