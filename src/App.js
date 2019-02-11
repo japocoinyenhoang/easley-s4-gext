@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
-      scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive",
+      scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
       signIn: false,
       selectedTemplate: '',
