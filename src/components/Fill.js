@@ -22,8 +22,8 @@ class Fill extends Component {
   }
 
   componentDidMount() {
-    const data = keywords;
-    this.props.handleInitInputs(data);
+
+    this.props.handleInitInputs(this.state.moustachesArray);
   }
 
   componentWillReceiveProps(){
@@ -58,6 +58,7 @@ class Fill extends Component {
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
       eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
       this.setState({moustachesArray : [...keywords, ...eraseMoustache]});
+
     });
   }
 
