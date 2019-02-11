@@ -5,6 +5,8 @@ import ReactLoading from 'react-loading';
 import { request } from "http";
 
 let keywords = [];
+let eraseMoustache;
+let moustachesArray;
 
 class Fill extends Component {
   constructor(props) {
@@ -30,16 +32,12 @@ class Fill extends Component {
 
   loadSlidesApi() {
     if(this.props.presentationId !== '') {
-
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
-
     }
   }
 
   listSlides() {
-
     let requests = [];
-
     this.props.inputs.map(item => {
       requests.push({
         replaceAllText: {
@@ -56,26 +54,25 @@ class Fill extends Component {
     window.gapi.client.slides.presentations.get({
       presentationId : this.props.presentationId,
       requests: requests
-    }).then(function(response){
+    }).then(response => {
       let presentation = response.result;
       console.log(presentation);
-      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g)
-      keywords.push(moustaches);
-      console.log(keywords);
-    }).then(
-      function(){if(keywords.length > 0) {
-        this.setState({
-        loadingForm: false
-        })
-      }}
-    );
+      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
 
+      moustachesArray = [...keywords, ...moustaches];
+        if(moustachesArray.length > 0) {
+          this.setState({
+            loadingForm: false
+        })
+      }
+    });
   }
 
   getForm(){
     const { handleInputs } = this.props;
-    if(keywords.length > 0) {
-      keywords.map(item => {
+    console.log(moustachesArray);
+    if(moustachesArray.length > 0) {
+      moustachesArray.map(item => {
         return (
           <div key={item} className="form-group">
             <label htmlFor={item}>{item.toUpperCase()}:</label>
@@ -112,14 +109,12 @@ class Fill extends Component {
         </div>
       </div>
       );
-    }  else {
+    } else {
         return(
           <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
         )
-       }
-
+      }
   }
-
 }
 
 Fill.propTypes = {
