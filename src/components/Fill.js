@@ -58,8 +58,8 @@ class Fill extends Component {
       let presentation = response.result;
       console.log(presentation);
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-
-      moustachesArray = [...keywords, ...moustaches];
+      eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
+      moustachesArray = [...keywords, ...eraseMoustache];
         if(moustachesArray.length > 0) {
           this.setState({
             loadingForm: false
