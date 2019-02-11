@@ -22,12 +22,8 @@ class Fill extends Component {
   }
 
   componentDidMount() {
-
-    this.props.handleInitInputs(this.state.moustachesArray);
-  }
-
-  componentWillReceiveProps(){
     this.loadSlidesApi();
+
   }
 
   loadSlidesApi() {
@@ -58,7 +54,7 @@ class Fill extends Component {
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
       eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
       this.setState({moustachesArray : [...keywords, ...eraseMoustache]});
-
+      this.props.handleInitInputs(this.state.moustachesArray);
     });
   }
 

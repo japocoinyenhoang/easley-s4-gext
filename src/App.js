@@ -48,7 +48,6 @@ class App extends Component {
     const { inputs } = this.state;
 
     let newValue = [];
-
     newValue = inputs.map(item => {
       if (item[0] === target){
         item[1] = value
