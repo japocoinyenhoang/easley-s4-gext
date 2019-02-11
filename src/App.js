@@ -29,15 +29,17 @@ class App extends Component {
 
   handleInitInputs(data) {
     let newArray = [];
+    if(data !== undefined) {
+      data.map(item => {
+        newArray.push([item,'']);
+        return newArray
+      });
 
-    data.map(item => {
-      newArray.push([item,'']);
-      return newArray
-    });
+      this.setState({
+        inputs: newArray
+      });
+    }
 
-    this.setState({
-      inputs: newArray
-    });
   }
 
   handleInputs(e) {

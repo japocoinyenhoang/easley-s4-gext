@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
+import { request } from "http";
 
-const mockData = ['name', 'email', 'phone'];
+let keywords = [];
 
 class Fill extends Component {
   constructor(props) {
@@ -15,12 +16,12 @@ class Fill extends Component {
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
+    this.getForm = this.getForm.bind(this);
   }
 
-  componentDidMount(prevProps) {
-    const data = mockData;
+  componentDidMount() {
+    const data = keywords;
     this.props.handleInitInputs(data);
-
   }
 
   componentWillReceiveProps(){
@@ -30,73 +31,75 @@ class Fill extends Component {
   loadSlidesApi() {
     if(this.props.presentationId !== '') {
 
-      //cuando tengamos presentationId loading pasará a false y pintaremos el formulario
-        this.setState({
-          loadingForm: false
-        });
-
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
-    } else if (this.props.presentationId === '') {
+
     }
   }
 
   listSlides() {
 
+    let requests = [];
+
+    this.props.inputs.map(item => {
+      requests.push({
+        replaceAllText: {
+          containsText: {
+            text: `{{${item[0]}}}`
+          },
+          replaceText: item[1]
+        }
+      });
+      console.log(requests);
+      return requests;
+    });
+
     window.gapi.client.slides.presentations.get({
       presentationId : this.props.presentationId,
+      requests: requests
     }).then(function(response){
-      let presentation = response.result
-      console.log(JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g));
-    })
-    //let requests = [];
-    /* requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{name}}'
-        },
-        replaceText: this.props.name
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{email}}'
-        },
-        replaceText: this.props.email
-      }
-    });
-    requests.push({
-      replaceAllText: {
-        containsText: {
-          text: '{{phoneNumber}}'
-        },
-        replaceText: this.props.phoneNumber
-      }
-    }); */
+      let presentation = response.result;
+      console.log(presentation);
+      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g)
+      keywords.push(moustaches);
+      console.log(keywords);
+    }).then(
+      function(){if(keywords.length > 0) {
+        this.setState({
+        loadingForm: false
+        })
+      }}
+    );
 
+  }
+
+  getForm(){
+    const { handleInputs } = this.props;
+    if(keywords.length > 0) {
+      keywords.map(item => {
+        return (
+          <div key={item} className="form-group">
+            <label htmlFor={item}>{item.toUpperCase()}:</label>
+            <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+          </div>
+        );
+      })
+    }
   }
 
   render() {
     if (!this.state.loadingForm){
-      const { handleInputs } = this.props;
+      const { selectedTemplate } = this.props;
       return (
       <div className="fill-page">
         <div className="fill-template__result">
-          <div id="result">{this.props.selectedTemplate}</div>
+          <div id="result">{selectedTemplate}</div>
           <div className="fill-page__btn back-btn">
               <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
           </div>
         </div>
         <div className="fill-page__form">
           <form>
-            {mockData.map(item => {
-              return (
-                <div key={item} className="form-group">
-                  <label htmlFor={item}>{item.toUpperCase()}:</label>
-                  <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-                </div>
-              );
-            })}
+            {this.getForm()}
           </form>
         </div>
         <div className="row d-flex justify-content-around">
@@ -120,9 +123,11 @@ class Fill extends Component {
 }
 
 Fill.propTypes = {
-  handleInputName: PropTypes.func,
-  handleInputEmail: PropTypes.func,
-  handleInputPhone: PropTypes.func,
+  handleInitInputs: PropTypes.func,
+  handleInputs: PropTypes.func,
+  inputs: PropTypes.array,
+  selectedTemplate: PropTypes.string
 };
 
 export default Fill;
+
