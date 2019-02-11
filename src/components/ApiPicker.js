@@ -20,6 +20,8 @@ class ApiPicker extends Component {
     this.createPicker = this.createPicker.bind(this);
     this.pickerCallback = this.pickerCallback.bind(this);
     this.onAuthApiLoad = this.onAuthApiLoad.bind(this);
+    this.execute = this.execute.bind (this);
+    // this.copyFile = this.copyFile.bind(this);
   }
 
   onApiLoad() {
@@ -27,11 +29,14 @@ class ApiPicker extends Component {
     window.gapi.load('picker', this.onPickerApiLoad);
   }
 
+
+
   onPickerApiLoad() {
     this.setState({
       pickerApiLoaded: true
     });
     this.createPicker();
+
   }
 
   onAuthApiLoad() {
@@ -50,6 +55,29 @@ class ApiPicker extends Component {
       this.createPicker();
     }
   }
+  execute() {
+    return window.gapi.client.slides.copyFile({
+      "resource": {
+        "copyRequiresWriterPermission":false
+      }
+    })
+        .then(function(response) {
+                console.log("Response", response);
+              },
+              function(err) { console.error("Execute error", err); });
+  }
+//   copyFile(originFileId, copyTitle) {
+//     let body = {'title': copyTitle};
+//     let request = window.gapi.client.slides.presentations.copyFile({
+//        'fileId': originFileId,
+//        'resource': body
+//      });
+//     request.execute(function(resp) {
+//     console.log('Copy ID: ' + resp.id);
+//   });
+// }
+
+
 
   createPicker() {
     let { pickerApiLoaded, oauthToken } = this.state;
@@ -61,6 +89,9 @@ class ApiPicker extends Component {
         .setCallback(this.pickerCallback)
         .build();
       picker.setVisible(true);
+      this.execute();
+      // this.copyFile();
+
     }
   }
 

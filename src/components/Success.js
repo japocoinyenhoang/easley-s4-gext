@@ -2,6 +2,20 @@ import React, { Component } from "react";
 
 
 class Success extends Component {
+  constructor (props){
+    super(props);
+    this.execute = this.execute.bind(this);
+  }
+  execute() {
+    return window.gapi.client.drive.files.copy({
+      "resource": {}
+    })
+        .then(function(response) {
+                console.log("Response", response);
+              },
+              function(err) { console.error("Execute error", err); });
+  }
+
 
   render() {
     return (
@@ -19,6 +33,7 @@ class Success extends Component {
           <a classname="link-success" href="https://docs.google.com/presentation/d/1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY/export/pptx" download="test.pptx"><button className="btn btn-outline-primary">Download your presentation</button></a>
           </div>
         </div>
+        <button type="button" onClick={this.execute}>Boton de prueba</button>
       </div>
     );
   }

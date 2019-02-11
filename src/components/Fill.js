@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const mockData = ['name', 'email', 'phoneNumber'];
 
@@ -83,12 +83,12 @@ class Fill extends Component {
     );
   }
 }
-Fill.propTypes = {
-  handleInitInputs: PropTypes.func,
-  handleInputs: PropTypes.func,
-  inputs: PropTypes.arrayOf,
-  selectedTemplate: PropTypes.func
-};
+// Fill.propTypes = {
+//   handleInitInputs: PropTypes.func,
+//   handleInputs: PropTypes.func,
+//   inputs: PropTypes.arrayOf,
+//   selectedTemplate: PropTypes.func
+// };
 
 export default Fill;
 
