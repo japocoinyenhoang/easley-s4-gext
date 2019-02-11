@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
 
-
 let keywords = [];
 let eraseMoustache;
-
 
 class Fill extends Component {
   constructor(props) {
@@ -19,6 +17,9 @@ class Fill extends Component {
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
+
+    this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
+    this.listSlidesReplace = this.listSlidesReplace.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,24 @@ class Fill extends Component {
   }
 
   listSlides() {
+    window.gapi.client.slides.presentations.get({
+      presentationId : this.props.presentationId
+    }).then(response => {
+      let presentation = response.result;
+      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
+      eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
+      this.setState({moustachesArray: [...keywords, ...eraseMoustache]});
+      this.props.handleInitInputs(this.state.moustachesArray);
+    });
+  }
+
+  loadSlidesReplace() {
+    if(this.props.presentationId !== '') {
+      window.gapi.client.load('slides', 'v1').then(this.listSlidesReplace);
+    }
+  }
+
+  listSlidesReplace() {
     let requests = [];
     this.props.inputs.map(item => {
       requests.push({
@@ -46,52 +65,48 @@ class Fill extends Component {
       return requests;
     });
 
-    window.gapi.client.slides.presentations.get({
-      presentationId : this.props.presentationId,
+    window.gapi.client.slides.presentations.batchUpdate({
+      presentationId: this.props.presentationId,
       requests: requests
-    }).then(response => {
-      let presentation = response.result;
-      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-      eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
-      this.setState({moustachesArray : [...keywords, ...eraseMoustache]});
-      this.props.handleInitInputs(this.state.moustachesArray);
+    }).then((response) => {
+      console.log(response);
     });
   }
 
-
   render() {
-    if (this.state.moustachesArray.length > 0){
-      const { selectedTemplate, handleInputs } = this.props;
+    const { selectedTemplate, handleInputs } = this.props;
+
+    if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
       return (
-      <div className="fill-page">
-        <div className="fill-template__result">
-          <div id="result">{selectedTemplate}</div>
-          <div className="fill-page__btn back-btn">
-              <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
+        <div className="fill-page">
+          <div className="fill-template__result">
+            <div id="result">{selectedTemplate}</div>
+            <div className="fill-page__btn back-btn">
+                <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
+            </div>
           </div>
-        </div>
-        <div className="fill-page__form">
-          <form>
-            {this.state.moustachesArray.map(item => {
-              return (
-                <div key={item} className="form-group">
-                  <label htmlFor={item}>{item.toUpperCase()}:</label>
-                  <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-                </div>
-              );
-              })
-            }
-          </form>
-        </div>
-        <div className="row d-flex justify-content-around">
-          <div className="fill-page__btn back-btn">
-          <Link to="/steps/choose"><button type="button" className="btn btn-light">Back</button></Link>
-          <div className="fill-page__btn next-btn">
-            <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesApi}>Next</button></Link>
+          <div className="fill-page__form">
+            <form>
+              {this.state.moustachesArray.map(item => {
+                return (
+                  <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+                  </div>
+                );
+                })
+              }
+            </form>
+          </div>
+          <div className="row d-flex justify-content-around">
+            <div className="fill-page__btn back-btn">
+              <Link to="/steps/choose"><button type="button" className="btn btn-light">Back</button></Link>
+              <div className="fill-page__btn next-btn">
+                <Link to="/steps/success"><button type="button" className="btn btn-light" onClick={this.loadSlidesReplace}>Next</button></Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       );
     } else {
         return(
