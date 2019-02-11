@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
-import { request } from "http";
+
 
 let keywords = [];
 let eraseMoustache;
-let moustachesArray;
+
 
 class Fill extends Component {
   constructor(props) {
@@ -14,11 +14,11 @@ class Fill extends Component {
 
     this.state={
       loadingForm: true,
+      moustachesArray : [],
     }
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
-    this.getForm = this.getForm.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +47,6 @@ class Fill extends Component {
           replaceText: item[1]
         }
       });
-      console.log(requests);
       return requests;
     });
 
@@ -56,36 +55,16 @@ class Fill extends Component {
       requests: requests
     }).then(response => {
       let presentation = response.result;
-      console.log(presentation);
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
       eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
-      moustachesArray = [...keywords, ...eraseMoustache];
-        if(moustachesArray.length > 0) {
-          this.setState({
-            loadingForm: false
-        })
-      }
+      this.setState({moustachesArray : [...keywords, ...eraseMoustache]});
     });
   }
 
-  getForm(){
-    const { handleInputs } = this.props;
-    console.log(moustachesArray);
-    if(moustachesArray.length > 0) {
-      moustachesArray.map(item => {
-        return (
-          <div key={item} className="form-group">
-            <label htmlFor={item}>{item.toUpperCase()}:</label>
-            <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-          </div>
-        );
-      })
-    }
-  }
 
   render() {
-    if (!this.state.loadingForm){
-      const { selectedTemplate } = this.props;
+    if (this.state.moustachesArray.length > 0){
+      const { selectedTemplate, handleInputs } = this.props;
       return (
       <div className="fill-page">
         <div className="fill-template__result">
@@ -96,7 +75,15 @@ class Fill extends Component {
         </div>
         <div className="fill-page__form">
           <form>
-            {this.getForm()}
+            {this.state.moustachesArray.map(item => {
+              return (
+                <div key={item} className="form-group">
+                  <label htmlFor={item}>{item.toUpperCase()}:</label>
+                  <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+                </div>
+              );
+              })
+            }
           </form>
         </div>
         <div className="row d-flex justify-content-around">
