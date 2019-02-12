@@ -47,8 +47,12 @@ class Fill extends Component {
       "resource": {}
     })
         .then(function(response) {
-                // Handle the results here (response.result has the parsed body).
+                // Handle the results here
+                // response.id es el que tienes
+                //(response.result has the parsed body).
                 console.log("Response", response);
+                //guardar el id en el estado, y poner condicional para que esté loading hasta que tengamos verdaderamente el id de la copia generada
+                console.log("responseId="+response.result.id);
               },
               function(err) { console.error("Execute error", err); })
         //.then(this.listSlides())
@@ -59,6 +63,15 @@ class Fill extends Component {
     window.gapi.client.slides.presentations.get({
       presentationId : this.props.presentationId
     }).then(response => {
+      console.log(response.result);
+      // Esto se llama despues de copiar y reemplazar todos los campos. Y le pasamos el contentUrl a una imagen del template
+      window.gapi.client.slides.presentations.pages.getThumbnail({
+        presentationId : this.props.presentationId,
+        pageObjectId: response.result.slides[0].objectId
+      }).then(response2 => {
+        this.props.contentImageUrl = response2.result.contentUrl;
+        console.log(response2.result.contentUrl);
+      });
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
       eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
@@ -77,11 +90,42 @@ class Fill extends Component {
 
   listSlidesReplace() {
     let t = this.execute;
+
+
+
+
     setTimeout(function(){
-      t();
+      // Esto lo hacemos para cambiar los permisos de una imagen subida a GDrive.
+      var body = {
+        'value': "default",
+        'type': "anyone",
+        'role': "reader"
+      };
+      var request = window.gapi.client.drive.permissions.insert({
+        'fileId': "1NwwRePCedmhsCPqvLuBnJd-oY3IyXTHo",
+        'resource': body
+      });
+      request.execute(function(resp) { console.log(resp);
+      console.log('Oleee');});
     },2000);
 
+    setTimeout(function(){
+      t();
+    },5000);
+
     let requests = [];
+
+    requests.push({
+      replaceAllShapesWithImage: {
+        imageUrl:'https://drive.google.com/uc?export=view&id=1NwwRePCedmhsCPqvLuBnJd-oY3IyXTHo',
+        imageReplaceMethod: 'CENTER_CROP',
+        containsText:{
+          text: '{{{logo}}}',
+          matchCase: false
+        }
+      }
+    });
+
     this.props.inputs.map(item => {
       requests.push({
         replaceAllText: {
@@ -93,6 +137,8 @@ class Fill extends Component {
       });
       return requests;
     });
+
+    //https://drive.google.com/file/d/1NwwRePCedmhsCPqvLuBnJd-oY3IyXTHo/view?usp=sharing
 
     window.gapi.client.slides.presentations.batchUpdate({
       presentationId: this.props.presentationId,

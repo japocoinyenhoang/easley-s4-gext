@@ -10,6 +10,7 @@ class Success extends Component {
     return (
       <div className="success-page container-fluid">
         <div className="success-page__icons">
+          <img alt='contentImage' src={this.props.contentImageUrl} />
           <i className="fas fa-check"></i>
           <i className="fas fa-thumbs-up"></i>
         </div>
