@@ -35,7 +35,10 @@ const themeApp = createMuiTheme({
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      activeStep: 0,
+      chooseRoute: "/steps/choose",
       clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
@@ -53,6 +56,18 @@ class App extends Component {
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
   }
+
+  handleNext = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep + 1,
+    }));
+  };
+
+  handleBack = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep - 1,
+    }));
+  };
 
   handleInitInputs(data) {
     let newArray = [];
@@ -148,6 +163,7 @@ class App extends Component {
                   handleInitInputs={this.handleInitInputs}
                   presentationId={presentationId}
                   handlePresentationId={this.handlePresentationId}
+                  handleBack={this.handleBack} handleNext={this.handleNext}
                 />} />
             </Switch>
             <div className="row">

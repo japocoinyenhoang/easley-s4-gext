@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { sendApiKey } from './Credentials';
+import Button from '@material-ui/core/Button';
 
 class ApiPicker extends Component {
 
@@ -25,6 +26,7 @@ class ApiPicker extends Component {
   onApiLoad() {
     window.gapi.load('auth2', this.onAuthApiLoad);
     window.gapi.load('picker', this.onPickerApiLoad);
+    this.props.handleNext();
   }
 
   onPickerApiLoad() {
@@ -91,7 +93,7 @@ class ApiPicker extends Component {
     } else {
       return (
         <div>
-          <button type="button" className="btn btn-secondary btn-lg" onClick={this.onApiLoad}>Select template</button>
+          <Button type="button" className="btn btn-secondary btn-lg" onClick={this.onApiLoad}>Select template</Button>
         </div>
       );
     }

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 class Choose extends Component {
   render() {
-    const { clientId, scopes, handleTemplate, name, email, phoneNumber, handlePresentationId } = this.props;
+    const { clientId, scopes, handleTemplate, name, email, phoneNumber, handlePresentationId, handleNext } = this.props;
     return (
       <div className="choose-page d-flex justify-content-around">
         <div className="choose-page__btn select-btn">
@@ -18,6 +18,7 @@ class Choose extends Component {
             email={email}
             phoneNumber={phoneNumber}
             handlePresentationId={handlePresentationId}
+            handleNext={handleNext}
           />
         </div>
         <div className="choose-page__btn upload-btn">
