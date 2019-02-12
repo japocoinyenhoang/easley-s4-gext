@@ -34,7 +34,9 @@ class Steps extends Component {
                   handleInputPhone={handleInputPhone}
                   selectedTemplate={selectedTemplate}
                   presentationId={presentationId} />} />
-              <Route path="/steps/success" component={Success} />
+              <Route path="/steps/success" render = {props =>
+                  <Success
+                  presentationId={presentationId} />} />
             </Switch>
           </main>
         </div>
