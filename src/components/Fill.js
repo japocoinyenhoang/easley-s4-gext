@@ -33,11 +33,11 @@ class Fill extends Component {
     }
   }
 
-  loadClient() {
-    console.log('soy loadclient');
-    return window.gapi.client.load("slides:drive")
-        .then(this.execute)
-  }
+  // loadClient() {
+  //   console.log('soy loadclient');
+  //   return window.gapi.client.load("slides:drive")
+  //       .then(this.execute)
+  // }
 
   execute() {
     console.log('soy execute');

@@ -85,6 +85,7 @@ class ApiPicker extends Component {
     }
   }
 
+
   render() {
     if (this.state.picked) {
       return <Redirect to='/steps/fill' />
