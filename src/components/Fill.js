@@ -15,7 +15,7 @@ class Fill extends Component {
       moustachesArray : [],
     }
 
-    /*this.loadSlidesApi = this.loadSlidesApi.bind(this);*/
+    this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
 
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
@@ -35,13 +35,13 @@ class Fill extends Component {
 
   loadClient() {
     console.log('soy loadclient');
-    return window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/slides/v1/rest")
+    return window.gapi.client.load("slides:drive")
         .then(this.execute)
   }
 
   execute() {
     console.log('soy execute');
-    console.log(window.gapi.client.drive);
+    console.log(window.gapi.client);
     return window.gapi.client.drive.files.copy({
       "fileId": "1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY",
       "resource": {}
@@ -51,7 +51,8 @@ class Fill extends Component {
                 console.log("Response", response);
               },
               function(err) { console.error("Execute error", err); })
-        .then(this.listSlides())
+        //.then(this.listSlides())
+        .catch(err =>{console.log(err);})
   }
 
   listSlides() {
@@ -68,11 +69,18 @@ class Fill extends Component {
 
   loadSlidesReplace() {
     if(this.props.presentationId !== '') {
-      window.gapi.client.load('slides', 'v1').then(this.listSlidesReplace);
+      window.gapi.client.load('slides', 'v1').then(f=>{ window.gapi.client.load('drive','v2')}).then(this.listSlidesReplace).catch(error=>{
+        console.log(error);
+      });
     }
   }
 
   listSlidesReplace() {
+    let t = this.execute;
+    setTimeout(function(){
+      t();
+    },2000);
+
     let requests = [];
     this.props.inputs.map(item => {
       requests.push({
