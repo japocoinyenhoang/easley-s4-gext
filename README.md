@@ -7,16 +7,21 @@ It helps companies and users to generate final and sharable documents from templ
 
 ### How to use GEXT?
 
-1. Login with your Gmail account.
+1. Log in to Gext with your Google account and select the template.
 2. Select your template from your Drive account or choose one from your computer.
-3. Fill the inputs required and/or select an image from your computer.
-4. Congratulations! Your presentation is ready! Now, you can view or download it directly to your computer.
+3. You already have in your hands the superpower: the fields of the presentation that you have "gexted" will automatically appear and you will be able to fill them in order to automatically generate a new copy.
+4. Congratulations! Your presentation is ready! Now, you can take a look or download it. And remember:
+"With great power comes great responsibility".
 
 ### How do I create a template in order to use it with GEXT?
 
-The keywords should be named according to the following nomenclature:
-- Text: If you want to replace text use two moustaches like this: {{example}}
-- Image: If you want to change an image use three moustaches like this: {{{logo}}}
+To get all the superpowers from Gext presentations, in your template:
+
+1. Write between two curly braces the text fields that you want to change...
+2. or between three curly braces the images that you want to insert.
+
+For example: {{name}} {{{image}}}
+
 
 ### How it works?
 
