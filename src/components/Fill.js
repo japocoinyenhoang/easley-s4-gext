@@ -71,7 +71,7 @@ class Fill extends Component {
       console.log(eraseTripleMoustache);
 
       this.props.handleInitInputs(this.state.moustachesArray);
-      this.props.handleImageInputs(this.state.tripleMoustachesArray);
+      this.props.handleImagesInputs(this.state.tripleMoustachesArray);
     });
   }
 
@@ -104,7 +104,7 @@ class Fill extends Component {
   }
 
   render() {
-    const { selectedTemplate, handleInputs } = this.props;
+    const { selectedTemplate, handleInputs, handleImages } = this.props;
 
     if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
       return (
@@ -126,6 +126,17 @@ class Fill extends Component {
                 );
                 })
               }
+              {this.state.tripleMoustachesArray.map(item => {
+                return (
+                  <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="file" onKeyUp={handleImages} />
+                  </div>
+                );
+                })
+              }
+
+
             </form>
           </div>
           <div className="row d-flex justify-content-around">
@@ -148,8 +159,9 @@ class Fill extends Component {
 
 Fill.propTypes = {
   handleInitInputs: PropTypes.func,
-  handleImageInputs: PropTypes.func,
+  handleImagesInputs: PropTypes.func,
   handleInputs: PropTypes.func,
+  handleImages: PropTypes.func,
   inputs: PropTypes.array,
   selectedTemplate: PropTypes.string
 };

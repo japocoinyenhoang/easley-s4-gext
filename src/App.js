@@ -13,7 +13,7 @@ class App extends Component {
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
-      imageInputs: [],
+      imagesInputs: [],
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
@@ -23,9 +23,10 @@ class App extends Component {
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
+    this.handleImages = this.handleImages.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
-    this.handleImageInputs = this.handleImageInputs.bind(this);
+    this.handleImagesInputs = this.handleImagesInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
   }
 
@@ -43,7 +44,7 @@ class App extends Component {
     }
 
   }
-  handleImageInputs(data) {
+  handleImagesInputs(data) {
     let newArray = [];
     if(data !== undefined) {
       data.map(item => {
@@ -52,7 +53,7 @@ class App extends Component {
       });
 
       this.setState({
-        imageInputs: newArray
+        imagesInputs: newArray
       });
     }
 
@@ -73,9 +74,28 @@ class App extends Component {
     });
 
     this.setState({
+      imagesInputs: newValue
+    });
+  }
+
+  handleImages(e) {
+    const target = e.currentTarget.id;
+    const value = e.currentTarget.value;
+    const { inputs } = this.state;
+
+    let newValue = [];
+    newValue = inputs.map(item => {
+      if (item[0] === target){
+        item[1] = value
+      }
+      return item;
+    });
+
+    this.setState({
       inputs: newValue
     });
   }
+
 
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
@@ -129,11 +149,12 @@ class App extends Component {
               clientId={clientId}
               scopes={scopes}
               handleInputs={this.handleInputs}
+              handleImages={this.handleImages}
               inputs={inputs}
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
               handleInitInputs={this.handleInitInputs}
-              handleImageInputs={this.handleImageInputs}
+              handleImagesInputs={this.handleImagesInputs}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
               />} />
