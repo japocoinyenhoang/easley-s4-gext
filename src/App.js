@@ -4,6 +4,7 @@ import './App.scss';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
+import AboutUs from './components/AboutUs';
 
 class App extends Component {
   constructor(props) {
@@ -130,6 +131,8 @@ class App extends Component {
               handleCopyId={this.handleCopyId}
               copyId={copyId}
               />} />
+          <Route path="/about" render={props =>
+            <AboutUs/>} />
         </Switch>
         <div className="row">
           <Footer />
