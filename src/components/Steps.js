@@ -8,11 +8,14 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, open, handleOpen, handleClose } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
-          <Header handleSignoutClick={handleSignoutClick} />
+          <Header handleSignoutClick={handleSignoutClick}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  open={open} />
           <main className="main-container">
             <Wizard />
             <Switch>
@@ -20,18 +23,15 @@ class Steps extends Component {
                 <Choose clientId={clientId}
                   scopes={scopes}
                   handleTemplate={handleTemplate}
-                  name={name}
-                  email={email}
-                  phoneNumber={phoneNumber}
-                  handlePresentationId={handlePresentationId}/>} />
+                  handlePresentationId={handlePresentationId}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  open={open}/>} />
               <Route path="/steps/fill" render={props =>
                 <Fill
                   handleInputs={handleInputs}
                   inputs={inputs}
                   handleInitInputs={handleInitInputs}
-                  handleInputName={handleInputName}
-                  handleInputEmail={handleInputEmail}
-                  handleInputPhone={handleInputPhone}
                   selectedTemplate={selectedTemplate}
                   presentationId={presentationId} />} />
               <Route path="/steps/success" render = {props =>

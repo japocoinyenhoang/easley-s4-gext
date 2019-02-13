@@ -16,7 +16,8 @@ class App extends Component {
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
-      presentationId:''
+      presentationId:'',
+      open: false
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -25,7 +26,17 @@ class App extends Component {
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   handleInitInputs(data) {
     let newArray = [];
@@ -95,7 +106,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, open } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -105,7 +116,11 @@ class App extends Component {
               scopes={scopes}
               updateStateLogin={this.updateStateLogin}
               signIn={signIn}
-              loadingHome={loadingHome}/>} />
+              loadingHome={loadingHome}
+              handleOpen={this.handleOpen}
+              handleClose={this.handleClose}
+              open={open}
+              />} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
@@ -118,6 +133,9 @@ class App extends Component {
               handleInitInputs={this.handleInitInputs}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
+              handleOpen={this.handleOpen}
+              handleClose={this.handleClose}
+              open={open}
               />} />
         </Switch>
         <div className="row">
