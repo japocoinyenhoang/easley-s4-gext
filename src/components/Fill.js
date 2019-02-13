@@ -5,6 +5,7 @@ import ReactLoading from 'react-loading';
 
 let keywords = [];
 let eraseMoustache;
+let presentation;
 
 class Fill extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Fill extends Component {
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
-
+    this.execute = this.execute.bind(this);
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
   }
@@ -29,30 +30,25 @@ class Fill extends Component {
 
   loadSlidesApi() {
     if(this.props.presentationId !== '') {
+      presentation = this.props.presentationId;
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
     }
   }
 
-  // loadClient() {
-  //   console.log('soy loadclient');
-  //   return window.gapi.client.load("slides:drive")
-  //       .then(this.execute)
-  // }
-
   execute() {
     console.log('soy execute');
-    console.log(window.gapi.client);
+    console.log(window.gapi.client.drive);
     return window.gapi.client.drive.files.copy({
-      "fileId": "1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY",
+      "fileId": presentation,
       "resource": {}
     })
-        .then(function(response) {
+        .then((response) => {
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
               },
               function(err) { console.error("Execute error", err); })
-        //.then(this.listSlides())
-        .catch(err =>{console.log(err);})
+        .then(this.listSlidesReplace())
+        .catch(err=>{console.log(err);})
   }
 
   listSlides() {
@@ -69,17 +65,15 @@ class Fill extends Component {
 
   loadSlidesReplace() {
     if(this.props.presentationId !== '') {
-      window.gapi.client.load('slides', 'v1').then(f=>{ window.gapi.client.load('drive','v2')}).then(this.listSlidesReplace).catch(error=>{
-        console.log(error);
-      });
+      window.gapi.client.load('slides', 'v1').then(f=>{
+        window.gapi.client.load('drive', 'v2').then(execute=>{
+          this.execute()
+        })
+      }).catch(error=>{console.log(error)});
     }
   }
 
   listSlidesReplace() {
-    let t = this.execute;
-    setTimeout(function(){
-      t();
-    },2000);
 
     let requests = [];
     this.props.inputs.map(item => {
@@ -95,6 +89,7 @@ class Fill extends Component {
     });
 
     window.gapi.client.slides.presentations.batchUpdate({
+      //este presentationId cambiará por el de la copia
       presentationId: this.props.presentationId,
       requests: requests
     }).then((response) => {
