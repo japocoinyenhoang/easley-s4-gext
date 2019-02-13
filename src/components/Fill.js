@@ -5,6 +5,7 @@ import ReactLoading from 'react-loading';
 
 let keywords = [];
 let eraseMoustache;
+let eraseTripleMoustache;
 
 class Fill extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Fill extends Component {
 
     this.state={
       loadingForm: true,
-      moustachesArray : [],
+      moustachesArray: [],
+      tripleMoustachesArray: []
     }
 
     /*this.loadSlidesApi = this.loadSlidesApi.bind(this);*/
@@ -60,9 +62,16 @@ class Fill extends Component {
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
+      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w\.]+\s*}}}(?!})/g);
       eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
+      eraseTripleMoustache= tripleMoustaches.map(item=>item.replace('{{{','').replace('}}}',''));
       this.setState({moustachesArray: [...keywords, ...eraseMoustache]});
+      this.setState({tripleMoustachesArray: [...keywords, ...eraseTripleMoustache]});
+      console.log('hola');
+      console.log(eraseTripleMoustache);
+
       this.props.handleInitInputs(this.state.moustachesArray);
+      this.props.handleImageInputs(this.state.tripleMoustachesArray);
     });
   }
 
@@ -139,6 +148,7 @@ class Fill extends Component {
 
 Fill.propTypes = {
   handleInitInputs: PropTypes.func,
+  handleImageInputs: PropTypes.func,
   handleInputs: PropTypes.func,
   inputs: PropTypes.array,
   selectedTemplate: PropTypes.string

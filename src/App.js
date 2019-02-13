@@ -13,6 +13,7 @@ class App extends Component {
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
+      imageInputs: [],
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
@@ -24,6 +25,7 @@ class App extends Component {
     this.handleInputs = this.handleInputs.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
+    this.handleImageInputs = this.handleImageInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
   }
 
@@ -41,6 +43,21 @@ class App extends Component {
     }
 
   }
+  handleImageInputs(data) {
+    let newArray = [];
+    if(data !== undefined) {
+      data.map(item => {
+        newArray.push([item,'']);
+        return newArray
+      });
+
+      this.setState({
+        imageInputs: newArray
+      });
+    }
+
+  }
+
 
   handleInputs(e) {
     const target = e.currentTarget.id;
@@ -116,6 +133,7 @@ class App extends Component {
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
               handleInitInputs={this.handleInitInputs}
+              handleImageInputs={this.handleImageInputs}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
               />} />
