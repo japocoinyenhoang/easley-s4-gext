@@ -104,7 +104,7 @@ class Fill extends Component {
   }
 
   render() {
-    const { selectedTemplate, handleInputs, handleImages } = this.props;
+    const { selectedTemplate, handleInputs, handleTripleMoustaches} = this.props;
 
     if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
       return (
@@ -128,9 +128,17 @@ class Fill extends Component {
               }
               {this.state.tripleMoustachesArray.map(item => {
                 return (
+                  // <div className="fill__add-img">
+                  //           <input className="block" id="btn__add-img" type="file"
+                  //           name="btn__add-img" ref={this.props.fileInput} onChange={this.props.handleChangeFile} />
+                  //           <button className="btn__img--false" type="button" onClick={this.props.fakeClick}>Añadir imagen</button>
+                  //           <div className="square__img" style={{ backgroundImage: `url(${this.props.img})` }}>
+                  //           </div>
+                  //       </div>
+
                   <div key={item} className="form-group">
                     <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="file" onKeyUp={handleImages} />
+                    <input className="form-control " id={item} type="file" onChange={this.props.handleChangeFile} />
                   </div>
                 );
                 })
@@ -161,7 +169,7 @@ Fill.propTypes = {
   handleInitInputs: PropTypes.func,
   handleImagesInputs: PropTypes.func,
   handleInputs: PropTypes.func,
-  handleImages: PropTypes.func,
+  handleTripleMoustaches: PropTypes.func,
   inputs: PropTypes.array,
   selectedTemplate: PropTypes.string
 };

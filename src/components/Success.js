@@ -23,6 +23,9 @@ class Success extends Component {
          download="test.pptx"><button className="btn btn-outline-primary">Download your presentation</button></a>
           </div>
         </div>
+        <div className="photo-container">
+          {this.props.photos}
+        </div>
       </div>
     );
   }

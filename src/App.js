@@ -5,6 +5,9 @@ import Home from './components/Home';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
 
+const fr = new FileReader();
+
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +17,7 @@ class App extends Component {
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
       imagesInputs: [],
+      images: {photos:''},
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
@@ -23,7 +27,8 @@ class App extends Component {
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
-    this.handleImages = this.handleImages.bind(this);
+    this.handleTripleMoustaches = this.handleTripleMoustaches.bind(this);
+    this.handleChangeFile = this.handleChangeFile.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
@@ -78,11 +83,12 @@ class App extends Component {
     });
   }
 
-  handleImages(e) {
+  handleTripleMoustaches(e) {
     const target = e.currentTarget.id;
     const value = e.currentTarget.value;
-    const { inputs } = this.state;
-
+    const { inputs, images } = this.state;
+    const url = fr.result;
+    const newImages={...images, photos: url};
     let newValue = [];
     newValue = inputs.map(item => {
       if (item[0] === target){
@@ -92,9 +98,23 @@ class App extends Component {
     });
 
     this.setState({
-      inputs: newValue
+      inputs: newValue,
+      images: newImages
     });
   }
+    //Loading image
+    // fakeClick(){
+    //   this.fileInput.current.click();
+    // }
+
+
+    handleChangeFile(event){
+      const myFile = event.currentTarget.files[0];
+      fr.addEventListener('load', this.handleTripleMoustaches);
+      fr.readAsDataURL(myFile);
+    }
+
+
 
 
   updateStateLogin(isSignedIn) {
@@ -132,7 +152,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, handleChangeFile} = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -149,14 +169,16 @@ class App extends Component {
               clientId={clientId}
               scopes={scopes}
               handleInputs={this.handleInputs}
-              handleImages={this.handleImages}
+              handleTripleMoustaches={this.handleTripleMoustaches}
               inputs={inputs}
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
               handleInitInputs={this.handleInitInputs}
               handleImagesInputs={this.handleImagesInputs}
+              handleChangeFile={handleChangeFile}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
+              photos={this.state.images}
               />} />
         </Switch>
         <div className="row">

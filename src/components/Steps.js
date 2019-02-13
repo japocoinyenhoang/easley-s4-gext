@@ -8,7 +8,7 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleImages, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleChangeFile } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -24,15 +24,19 @@ class Steps extends Component {
               <Route path="/steps/fill" render={props =>
                 <Fill
                   handleInputs={handleInputs}
-                  handleImages={handleImages}
+                  handleTripleMoustaches={handleTripleMoustaches}
                   inputs={inputs}
                   handleInitInputs={handleInitInputs}
                   handleImagesInputs={handleImagesInputs}
+                  handleChangeFile={handleChangeFile}
                   selectedTemplate={selectedTemplate}
-                  presentationId={presentationId} />} />
+                  presentationId={presentationId} />}
+                  />
               <Route path="/steps/success" render = {props =>
                   <Success
-                  presentationId={presentationId} />} />
+                  presentationId={presentationId}
+                  photos={this.props.photo}
+                  />} />
             </Switch>
           </main>
         </div>
