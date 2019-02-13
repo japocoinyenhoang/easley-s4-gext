@@ -6,7 +6,6 @@ import ReactLoading from 'react-loading';
 let keywords = [];
 let eraseMoustache;
 let presentation;
-let newId;
 
 class Fill extends Component {
   constructor(props) {
@@ -27,7 +26,6 @@ class Fill extends Component {
 
   componentDidMount() {
     this.loadSlidesApi();
-
   }
 
   loadSlidesApi() {
@@ -43,8 +41,10 @@ class Fill extends Component {
       "resource": {}
     })
         .then((response) => {
-          console.log(response);
-          newId = response.result.id;
+          let newId = response.result.id;
+          console.log(newId);
+          this.props.handleCopyId(newId);
+          console.log(this.props.copyId);
         },
         function(err) { console.error("Execute error", err); })
         .then(f=>{this.listSlidesReplace()})
@@ -87,8 +87,9 @@ class Fill extends Component {
       });
       return requests;
     });
+    console.log(this.props.copyId);
     window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: newId,
+      presentationId: this.props.copyId,
       requests: requests
     }).then((response) => {
       console.log(response);

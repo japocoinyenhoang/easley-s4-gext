@@ -16,7 +16,8 @@ class App extends Component {
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
-      presentationId:''
+      presentationId:'',
+      copyId: ''
     }
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -25,6 +26,7 @@ class App extends Component {
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
+    this.handleCopyId = this.handleCopyId.bind(this);
   }
 
   handleInitInputs(data) {
@@ -94,8 +96,15 @@ class App extends Component {
     });
   }
 
+  handleCopyId(id){
+    console.log('soy handlecopyid');
+    this.setState ({
+      copyId: id
+    });
+  }
+
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -118,6 +127,8 @@ class App extends Component {
               handleInitInputs={this.handleInitInputs}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
+              handleCopyId={this.handleCopyId}
+              copyId={copyId}
               />} />
         </Switch>
         <div className="row">
