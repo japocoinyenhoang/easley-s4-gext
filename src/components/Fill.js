@@ -6,6 +6,7 @@ import ReactLoading from 'react-loading';
 let keywords = [];
 let eraseMoustache;
 let presentation;
+let newId;
 
 class Fill extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Fill extends Component {
     this.state={
       loadingForm: true,
       moustachesArray : [],
+      presentationIdCopy : '',
     }
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
@@ -36,18 +38,16 @@ class Fill extends Component {
   }
 
   execute() {
-    console.log('soy execute');
-    console.log(window.gapi.client.drive);
     return window.gapi.client.drive.files.copy({
       "fileId": presentation,
       "resource": {}
     })
         .then((response) => {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              },
-              function(err) { console.error("Execute error", err); })
-        .then(this.listSlidesReplace())
+          console.log(response);
+          newId = response.result.id;
+        },
+        function(err) { console.error("Execute error", err); })
+        .then(f=>{this.listSlidesReplace()})
         .catch(err=>{console.log(err);})
   }
 
@@ -87,10 +87,8 @@ class Fill extends Component {
       });
       return requests;
     });
-
     window.gapi.client.slides.presentations.batchUpdate({
-      //este presentationId cambiará por el de la copia
-      presentationId: this.props.presentationId,
+      presentationId: newId,
       requests: requests
     }).then((response) => {
       console.log(response);
