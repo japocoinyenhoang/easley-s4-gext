@@ -27,6 +27,7 @@ class App extends Component {
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
     this.handleCopyId = this.handleCopyId.bind(this);
+    this.listSlidesReplace = this.listSlidesReplace.bind(this);
   }
 
   handleInitInputs(data) {
@@ -100,6 +101,30 @@ class App extends Component {
     console.log('soy handlecopyid');
     this.setState ({
       copyId: id
+    },() => {
+      this.listSlidesReplace();
+    }
+    );
+  }
+
+  listSlidesReplace() {
+    let requests = [];
+    this.state.inputs.map(item => {
+      requests.push({
+        replaceAllText: {
+          containsText: {
+            text: `{{${item[0]}}}`
+          },
+          replaceText: item[1]
+        }
+      });
+      return requests;
+    });
+    window.gapi.client.slides.presentations.batchUpdate({
+      presentationId: this.state.copyId,
+      requests: requests
+    }).then((response) => {
+      console.log(response);
     });
   }
 

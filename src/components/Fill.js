@@ -21,7 +21,6 @@ class Fill extends Component {
     this.listSlides = this.listSlides.bind(this);
     this.execute = this.execute.bind(this);
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
-    this.listSlidesReplace = this.listSlidesReplace.bind(this);
   }
 
   componentDidMount() {
@@ -33,22 +32,6 @@ class Fill extends Component {
       presentation = this.props.presentationId;
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
     }
-  }
-
-  execute() {
-    return window.gapi.client.drive.files.copy({
-      "fileId": presentation,
-      "resource": {}
-    })
-        .then((response) => {
-          let newId = response.result.id;
-          console.log(newId);
-          this.props.handleCopyId(newId);
-          console.log(this.props.copyId);
-        },
-        function(err) { console.error("Execute error", err); })
-        .then(f=>{this.listSlidesReplace()})
-        .catch(err=>{console.log(err);})
   }
 
   listSlides() {
@@ -73,27 +56,17 @@ class Fill extends Component {
     }
   }
 
-  listSlidesReplace() {
-
-    let requests = [];
-    this.props.inputs.map(item => {
-      requests.push({
-        replaceAllText: {
-          containsText: {
-            text: `{{${item[0]}}}`
-          },
-          replaceText: item[1]
-        }
-      });
-      return requests;
-    });
-    console.log(this.props.copyId);
-    window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: this.props.copyId,
-      requests: requests
-    }).then((response) => {
-      console.log(response);
-    });
+  execute() {
+    return window.gapi.client.drive.files.copy({
+      "fileId": presentation,
+      "resource": {}
+    })
+        .then((response) => {
+          let newId = response.result.id;
+          this.props.handleCopyId(newId);
+        },
+        function(err) { console.error("Execute error", err); })
+        .catch(err=>{console.log(err);})
   }
 
   render() {
