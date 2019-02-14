@@ -12,7 +12,8 @@ class Fill extends Component {
 
     this.state={
       loadingForm: true,
-      moustachesArray : [],
+      moustachesArray: [],
+      newName: ''
     }
 
     /*this.loadSlidesApi = this.loadSlidesApi.bind(this);*/
@@ -20,11 +21,11 @@ class Fill extends Component {
 
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
+    this.handleNewDocument = this.handleNewDocument.bind(this);
   }
 
   componentDidMount() {
     this.loadSlidesApi();
-
   }
 
   loadSlidesApi() {
@@ -102,7 +103,7 @@ class Fill extends Component {
             return (
               <div key={item} className="form-group">
                 <label htmlFor={item}>{item.toUpperCase()}:</label>
-                <input className="form-control " id={item} type="text" onKeyUp={this.handleInputs} />
+                <input className="form-control" id={item} type="text" onKeyUp={this.handleInputs} />
               </div>
             );
             })
@@ -112,6 +113,13 @@ class Fill extends Component {
     } else {
         return(<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
     }
+  }
+
+  handleNewDocument(e){
+    let query = e.currentTarget.value;
+    this.setState({
+      newName: query
+    })
   }
 
   render() {
@@ -126,6 +134,10 @@ class Fill extends Component {
                 <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
             </div>
           </div>
+          <div className="input-name">
+                <label htmlFor="copyName">New document name: </label>
+                <input className="input-name" id= "copyName" type="text" onKeyUp={this.handleNewDocument} />
+              </div>
           <div className="fill-page__form">
           {this.paintForm()}
           </div>
