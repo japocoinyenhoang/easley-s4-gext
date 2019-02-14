@@ -8,7 +8,11 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
+<<<<<<< HEAD
     const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, imagesInputs} = this.props;
+=======
+   const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleImages, open, handleOpen, handleClose, handleCopyId, copyId } = this.props;
+>>>>>>> dev
     if (signIn) {
       return (
         <div className="steps-container">
@@ -35,6 +39,7 @@ class Steps extends Component {
                   imagesInputs={imagesInputs}
                   handleInitInputs={handleInitInputs}
                   handleImagesInputs={handleImagesInputs}
+<<<<<<< HEAD
                   handleChangeFile={handleChangeFile}
                   selectedTemplate={selectedTemplate}
                   presentationId={presentationId}
@@ -46,6 +51,15 @@ class Steps extends Component {
                   presentationId={presentationId}
                   photos={this.props.photos}
                   />} />
+=======
+                  selectedTemplate={selectedTemplate}
+                  presentationId={presentationId}
+                  handleCopyId={handleCopyId}
+                  copyId={copyId} />} />
+              <Route path="/steps/success" render = {props =>
+                  <Success
+                  copyId={copyId} />} />
+>>>>>>> dev
             </Switch>
           </main>
         </div>

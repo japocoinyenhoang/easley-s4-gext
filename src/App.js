@@ -22,6 +22,7 @@ class App extends Component {
       selectedTemplate: '',
       loadingHome: true,
       presentationId:'',
+      copyId: '',
       open: false
     }
 
@@ -38,6 +39,8 @@ class App extends Component {
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
     this.fakeClick = this.fakeClick.bind(this);
+    this.handleCopyId = this.handleCopyId.bind(this);
+    this.listSlidesReplace = this.listSlidesReplace.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
@@ -62,8 +65,8 @@ class App extends Component {
         inputs: newArray
       });
     }
-
   }
+
   handleImagesInputs(data) {
     let newArray = [];
     if(data !== undefined) {
@@ -77,9 +80,7 @@ class App extends Component {
       });
       console.log('aqui capturo los inputs de las imagenes')
     }
-
   }
-
 
   handleInputs(e) {
     const target = e.currentTarget.id;
@@ -170,8 +171,38 @@ class App extends Component {
     });
   }
 
+  handleCopyId(id){
+    this.setState ({
+      copyId: id
+    },() => {
+      this.listSlidesReplace();
+    }
+    );
+  }
+
+  listSlidesReplace() {
+    let requests = [];
+    this.state.inputs.map(item => {
+      requests.push({
+        replaceAllText: {
+          containsText: {
+            text: `{{${item[0]}}}`
+          },
+          replaceText: item[1]
+        }
+      });
+      return requests;
+    });
+    window.gapi.client.slides.presentations.batchUpdate({
+      presentationId: this.state.copyId,
+      requests: requests
+    }).then((response) => {
+      console.log(response);
+    });
+  }
+
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, open, imagesInputs } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -205,6 +236,8 @@ class App extends Component {
               photos={this.state.images.photos}
               fakeClick={this.fakeClick}
               fileInput={this.fileInput}
+              handleCopyId={this.handleCopyId}
+              copyId={copyId}
               handleOpen={this.handleOpen}
               handleClose={this.handleClose}
               open={open}
