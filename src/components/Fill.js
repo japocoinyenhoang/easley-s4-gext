@@ -103,10 +103,41 @@ class Fill extends Component {
     });
   }
 
-  render() {
-    const { selectedTemplate, handleInputs, handleTripleMoustaches} = this.props;
+  paintForm() {
+    const {handleInputs, handleChangeFile, fileInput, fakeClick} = this.props;
+    if (this.state.moustachesArray.length > 0){
+      return(
+        <form>
+          {this.state.moustachesArray.map(item => {
+            return (
+              <div key={item} className="form-group">
+                <label htmlFor={item}>{item.toUpperCase()}:</label>
+                <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+              </div>
+            );
+            })
+          }
+          {this.state.tripleMoustachesArray.map(item=>{
+            return (
+              <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
+                    <button className="btn__img--false" type="button" onClick={fakeClick}></button>
+                  </div>
+            );
+          })
+          }
+        </form>
+      )
+    } else {
+        return(<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
+    }
+  }
 
-    if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
+  render() {
+    const { selectedTemplate} = this.props;
+    if (this.state.moustachesArray){
+
       return (
         <div className="fill-page">
           <div className="fill-template__result">
@@ -116,37 +147,7 @@ class Fill extends Component {
             </div>
           </div>
           <div className="fill-page__form">
-            <form>
-              {this.state.moustachesArray.map(item => {
-                return (
-                  <div key={item} className="form-group">
-                    <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-                  </div>
-                );
-                })
-              }
-              {this.state.tripleMoustachesArray.map(item => {
-                return (
-                  // <div className="fill__add-img">
-                  //           <input className="block" id="btn__add-img" type="file"
-                  //           name="btn__add-img" ref={this.props.fileInput} onChange={this.props.handleChangeFile} />
-                  //           <button className="btn__img--false" type="button" onClick={this.props.fakeClick}>Añadir imagen</button>
-                  //           <div className="square__img" style={{ backgroundImage: `url(${this.props.img})` }}>
-                  //           </div>
-                  //       </div>
-
-                  <div key={item} className="form-group">
-                    <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="file" ref={this.props.fileInput} onChange={this.props.handleChangeFile} />
-                    <button className="btn__img--false" type="button" onClick={this.props.fakeClick}></button>
-                  </div>
-                );
-                })
-              }
-
-
-            </form>
+          {this.paintForm()}
           </div>
           <div className="row d-flex justify-content-around">
             <div className="fill-page__btn back-btn">

@@ -7,6 +7,8 @@ class Success extends Component {
 
     let urlSlide = `https://docs.google.com/presentation/d/${this.props.presentationId}/`
     let urlDownload = `https://docs.google.com/presentation/d/${this.props.presentationId}/export/pptx`
+    let urlDownloadPdf = `https://docs.google.com/presentation/d/${this.props.presentationId}/export/pdf`
+
     return (
       <div className="success-page container-fluid">
         <div className="success-page__icons">
@@ -20,11 +22,16 @@ class Success extends Component {
           </div>
           <div className="success-page__btn download-btn">
           <a className="link-success" href= {urlDownload}
-         download="test.pptx"><button className="btn btn-outline-primary">Download your presentation</button></a>
+         download="test.pptx"><button className="btn btn-outline-primary">Download PPTX</button></a>
           </div>
         </div>
-        <div className="photo-container">
-          {this.props.photos}
+        <div className="success-page__btn download-btn">
+          <a className="link-success" href= {urlDownloadPdf}
+         download="test.pdf"><button className="btn btn-outline-primary">Download PDF</button></a>
+        </div>
+        <div className="photo__container">
+         <img src={this.props.photos} alt="uploaded"/>
+        {this.props.photos}
         </div>
       </div>
     );

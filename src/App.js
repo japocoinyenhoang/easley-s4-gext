@@ -17,11 +17,12 @@ class App extends Component {
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
       imagesInputs: [],
-      images: {photos:'https://ipsumimage.appspot.com/640x360'},
+      images: {photos:''},
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
-      presentationId:''
+      presentationId:'',
+      open: false
     }
 
     this.fileInput = React.createRef();
@@ -37,7 +38,17 @@ class App extends Component {
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
     this.fakeClick = this.fakeClick.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   handleInitInputs(data) {
     let newArray = [];
@@ -160,7 +171,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, open } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -170,7 +181,11 @@ class App extends Component {
               scopes={scopes}
               updateStateLogin={this.updateStateLogin}
               signIn={signIn}
-              loadingHome={loadingHome}/>} />
+              loadingHome={loadingHome}
+              handleOpen={this.handleOpen}
+              handleClose={this.handleClose}
+              open={open}
+              />} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
@@ -189,6 +204,9 @@ class App extends Component {
               photos={this.state.images.photos}
               fakeClick={this.fakeClick}
               fileInput={this.fileInput}
+              handleOpen={this.handleOpen}
+              handleClose={this.handleClose}
+              open={open}
               />} />
         </Switch>
         <div className="row">
