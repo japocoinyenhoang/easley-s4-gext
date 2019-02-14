@@ -17,12 +17,15 @@ class App extends Component {
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
       imagesInputs: [],
-      images: {photos:''},
+      images: {photos:'https://ipsumimage.appspot.com/640x360'},
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
       presentationId:''
     }
+
+    this.fileInput = React.createRef();
+
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
@@ -33,6 +36,7 @@ class App extends Component {
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
+    this.fakeClick = this.fakeClick.bind(this);
   }
 
   handleInitInputs(data) {
@@ -60,6 +64,7 @@ class App extends Component {
       this.setState({
         imagesInputs: newArray
       });
+      console.log('aqui capturo los inputs de las imagenes');
     }
 
   }
@@ -101,11 +106,13 @@ class App extends Component {
       inputs: newValue,
       images: newImages
     });
+    console.log('hemos sido engañaos');
+    console.log (newImages);
   }
-    //Loading image
-    // fakeClick(){
-    //   this.fileInput.current.click();
-    // }
+    // Loading image
+    fakeClick(){
+      this.fileInput.current.click();
+    }
 
 
     handleChangeFile(event){
@@ -178,7 +185,9 @@ class App extends Component {
               handleChangeFile={handleChangeFile}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
-              photos={this.state.images}
+              photos={this.state.images.photos}
+              fakeClick={this.fakeClick}
+              fileInput={this.fileInput}
               />} />
         </Switch>
         <div className="row">
