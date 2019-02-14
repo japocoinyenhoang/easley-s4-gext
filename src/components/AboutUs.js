@@ -4,6 +4,7 @@ import silvia from '../images/silvia.jpg';
 import alba from '../images/alba.jpg';
 import yen from '../images/yen.jpg';
 import roxana from '../images/roxana.jpg';
+import { Link } from 'react-router-dom';
 
 class AboutUs extends Component {
   render() {
@@ -76,6 +77,9 @@ class AboutUs extends Component {
             </ul>
           </li>
         </ul>
+        <div>
+          <Link className="link__about-us" to="/">Go back</Link>
+        </div>
       </div>
     );
   }

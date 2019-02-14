@@ -3,6 +3,8 @@ import logoHeader from '../images/logo__gext_header.png';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import btn_google from '../images/btn_google.svg';
+import Button from '@material-ui/core/Button';
+import SimpleModal from './SimpleModal';
 
 class Header extends Component {
   render() {
@@ -12,7 +14,12 @@ class Header extends Component {
           <Link to="/"><img src={logoHeader} alt="Gext logo"></img></Link>
         </div>
         <button type="button" className="btn-signout btn btn-light" onClick={this.props.handleSignoutClick}><img src={btn_google} className="google-logo" alt="google logo" />Sign Out</button>
-        <div className="header__link col-auto"><a href="#j">How it works</a></div>
+        <div className="header__link col-auto">
+          <Button onClick={this.props.handleOpen}>How it works</Button>
+        </div>
+        <SimpleModal
+              open={this.props.open}
+              handleClose={this.props.handleClose}/>
         <div className='header__about-us'>
             <Link className="link__about-us" to="/about">About us</Link>
         </div>
