@@ -171,7 +171,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, open } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, open, imagesInputs } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -194,6 +194,7 @@ class App extends Component {
               handleInputs={this.handleInputs}
               handleTripleMoustaches={this.handleTripleMoustaches}
               inputs={inputs}
+              imagesInputs={imagesInputs}
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
               handleInitInputs={this.handleInitInputs}

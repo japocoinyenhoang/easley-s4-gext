@@ -82,7 +82,38 @@ class Fill extends Component {
   }
 
   listSlidesReplace() {
+    let t = this.execute;
+    setTimeout(function(){
+      // Esto lo hacemos para cambiar los permisos de una imagen subida a GDrive.
+      var body = {
+        'value': "default",
+        'type': "anyone",
+        'role': "reader"
+      };
+      var request = window.gapi.client.drive.permissions.insert({
+        'fileId': "1NwwRePCedmhsCPqvLuBnJd-oY3IyXTHo",
+        'resource': body
+      });
+      request.execute(function(resp) { console.log(resp);
+      console.log('Oleee');});
+    },2000);
+
+    setTimeout(function(){
+      t();
+    },5000);
+
+
     let requests = [];
+    this.props.imagesInputs.requests.push({
+      replaceAllShapesWithImage: {
+        imageUrl:'https://drive.google.com/uc?export=view&id=1NwwRePCedmhsCPqvLuBnJd-oY3IyXTHo',
+        imageReplaceMethod: 'CENTER_CROP',
+        containsText:{
+          text: '{{{logo}}}',
+          matchCase: false
+        }
+      }
+    });
     this.props.inputs.map(item => {
       requests.push({
         replaceAllText: {

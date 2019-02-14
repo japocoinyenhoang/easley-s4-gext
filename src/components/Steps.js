@@ -8,7 +8,7 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, imagesInputs} = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -32,6 +32,7 @@ class Steps extends Component {
                   handleInputs={handleInputs}
                   handleTripleMoustaches={handleTripleMoustaches}
                   inputs={inputs}
+                  imagesInputs={imagesInputs}
                   handleInitInputs={handleInitInputs}
                   handleImagesInputs={handleImagesInputs}
                   handleChangeFile={handleChangeFile}
