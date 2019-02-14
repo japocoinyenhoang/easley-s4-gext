@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+import laura from '../images/laura.png';
+import silvia from '../images/silvia.jpg';
+import alba from '../images/alba.jpg';
 
 class AboutUs extends Component {
   render() {
@@ -7,7 +10,7 @@ class AboutUs extends Component {
         <ul className='about-us__list'>
           <li className='about-us__item'>
             <div className='about-us__pic'>
-              <img className='profile-pic' alt='profile pic'></img>
+              <img className='profile-pic' src={silvia} alt='profile pic'></img>
             </div>
             <h2 className='about-us__title'>Silvia García Cacho</h2>
             <p className='about-us__description'>Master in cultural management. Due to my interest in technology and continuous learning I decided to start a new adventure as front-end developer. Hope to keep helping cultural institutions to embrace the XXI Century technology.</p>
@@ -20,7 +23,7 @@ class AboutUs extends Component {
           </li>
           <li className='about-us__item'>
             <div className='about-us__pic'>
-              <img className='profile-pic' alt='profile pic'></img>
+              <img className='profile-pic' src={alba} alt='profile pic'></img>
             </div>
             <h2 className='about-us__title'>Alba López Folgar</h2>
             <p className='about-us__description'>Graduated in Sociology, driven by social questions and issues. After studying in Adalab and develop the necessary skills to start a new path on web development, I am very eager to develop my career and never stop learning and growing.</p>
@@ -59,7 +62,7 @@ class AboutUs extends Component {
           </li>
           <li className='about-us__item'>
             <div className='about-us__pic'>
-              <img className='profile-pic' alt='profile pic'></img>
+              <img className='profile-pic' src={laura} alt='profile pic'></img>
             </div>
             <h2 className='about-us__title'>Laura Sánchez Redondo</h2>
             <p className='about-us__description'>I changed my career as a Teacher of Infant Education and English, for UX Design. I discovered Adalab through a group of Spanish Ux Ladies on Twitter and, at the first time, I thought it was the best option to develop my professional career in the technological world. I love being part of this great initiative.</p>
