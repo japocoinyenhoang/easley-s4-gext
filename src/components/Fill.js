@@ -104,6 +104,7 @@ class Fill extends Component {
   }
 
   paintForm() {
+    const {handleInputs, handleImages} = this.props;
     if (this.state.moustachesArray.length > 0){
       return(
         <form>
@@ -111,7 +112,7 @@ class Fill extends Component {
             return (
               <div key={item} className="form-group">
                 <label htmlFor={item}>{item.toUpperCase()}:</label>
-                <input className="form-control " id={item} type="text" onKeyUp={this.handleInputs} />
+                <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
               </div>
             );
             })
@@ -133,7 +134,7 @@ class Fill extends Component {
   }
 
   render() {
-    const { selectedTemplate, handleInputs, handleImages } = this.props;
+    const { selectedTemplate } = this.props;
 
     if (this.state.moustachesArray){
       return (

@@ -9,7 +9,7 @@ import Success from './Success';
 class Steps extends Component {
   render() {
 
-   const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, open, handleOpen, handleClose } = this.props;
+   const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleImages, open, handleOpen, handleClose } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
