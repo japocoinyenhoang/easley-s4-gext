@@ -4,8 +4,9 @@ import ReactLoading from 'react-loading';
 
 class Success extends Component {
   render() {
-    let urlSlide = `https://docs.google.com/presentation/d/${this.props.copyId}/`
-    let urlDownload = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pptx`
+    let urlSlide = `https://docs.google.com/presentation/d/${this.props.copyId}/`;
+    let urlDownload = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pptx`;
+    let urlDownloadPdf = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pdf`;
     if(this.props.copyId !== ''){
     return (
       <div className="success-page container-fluid">
@@ -19,9 +20,13 @@ class Success extends Component {
             </button></a>
           </div>
           <div className="success-page__btn download-btn">
-            <a className="link-success" href={urlDownload}
-              download="test.pptx"><button className="btn btn-outline-primary">Download your presentation</button></a>
+          <a className="link-success" href= {urlDownload}
+         download="test.pptx"><button className="btn btn-outline-primary">Download PPTX</button></a>
           </div>
+        </div>
+        <div className="success-page__btn download-btn">
+          <a className="link-success" href= {urlDownloadPdf}
+         download="test.pdf"><button className="btn btn-outline-primary">Download PDF</button></a>
         </div>
       </div>
     );

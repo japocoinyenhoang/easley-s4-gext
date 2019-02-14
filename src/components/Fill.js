@@ -6,6 +6,7 @@ import ReactLoading from 'react-loading';
 let keywords = [];
 let eraseMoustache;
 let presentation;
+let eraseTripleMoustache;
 
 class Fill extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Fill extends Component {
       loadingForm: true,
       moustachesArray : [],
       presentationIdCopy : '',
+      tripleMoustachesArray: []
     }
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
@@ -40,9 +42,17 @@ class Fill extends Component {
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-      eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
-      this.setState({moustachesArray: [...keywords, ...eraseMoustache]});
+      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w\.]+\s*}}}(?!})/g);
+      if(moustaches.length > 0){
+        eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
+        this.setState({moustachesArray: [...keywords, ...eraseMoustache]});
+      }
+      if(tripleMoustaches.length > 0){
+        eraseTripleMoustache = tripleMoustaches.map(item=>item.replace('{{{','').replace('}}}',''));
+        this.setState({tripleMoustachesArray: [...keywords, ...eraseTripleMoustache]});
+      }
       this.props.handleInitInputs(this.state.moustachesArray);
+      this.props.handleImagesInputs(this.state.tripleMoustachesArray);
     });
   }
 
@@ -69,10 +79,40 @@ class Fill extends Component {
         .catch(err=>{console.log(err);})
   }
 
-  render() {
-    const { selectedTemplate, handleInputs } = this.props;
+  paintForm() {
+    const {handleInputs, handleImages} = this.props;
+    if (this.state.moustachesArray.length > 0 || this.state.tripleMoustachesArray.length > 0){
+      return(
+        <form>
+          {this.state.moustachesArray.map(item => {
+            return (
+              <div key={item} className="form-group">
+                <label htmlFor={item}>{item.toUpperCase()}:</label>
+                <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+              </div>
+            );
+            })
+          }
+          {this.state.tripleMoustachesArray.map(item => {
+                return (
+                  <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="file" onKeyUp={handleImages} />
+                  </div>
+                );
+                })
+              }
+        </form>
+      )
+    } else {
+        return(<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
+    }
+  }
 
-    if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
+  render() {
+    const { selectedTemplate } = this.props;
+
+    if (this.state.moustachesArray.length > 0 || this.state.tripleMoustachesArray.length > 0){
       return (
         <div className="fill-page">
           <div className="fill-template__result">
@@ -82,17 +122,7 @@ class Fill extends Component {
             </div>
           </div>
           <div className="fill-page__form">
-            <form>
-              {this.state.moustachesArray.map(item => {
-                return (
-                  <div key={item} className="form-group">
-                    <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-                  </div>
-                );
-                })
-              }
-            </form>
+          {this.paintForm()}
           </div>
           <div className="row d-flex justify-content-around">
             <div className="fill-page__btn back-btn">
@@ -114,7 +144,9 @@ class Fill extends Component {
 
 Fill.propTypes = {
   handleInitInputs: PropTypes.func,
+  handleImagesInputs: PropTypes.func,
   handleInputs: PropTypes.func,
+  handleImages: PropTypes.func,
   inputs: PropTypes.array,
   selectedTemplate: PropTypes.string
 };
