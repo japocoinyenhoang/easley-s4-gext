@@ -43,6 +43,7 @@ class App extends Component {
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.uploadImageDrive =this.uploadImageDrive.bind(this);
   }
 
   handleOpen = () => {
@@ -113,13 +114,14 @@ class App extends Component {
       }
       return item;
     });
+    console.log('hemos sido engañaos');
 
     this.setState({
       inputs: newValue,
       images: newImages
-    });
-    console.log('hemos sido engañaos');
+    }, this.uploadImageDrive());
     console.log (newImages);
+
   }
     // Loading image
     fakeClick(){
@@ -132,6 +134,29 @@ class App extends Component {
       const myFile = event.currentTarget.files[0];
       fr.addEventListener('load', this.handleTripleMoustaches);
       fr.readAsDataURL(myFile);
+    }
+
+    uploadImageDrive(){
+      let file=this.state.images.photos;
+      console.log ('ya hemos entrado');
+          // var file = $('#fileToUpload')[0].files[0];
+      let metadata = {
+        'name': file.name, // Filename at Google Drive
+        'mimeType': file.type, // mimeType at Google Drive
+        //'parents': ['### folder ID ###'], // Folder ID at Google Drive
+      };
+      let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+      let form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+      form.append('file', file);
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.responseType = 'json';
+      xhr.onload = () => {
+          console.log(xhr.response.id); // Retrieve uploaded file ID.
+      };
+      xhr.send(form);
     }
 
 
