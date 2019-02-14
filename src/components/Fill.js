@@ -103,10 +103,39 @@ class Fill extends Component {
     });
   }
 
+  paintForm() {
+    if (this.state.moustachesArray.length > 0){
+      return(
+        <form>
+          {this.state.moustachesArray.map(item => {
+            return (
+              <div key={item} className="form-group">
+                <label htmlFor={item}>{item.toUpperCase()}:</label>
+                <input className="form-control " id={item} type="text" onKeyUp={this.handleInputs} />
+              </div>
+            );
+            })
+          }
+          {this.state.tripleMoustachesArray.map(item => {
+                return (
+                  <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="file" onKeyUp={handleImages} />
+                  </div>
+                );
+                })
+              }
+        </form>
+      )
+    } else {
+        return(<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
+    }
+  }
+
   render() {
     const { selectedTemplate, handleInputs, handleImages } = this.props;
 
-    if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
+    if (this.state.moustachesArray){
       return (
         <div className="fill-page">
           <div className="fill-template__result">
@@ -116,28 +145,7 @@ class Fill extends Component {
             </div>
           </div>
           <div className="fill-page__form">
-            <form>
-              {this.state.moustachesArray.map(item => {
-                return (
-                  <div key={item} className="form-group">
-                    <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-                  </div>
-                );
-                })
-              }
-              {this.state.tripleMoustachesArray.map(item => {
-                return (
-                  <div key={item} className="form-group">
-                    <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="file" onKeyUp={handleImages} />
-                  </div>
-                );
-                })
-              }
-
-
-            </form>
+          {this.paintForm()}
           </div>
           <div className="row d-flex justify-content-around">
             <div className="fill-page__btn back-btn">
