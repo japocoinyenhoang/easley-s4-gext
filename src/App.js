@@ -64,7 +64,7 @@ class App extends Component {
       this.setState({
         imagesInputs: newArray
       });
-      console.log('aqui capturo los inputs de las imagenes');
+      console.log('aqui capturo los inputs de las imagenes')
     }
 
   }
@@ -116,6 +116,7 @@ class App extends Component {
 
 
     handleChangeFile(event){
+      console.log ('hasta aqui hemos llegado');
       const myFile = event.currentTarget.files[0];
       fr.addEventListener('load', this.handleTripleMoustaches);
       fr.readAsDataURL(myFile);
@@ -159,7 +160,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, handleChangeFile} = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -182,7 +183,7 @@ class App extends Component {
               handleTemplate={this.handleTemplate}
               handleInitInputs={this.handleInitInputs}
               handleImagesInputs={this.handleImagesInputs}
-              handleChangeFile={handleChangeFile}
+              handleChangeFile={this.handleChangeFile}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
               photos={this.state.images.photos}
