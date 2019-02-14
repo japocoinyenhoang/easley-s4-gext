@@ -56,8 +56,8 @@ class App extends Component {
         inputs: newArray
       });
     }
-
   }
+
   handleImagesInputs(data) {
     let newArray = [];
     if(data !== undefined) {
@@ -70,9 +70,7 @@ class App extends Component {
         imagesInputs: newArray
       });
     }
-
   }
-
 
   handleInputs(e) {
     const target = e.currentTarget.id;
@@ -146,7 +144,6 @@ class App extends Component {
   }
 
   handleCopyId(id){
-    console.log('soy handlecopyid');
     this.setState ({
       copyId: id
     },() => {

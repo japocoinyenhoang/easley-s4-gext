@@ -40,7 +40,7 @@ class Steps extends Component {
                   copyId={copyId} />} />
               <Route path="/steps/success" render = {props =>
                   <Success
-                  presentationId={presentationId} copyId={copyId} />} />
+                  copyId={copyId} />} />
             </Switch>
           </main>
         </div>
