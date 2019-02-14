@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import laura from '../images/laura.png';
 import silvia from '../images/silvia.jpg';
 import alba from '../images/alba.jpg';
+import yen from '../images/yen.jpg';
+import roxana from '../images/roxana.jpg';
 
 class AboutUs extends Component {
   render() {
@@ -36,7 +38,7 @@ class AboutUs extends Component {
           </li>
           <li className='about-us__item'>
             <div className='about-us__pic'>
-              <img className='profile-pic' alt='profile pic'></img>
+              <img className='profile-pic' src={roxana} alt='profile pic'></img>
             </div>
             <h2 className='about-us__title'>Roxana Sánchez Briñas</h2>
             <p className='about-us__description'>After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on dive bars. Nowadays, I have jumped into the digital world, where I hope to keep evolving and acomplish in life, as her "Sim" does.</p>
@@ -49,7 +51,7 @@ class AboutUs extends Component {
           </li>
           <li className='about-us__item'>
             <div className='about-us__pic'>
-              <img className='profile-pic' alt='profile pic'></img>
+              <img className='profile-pic' src={yen} alt='profile pic'></img>
             </div>
             <h2 className='about-us__title'>Yen Hoang</h2>
             <p className='about-us__description'>Future front-end developer, passionate about flex-box, currently trying to keep me afloat in the world of code. Philosophy of life: Work hard and win.</p>
