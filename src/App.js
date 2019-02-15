@@ -16,6 +16,7 @@ class App extends Component {
       inputs: [],
       imagesInputs: [],
       images: [],
+      template: [],
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
@@ -25,6 +26,7 @@ class App extends Component {
     }
 
     this.fileInput = React.createRef();
+    this.templateInput = React.createRef();
 
 
     this.updateStateLogin = this.updateStateLogin.bind(this);
@@ -32,6 +34,7 @@ class App extends Component {
     this.handleInputs = this.handleInputs.bind(this);
     this.handleTripleMoustaches = this.handleTripleMoustaches.bind(this);
     this.handleChangeFile = this.handleChangeFile.bind(this);
+    this.handleChangeTemplate = this.handleChangeTemplate.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
@@ -40,7 +43,10 @@ class App extends Component {
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.uploadImageDrive =this.uploadImageDrive.bind(this);
+    this.uploadTemplateDrive =this.uploadTemplateDrive.bind(this);
+
   }
 
   handleOpen = () => {
@@ -123,19 +129,56 @@ class App extends Component {
   }
 
     handleChangeFile(event){
+      const myFile = event.currentTarget.files[0];
+      const url = [];
+      url.push(myFile);
+      this.setState({
+        images: url,
+      }, () => this.uploadImageDrive(), console.log(this.state.images))
+
+    }
+
+    uploadImageDrive(){
+      let file=this.state.images[0];
+
+          // var file = $('#fileToUpload')[0].files[0];
+      let metadata = {
+        'name': file.name, // Filename at Google Drive
+        'mimeType': file.type, // mimeType at Google Drive
+        //'parents': ['### folder ID ###'], // Folder ID at Google Drive
+      };
+      let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+      let form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+      form.append('file', file);
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.responseType = 'json';
+      xhr.onload = () => {
+      };
+      xhr.send(form);
+    }
+
+    handleChangeTemplate(event){
       console.log ('hasta aqui hemos llegado');
       const myFile = event.currentTarget.files[0];
       const url = [];
       url.push(myFile);
       console.log('este es el archivo', myFile);
       this.setState({
-        images: url,
-      }, () => this.uploadImageDrive(),
-      console.log(this.state.images));
+        template: url,
+      }, () => this.uploadTemplateDrive(),
+      console.log(this.state.template));
     }
 
-    uploadImageDrive(){
-      let file=this.state.images[0];
+    handleClick (){
+      this.templateInput.current.click();
+    }
+
+
+    uploadTemplateDrive(){
+      let file=this.state.template[0];
       console.log (file);
       console.log ('ya hemos entrado');
           // var file = $('#fileToUpload')[0].files[0];
@@ -157,8 +200,6 @@ class App extends Component {
       };
       xhr.send(form);
     }
-
-
 
 
   updateStateLogin(isSignedIn) {
@@ -255,15 +296,18 @@ class App extends Component {
               handleInitInputs={this.handleInitInputs}
               handleImagesInputs={this.handleImagesInputs}
               handleChangeFile={this.handleChangeFile}
+              handleChangeTemplate={this.handleChangeTemplate}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
               photos={this.state.images.photos}
               fakeClick={this.fakeClick}
               fileInput={this.fileInput}
+              templateInput={this.templateInput}
               handleCopyId={this.handleCopyId}
               copyId={copyId}
               handleOpen={this.handleOpen}
               handleClose={this.handleClose}
+              handleClick={this.handleClick}
               open={open}
               />} />
           <Route path="/about" render={props =>

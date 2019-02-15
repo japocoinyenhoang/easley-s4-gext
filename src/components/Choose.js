@@ -3,7 +3,7 @@ import ApiPicker from "./ApiPicker";
 
 class Choose extends Component {
   render() {
-    const { clientId, scopes, handleTemplate, name, email, phoneNumber, handlePresentationId } = this.props;
+    const { clientId, scopes, handleTemplate, name, email, phoneNumber, handlePresentationId, handleChangeTemplate, templateInput, handleClick } = this.props;
     return (
       <div className="choose-page d-flex justify-content-around">
         <div className="choose-page__btn select-btn">
@@ -18,7 +18,9 @@ class Choose extends Component {
           />
         </div>
         <div className="choose-page__btn upload-btn">
-          <button type="button" className="btn btn-secondary btn-lg">Upload template</button>
+          <button type="button" className="btn btn-secondary btn-lg" onClick={handleClick}>Upload template</button>
+          <label htmlFor="paco"></label>
+          <input className="form-control-choose" id="paco" type="file" ref={templateInput} onChange={handleChangeTemplate} />
         </div>
       </div>
     );
