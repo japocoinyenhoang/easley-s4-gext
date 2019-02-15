@@ -8,7 +8,7 @@ import Success from './Success';
 
 class Steps extends Component {
   render() {
-   const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs, handleImages, open, handleOpen, handleClose, handleCopyId, copyId } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, imagesInputs, handleCopyId, copyId } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -30,17 +30,25 @@ class Steps extends Component {
               <Route path="/steps/fill" render={props =>
                 <Fill
                   handleInputs={handleInputs}
-                  handleImages={handleImages}
+                  handleTripleMoustaches={handleTripleMoustaches}
                   inputs={inputs}
+                  imagesInputs={imagesInputs}
                   handleInitInputs={handleInitInputs}
                   handleImagesInputs={handleImagesInputs}
+                  handleChangeFile={handleChangeFile}
                   selectedTemplate={selectedTemplate}
                   presentationId={presentationId}
                   handleCopyId={handleCopyId}
-                  copyId={copyId} />} />
+                  copyId={copyId}
+                  fakeClick={fakeClick}
+                  fileInput={fileInput}/>}
+                  />
               <Route path="/steps/success" render = {props =>
                   <Success
-                  copyId={copyId} />} />
+                  presentationId={presentationId}
+                  photos={this.props.photos}
+                  copyId={copyId}
+                  />} />
             </Switch>
           </main>
         </div>

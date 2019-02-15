@@ -28,8 +28,13 @@ class Success extends Component {
             <a className="link-success" href={urlDownloadPdf}
               download="test.pdf"><button className="btn btn-outline-primary">Download PDF</button></a>
           </div>
+
+        <div className="photo__container">
+         {/* <img src={this.props.photos} alt="uploaded"/>
+        {this.props.photos} */}
         </div>
-      );
+      </div>
+    );
     } else {
       return (
         <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />

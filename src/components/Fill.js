@@ -44,7 +44,7 @@ class Fill extends Component {
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w\.]+\s*}}}(?!})/g);
+      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
         this.setState({ moustachesArray: [...keywords, ...eraseMoustache] });
@@ -83,7 +83,7 @@ class Fill extends Component {
   }
 
   paintForm() {
-    const { handleInputs, handleImages } = this.props;
+    const { handleInputs, handleChangeFile, fileInput, fakeClick } = this.props;
     if (this.state.moustachesArray.length === 0 && this.state.tripleMoustachesArray.length === 0) {
       return (<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
     } else {
@@ -98,12 +98,13 @@ class Fill extends Component {
             );
           })
           }
-          {this.state.tripleMoustachesArray.map(item => {
+
+          {this.state.tripleMoustachesArray.map(item=>{
             return (
               <div key={item} className="form-group">
-                <label htmlFor={item}>{item.toUpperCase()}:</label>
-                <input className="form-control " id={item} type="file" onKeyUp={handleImages} />
-              </div>
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
+                  </div>
             );
           })
           }
@@ -122,7 +123,7 @@ class Fill extends Component {
   render() {
     const { selectedTemplate } = this.props;
 
-    if (this.state.moustachesArray || this.state.tripleMoustachesArray) {
+    if (this.state.moustachesArray.length>0 || this.state.tripleMoustachesArray.length>0 ) {
       return (
         <div className="fill-page">
           <div className="fill-template__result">
@@ -136,7 +137,7 @@ class Fill extends Component {
                 <input className="input-name" id= "copyName" type="text" onKeyUp={this.handleNewDocument} />
               </div>
           <div className="fill-page__form">
-            {this.paintForm()}
+          {this.paintForm()}
           </div>
           <div className="row d-flex justify-content-around">
             <div className="fill-page__btn back-btn">
@@ -160,7 +161,7 @@ Fill.propTypes = {
   handleInitInputs: PropTypes.func,
   handleImagesInputs: PropTypes.func,
   handleInputs: PropTypes.func,
-  handleImages: PropTypes.func,
+  handleTripleMoustaches: PropTypes.func,
   inputs: PropTypes.array,
   selectedTemplate: PropTypes.string
 };

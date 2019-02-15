@@ -15,6 +15,7 @@ class App extends Component {
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
       imagesInputs: [],
+      images: [],
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
@@ -23,10 +24,14 @@ class App extends Component {
       open: false
     }
 
+    this.fileInput = React.createRef();
+
+
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
-    this.handleImages = this.handleImages.bind(this);
+    this.handleTripleMoustaches = this.handleTripleMoustaches.bind(this);
+    this.handleChangeFile = this.handleChangeFile.bind(this);
     this.handleTemplate = this.handleTemplate.bind(this);
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
@@ -35,6 +40,7 @@ class App extends Component {
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.uploadImageDrive =this.uploadImageDrive.bind(this);
   }
 
   handleOpen = () => {
@@ -70,6 +76,7 @@ class App extends Component {
       this.setState({
         imagesInputs: newArray
       });
+      console.log('aqui capturo los inputs de las imagenes')
     }
   }
 
@@ -91,10 +98,13 @@ class App extends Component {
     });
   }
 
-  handleImages(e) {
+  handleTripleMoustaches(e) {
     const target = e.currentTarget.id;
     const value = e.currentTarget.value;
     const { inputs } = this.state;
+    const url = [];
+    const imageSave = this.state.images;
+    url.push(imageSave);
 
     let newValue = [];
     newValue = inputs.map(item => {
@@ -103,11 +113,52 @@ class App extends Component {
       }
       return item;
     });
+    console.log('hemos sido engañaos');
 
     this.setState({
-      inputs: newValue
+      inputs: newValue,
+      images: url
     });
+
   }
+
+    handleChangeFile(event){
+      console.log ('hasta aqui hemos llegado');
+      const myFile = event.currentTarget.files[0];
+      const url = [];
+      url.push(myFile);
+      console.log('este es el archivo', myFile);
+      this.setState({
+        images: url,
+      }, () => this.uploadImageDrive(),
+      console.log(this.state.images));
+    }
+
+    uploadImageDrive(){
+      let file=this.state.images[0];
+      console.log (file);
+      console.log ('ya hemos entrado');
+          // var file = $('#fileToUpload')[0].files[0];
+      let metadata = {
+        'name': file.name, // Filename at Google Drive
+        'mimeType': file.type, // mimeType at Google Drive
+        //'parents': ['### folder ID ###'], // Folder ID at Google Drive
+      };
+      let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+      let form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+      form.append('file', file);
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.responseType = 'json';
+      xhr.onload = () => {
+          console.log(xhr.response.id); // Retrieve uploaded file ID.
+      };
+      xhr.send(form);
+    }
+
+
 
 
   updateStateLogin(isSignedIn) {
@@ -175,7 +226,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -196,14 +247,19 @@ class App extends Component {
               clientId={clientId}
               scopes={scopes}
               handleInputs={this.handleInputs}
-              handleImages={this.handleImages}
+              handleTripleMoustaches={this.handleTripleMoustaches}
               inputs={inputs}
+              imagesInputs={imagesInputs}
               selectedTemplate={selectedTemplate}
               handleTemplate={this.handleTemplate}
               handleInitInputs={this.handleInitInputs}
               handleImagesInputs={this.handleImagesInputs}
+              handleChangeFile={this.handleChangeFile}
               presentationId= {presentationId}
               handlePresentationId={this.handlePresentationId}
+              photos={this.state.images.photos}
+              fakeClick={this.fakeClick}
+              fileInput={this.fileInput}
               handleCopyId={this.handleCopyId}
               copyId={copyId}
               handleOpen={this.handleOpen}
