@@ -69,13 +69,14 @@ class App extends Component {
     if(data !== undefined) {
       data.map(item => {
         newArray.push([item,'']);
+        console.log('estoy en newarray' + newArray);
         return newArray
       });
 
       this.setState({
         imagesInputs: newArray
       });
-      console.log('aqui capturo los inputs de las imagenes')
+      console.log('aqui capturo los inputs de las imagenes',this.state.imagesInputs);
     }
   }
 
@@ -93,44 +94,48 @@ class App extends Component {
     });
 
     this.setState({
-      imagesInputs: newValue
+      inputs: newValue
     });
   }
 
-  handleTripleMoustaches(e) {
-    const target = e.currentTarget.id;
-    const value = e.currentTarget.value;
-    const { inputs } = this.state;
+  handleTripleMoustaches(file, name) {
+    const target = name;
+    const value = file;
+    const { imagesInputs } = this.state;
     const url = [];
     const imageSave = this.state.images;
     url.push(imageSave);
 
     let newValue = [];
-    newValue = inputs.map(item => {
+    newValue = imagesInputs.map(item => {
       if (item[0] === target){
         item[1] = value
       }
+      console.log( 'vemos imagesinputs en handletriplemoustache',this.imagesInputs);
+      console.log('hemos sido engañaos');
       return item;
     });
-    console.log('hemos sido engañaos');
-
     this.setState({
-      inputs: newValue,
+      imagesInputs: newValue,
       images: url
-    });
+    }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive));
 
   }
 
     handleChangeFile(event){
       console.log ('hasta aqui hemos llegado');
       const myFile = event.currentTarget.files[0];
+      const inputValue = event.currentTarget.id;
       const url = [];
       url.push(myFile);
       console.log('este es el archivo', myFile);
       this.setState({
         images: url,
-      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive),
+      },
+      // () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive),
+      () => this.handleTripleMoustaches(myFile, inputValue),
       console.log(this.state.images));
+      console.log('veo imagesinputs en hchangefile',this.state.imagesInputs);
     }
 
     uploadImageDrive(){
@@ -221,8 +226,22 @@ class App extends Component {
           },
           replaceText: item[1]
         }
+
       });
       return requests;
+    });
+    this.state.imagesInputs.map(item => {
+    requests.push({
+      replaceAllText: {
+        // imageReplaceMethod: 'CENTER_CROP',
+        containsText:{
+          text: `{{{${item[0]}}}}`
+        },
+        // matchCase: false
+        replaceText: item[1]
+      }
+    });
+    return requests;
     });
     window.gapi.client.slides.presentations.batchUpdate({
       presentationId: this.state.copyId,
