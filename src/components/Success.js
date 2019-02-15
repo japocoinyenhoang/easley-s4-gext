@@ -30,8 +30,8 @@ class Success extends Component {
           </div>
 
         <div className="photo__container">
-         <img src={this.props.photos} alt="uploaded"/>
-        {this.props.photos}
+         {/* <img src={this.props.photos} alt="uploaded"/>
+        {this.props.photos} */}
         </div>
       </div>
     );

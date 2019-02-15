@@ -5,9 +5,6 @@ import Home from './components/Home';
 import Steps from './components/Steps';
 import Footer from './components/Footer';
 
-const fr = new FileReader();
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +14,7 @@ class App extends Component {
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
       inputs: [],
       imagesInputs: [],
-      images: {photos:''},
+      images: [],
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
@@ -104,9 +101,11 @@ class App extends Component {
   handleTripleMoustaches(e) {
     const target = e.currentTarget.id;
     const value = e.currentTarget.value;
-    const { inputs, images } = this.state;
-    const url = fr.result;
-    const newImages={...images, photos: url};
+    const { inputs } = this.state;
+    const url = [];
+    const imageSave = this.state.images;
+    url.push(imageSave);
+
     let newValue = [];
     newValue = inputs.map(item => {
       if (item[0] === target){
@@ -118,9 +117,8 @@ class App extends Component {
 
     this.setState({
       inputs: newValue,
-      images: newImages
-    }, this.uploadImageDrive());
-    console.log (newImages);
+      images: url
+    });
 
   }
     // Loading image
@@ -132,12 +130,17 @@ class App extends Component {
     handleChangeFile(event){
       console.log ('hasta aqui hemos llegado');
       const myFile = event.currentTarget.files[0];
-      fr.addEventListener('load', this.handleTripleMoustaches);
-      fr.readAsDataURL(myFile);
+      const url = [];
+      url.push(myFile);
+      console.log('este es el archivo', myFile);
+      this.setState({
+        images: url,
+      }, () => this.uploadImageDrive(),
+      console.log(this.state.images));
     }
 
     uploadImageDrive(){
-      let file=this.state.images.photos;
+      let file=this.state.images[0];
       console.log (file);
       console.log ('ya hemos entrado');
           // var file = $('#fileToUpload')[0].files[0];
