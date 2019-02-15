@@ -35,7 +35,6 @@ class App extends Component {
     this.handleInitInputs = this.handleInitInputs.bind(this);
     this.handleImagesInputs = this.handleImagesInputs.bind(this);
     this.handlePresentationId = this.handlePresentationId.bind(this);
-    this.fakeClick = this.fakeClick.bind(this);
     this.handleCopyId = this.handleCopyId.bind(this);
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -121,11 +120,6 @@ class App extends Component {
     });
 
   }
-    // Loading image
-    fakeClick(){
-      this.fileInput.current.click();
-    }
-
 
     handleChangeFile(event){
       console.log ('hasta aqui hemos llegado');
