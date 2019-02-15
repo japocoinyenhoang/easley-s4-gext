@@ -129,7 +129,7 @@ class App extends Component {
       console.log('este es el archivo', myFile);
       this.setState({
         images: url,
-      }, () => this.uploadImageDrive(),
+      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive),
       console.log(this.state.images));
     }
 
@@ -147,18 +147,26 @@ class App extends Component {
       let form = new FormData();
       form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
       form.append('file', file);
-      var xhr = new XMLHttpRequest();
+      const xhr = new XMLHttpRequest();
       xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
       xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       xhr.responseType = 'json';
-      xhr.onload = () => {
-          console.log(xhr.response.id); // Retrieve uploaded file ID.
-      };
+
       xhr.send(form);
+      xhr.onload = () => {
+        const body = {
+          'value': "default",
+          'type': "anyone",
+          'role': "reader"
+        };
+        const request = window.gapi.client.drive.permissions.insert({
+          'fileId': xhr.response.id,
+          'resource': body
+        });
+          console.log(xhr.response.id); // Retrieve uploaded file ID.
+          return request;
+      };
     }
-
-
-
 
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
