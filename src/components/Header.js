@@ -6,7 +6,6 @@ import btn_google from '../images/btn_google.svg';
 import Button from '@material-ui/core/Button';
 import SimpleModal from './SimpleModal';
 
-
 class Header extends Component {
   render() {
     return (
@@ -21,6 +20,9 @@ class Header extends Component {
         <SimpleModal
               open={this.props.open}
               handleClose={this.props.handleClose}/>
+        <div className='header__about-us'>
+            <Link className="link__about-us" to="/about">About us</Link>
+        </div>
       </header>
     );
   }

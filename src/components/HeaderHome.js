@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import SimpleModal from './SimpleModal';
 
@@ -12,6 +13,9 @@ class HeaderHome extends Component {
           <SimpleModal
               open={this.props.open}
               handleClose={this.props.handleClose}/>
+          </div>
+          <div className='header__about-us'>
+            <Link className="link__about-us" to="/about">About us</Link>
           </div>
         </div>
       </header>
