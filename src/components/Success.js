@@ -16,7 +16,7 @@ class Success extends Component {
           </div>
           <div className="row d-flex justify-content-around">
             <div className="success-page__btn">
-              <a className="link-success" href={urlSlide}><button className="btn btn-outline-primary">View your presentation
+              <a className="link-success" href={urlSlide} target="_blank" rel="noopener noreferrer"><button className="btn btn-outline-primary">View your presentation
             </button></a>
             </div>
             <div className="success-page__btn download-btn">

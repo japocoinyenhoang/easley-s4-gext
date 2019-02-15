@@ -15,6 +15,7 @@ class Fill extends Component {
     this.state = {
       loadingForm: true,
       moustachesArray: [],
+      newName: '',
       presentationIdCopy: '',
       tripleMoustachesArray: []
     }
@@ -23,6 +24,7 @@ class Fill extends Component {
     this.listSlides = this.listSlides.bind(this);
     this.execute = this.execute.bind(this);
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
+    this.handleNewDocument = this.handleNewDocument.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +70,7 @@ class Fill extends Component {
 
   execute() {
     return window.gapi.client.drive.files.copy({
+      "title": this.state.newName,
       "fileId": presentation,
       "resource": {}
     })
@@ -109,6 +112,13 @@ class Fill extends Component {
     }
   }
 
+  handleNewDocument(e){
+    let query = e.currentTarget.value;
+    this.setState({
+      newName: query
+    })
+  }
+
   render() {
     const { selectedTemplate } = this.props;
 
@@ -121,6 +131,10 @@ class Fill extends Component {
               <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
             </div>
           </div>
+          <div className="input-name">
+                <label htmlFor="copyName">New document name: </label>
+                <input className="input-name" id= "copyName" type="text" onKeyUp={this.handleNewDocument} />
+              </div>
           <div className="fill-page__form">
             {this.paintForm()}
           </div>
