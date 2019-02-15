@@ -42,7 +42,7 @@ class Fill extends Component {
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w\.]+\s*}}}(?!})/g);
+      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
         this.setState({ moustachesArray: [...keywords, ...eraseMoustache] });
@@ -114,7 +114,7 @@ class Fill extends Component {
   render() {
     const { selectedTemplate } = this.props;
 
-    if (this.state.moustachesArray || this.state.tripleMoustachesArray) {
+    if (this.state.moustachesArray.length>0 || this.state.tripleMoustachesArray.length>0 ) {
       return (
         <div className="fill-page">
           <div className="fill-template__result">

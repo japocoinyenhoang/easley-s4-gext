@@ -138,6 +138,7 @@ class App extends Component {
 
     uploadImageDrive(){
       let file=this.state.images.photos;
+      console.log (file);
       console.log ('ya hemos entrado');
           // var file = $('#fileToUpload')[0].files[0];
       let metadata = {
