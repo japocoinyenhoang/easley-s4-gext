@@ -73,7 +73,6 @@ class ApiPicker extends Component {
       url = doc[window.google.picker.Document.URL];
       templateName = doc.name;
       templateId = doc.id;
-      console.log(doc.id);
       let message = 'You picked: ' + templateName;
 
       this.props.handleTemplate(message);
@@ -84,6 +83,7 @@ class ApiPicker extends Component {
        });
     }
   }
+
 
   render() {
     if (this.state.picked) {
