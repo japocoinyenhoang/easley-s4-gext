@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { sendApiKey } from './Credentials';
-import Button from '@material-ui/core/Button';
+import CustomCard from "./CustomCard";
 
 class ApiPicker extends Component {
 
@@ -90,7 +90,7 @@ class ApiPicker extends Component {
       return <Redirect to='/steps/fill' />
     } else {
       return (
-        <Button type="button" onClick={this.onApiLoad}>Select template</Button>
+        <CustomCard text="Select Template" onClick={this.onApiLoad} icon="fas fa-hand-pointer fa-6x"/>
       );
     }
   }

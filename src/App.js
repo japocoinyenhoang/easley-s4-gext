@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import AboutUs from './components/AboutUs';
-import Footer from './components/Footer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 

@@ -43,7 +43,7 @@ class Header extends Component {
               </Grid>
               <Grid item>
                 <IconButton onClick={this.props.handleOpen} color="primary" className={classes.button} aria-label="Add to shopping cart">
-                <i class="fas fa-question-circle"></i>
+                <i className="fas fa-question-circle"></i>
                 </IconButton>
                 <SimpleModal
                     open={this.props.open}
@@ -52,7 +52,7 @@ class Header extends Component {
               <Grid item>
                 <IconButton color="primary" className={classes.button} aria-label="Add to shopping cart">
                   <Link to="/about">
-                    <i class="fas fa-info-circle"></i>
+                    <i className="fas fa-info-circle"></i>
                   </Link>
                 </IconButton>
               </Grid>
