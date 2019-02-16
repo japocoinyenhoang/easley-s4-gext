@@ -76,7 +76,6 @@ class App extends Component {
       this.setState({
         imagesInputs: newArray
       });
-      console.log('aqui capturo los inputs de las imagenes')
     }
   }
 
@@ -94,20 +93,21 @@ class App extends Component {
     });
 
     this.setState({
-      imagesInputs: newValue
+      inputs: newValue
     });
   }
 
-  handleTripleMoustaches(e) {
-    const target = e.currentTarget.id;
-    const value = e.currentTarget.value;
-    const { inputs } = this.state;
+  handleTripleMoustaches(file) {
+    const target = file.name;
+    //tranformar file a base64 y asignar eso a la constante value
+    const value = value;
+    const { imagesInputs } = this.state;
     const url = [];
     const imageSave = this.state.images;
     url.push(imageSave);
 
     let newValue = [];
-    newValue = inputs.map(item => {
+    newValue = imagesInputs.map(item => {
       if (item[0] === target){
         item[1] = value
       }
@@ -129,8 +129,8 @@ class App extends Component {
       url.push(myFile);
       console.log('este es el archivo', myFile);
       this.setState({
-        images: url,
-      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive),
+        images: [...this.state.images, ...url],
+      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive).then(this.handleTripleMoustaches(myFile)),
       console.log(this.state.images));
     }
 
@@ -164,7 +164,7 @@ class App extends Component {
           'fileId': xhr.response.id,
           'resource': body
         });
-          console.log(xhr.response.id); // Retrieve uploaded file ID.
+          console.log(xhr.response); // Retrieve uploaded file ID.
           return request;
       };
     }
@@ -219,6 +219,18 @@ class App extends Component {
         replaceAllText: {
           containsText: {
             text: `{{${item[0]}}}`
+          },
+          replaceText: item[1]
+        }
+      });
+
+      return requests;
+    });
+    this.state.imagesInputs.map(item =>{
+      requests.push({
+        replaceAllText:{
+          containsText:{
+            text: `{{{${item[0]}}}}`
           },
           replaceText: item[1]
         }
