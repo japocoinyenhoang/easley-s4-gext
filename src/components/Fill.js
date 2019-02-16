@@ -5,21 +5,26 @@ import ReactLoading from 'react-loading';
 
 let keywords = [];
 let eraseMoustache;
+let presentation;
+let eraseTripleMoustache;
 
 class Fill extends Component {
   constructor(props) {
     super(props);
 
-    this.state={
+    this.state = {
       loadingForm: true,
-      moustachesArray : [],
+      moustachesArray: [],
+      newName: '',
+      presentationIdCopy: '',
+      tripleMoustachesArray: []
     }
 
-    /*this.loadSlidesApi = this.loadSlidesApi.bind(this);*/
+    this.loadSlidesApi = this.loadSlidesApi.bind(this);
     this.listSlides = this.listSlides.bind(this);
-
+    this.execute = this.execute.bind(this);
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
-    this.listSlidesReplace = this.listSlidesReplace.bind(this);
+    this.handleNewDocument = this.handleNewDocument.bind(this);
   }
 
   componentDidMount() {
@@ -27,96 +32,112 @@ class Fill extends Component {
   }
 
   loadSlidesApi() {
-    if(this.props.presentationId !== '') {
+    if (this.props.presentationId !== '') {
+      presentation = this.props.presentationId;
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
     }
   }
 
-  loadClient() {
-    console.log('soy loadclient');
-    return window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/slides/v1/rest")
-        .then(this.execute)
-  }
-
-  execute() {
-    console.log('soy execute');
-    console.log(window.gapi.client.drive);
-    return window.gapi.client.drive.files.copy({
-      "fileId": "1C3ThRHIdUdcgMKtsEAhEyOfYFmJcHHFHrXZX3QrxkXY",
-      "resource": {}
-    })
-        .then(function(response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              },
-              function(err) { console.error("Execute error", err); })
-        .then(this.listSlides())
-  }
-
   listSlides() {
     window.gapi.client.slides.presentations.get({
-      presentationId : this.props.presentationId
+      presentationId: this.props.presentationId
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-      eraseMoustache = moustaches.map(item =>item.replace('{{','').replace('}}',''));
-      this.setState({moustachesArray: [...keywords, ...eraseMoustache]});
+      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
+      if (moustaches.length > 0) {
+        eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
+        this.setState({ moustachesArray: [...keywords, ...eraseMoustache] });
+      }
       this.props.handleInitInputs(this.state.moustachesArray);
+      if (tripleMoustaches.length > 0) {
+        eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
+        this.setState({ tripleMoustachesArray: [...keywords, ...eraseTripleMoustache] });
+      }
+      this.props.handleImagesInputs(this.state.tripleMoustachesArray);
     });
   }
 
   loadSlidesReplace() {
-    if(this.props.presentationId !== '') {
-      window.gapi.client.load('slides', 'v1').then(this.listSlidesReplace);
+    if (this.props.presentationId !== '') {
+      window.gapi.client.load('slides', 'v1').then(f => {
+        window.gapi.client.load('drive', 'v2').then(execute => {
+          this.execute()
+        })
+      }).catch(error => { console.log(error) });
     }
   }
 
-  listSlidesReplace() {
-    let requests = [];
-    this.props.inputs.map(item => {
-      requests.push({
-        replaceAllText: {
-          containsText: {
-            text: `{{${item[0]}}}`
-          },
-          replaceText: item[1]
-        }
-      });
-      return requests;
-    });
+  execute() {
+    return window.gapi.client.drive.files.copy({
+      "title": this.state.newName,
+      "fileId": presentation,
+      "resource": {}
+    })
+      .then((response) => {
+        let newId = response.result.id;
+        this.props.handleCopyId(newId);
+      },
+        function (err) { console.error("Execute error", err); })
+      .catch(err => { console.log(err); })
+  }
 
-    window.gapi.client.slides.presentations.batchUpdate({
-      presentationId: this.props.presentationId,
-      requests: requests
-    }).then((response) => {
-      console.log(response);
-    });
+  paintForm() {
+    const { handleInputs, handleChangeFile, fileInput, fakeClick } = this.props;
+    if (this.state.moustachesArray.length === 0 && this.state.tripleMoustachesArray.length === 0) {
+      return (<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
+    } else {
+      return (
+        <form>
+          {this.state.moustachesArray.map(item => {
+            return (
+              <div key={item} className="form-group">
+                <label htmlFor={item}>{item.toUpperCase()}:</label>
+                <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
+              </div>
+            );
+          })
+          }
+
+          {this.state.tripleMoustachesArray.map(item=>{
+            return (
+              <div key={item} className="form-group">
+                    <label htmlFor={item}>{item.toUpperCase()}:</label>
+                    <input className="form-control " id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
+                  </div>
+            );
+          })
+          }
+        </form>
+      )
+    }
+  }
+
+  handleNewDocument(e){
+    let query = e.currentTarget.value;
+    this.setState({
+      newName: query
+    })
   }
 
   render() {
-    const { selectedTemplate, handleInputs } = this.props;
+    const { selectedTemplate } = this.props;
 
-    if (this.state.moustachesArray && this.state.moustachesArray.length > 0){
+    if (this.state.moustachesArray.length>0 || this.state.tripleMoustachesArray.length>0 ) {
       return (
         <div className="fill-page">
           <div className="fill-template__result">
             <div id="result">{selectedTemplate}</div>
             <div className="fill-page__btn back-btn">
-                <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
+              <button type="button" className="btn btn-light"><Link to="/steps/choose">Choose another template</Link></button>
             </div>
           </div>
+          <div className="input-name">
+                <label htmlFor="copyName">New document name: </label>
+                <input className="input-name" id= "copyName" type="text" onKeyUp={this.handleNewDocument} />
+              </div>
           <div className="fill-page__form">
-            <form>
-              {this.state.moustachesArray.map(item => {
-                return (
-                  <div key={item} className="form-group">
-                    <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="text" onKeyUp={handleInputs} />
-                  </div>
-                );
-                })
-              }
-            </form>
+          {this.paintForm()}
           </div>
           <div className="row d-flex justify-content-around">
             <div className="fill-page__btn back-btn">
@@ -129,16 +150,18 @@ class Fill extends Component {
         </div>
       );
     } else {
-        return(
-          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
-        )
-      }
+      return (
+        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+      )
+    }
   }
 }
 
 Fill.propTypes = {
   handleInitInputs: PropTypes.func,
+  handleImagesInputs: PropTypes.func,
   handleInputs: PropTypes.func,
+  handleTripleMoustaches: PropTypes.func,
   inputs: PropTypes.array,
   selectedTemplate: PropTypes.string
 };

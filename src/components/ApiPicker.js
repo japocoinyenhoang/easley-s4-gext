@@ -67,15 +67,12 @@ class ApiPicker extends Component {
   }
 
   pickerCallback(data) {
-    let url = 'nothing';
     let templateName ='nothing selected';
     let templateId = '';
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       let doc = data[window.google.picker.Response.DOCUMENTS][0];
-      url = doc[window.google.picker.Document.URL];
       templateName = doc.name;
       templateId = doc.id;
-      console.log(doc.id);
       let message = 'You picked: ' + templateName;
 
       this.props.handleTemplate(message);
@@ -86,6 +83,7 @@ class ApiPicker extends Component {
        });
     }
   }
+
 
   render() {
     if (this.state.picked) {

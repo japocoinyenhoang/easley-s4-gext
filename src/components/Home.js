@@ -6,11 +6,13 @@ import ApiLogin from './ApiLogin';
 class Home extends Component {
 
   render() {
-    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loadingHome } = this.props;
+    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loadingHome, handleOpen, handleClose, open } = this.props;
     return (
       <div className="home-page">
         <div className="row">
-          <HeaderHome />
+          <HeaderHome handleOpen={handleOpen}
+                      handleClose={handleClose}
+                      open={open} />
         </div>
         <div className="row home-content">
           <main className="main-container container-fluid">

@@ -9,11 +9,14 @@ import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSt
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleNext, handleBack } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
-          <Header handleSignoutClick={handleSignoutClick} />
+          <Header handleSignoutClick={handleSignoutClick}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  open={open} />
           <main className="main-container">
           <Wizard/>
             <HorizontalLabelPositionBelowStepper />
@@ -22,21 +25,35 @@ class Steps extends Component {
                 <Choose clientId={clientId}
                   scopes={scopes}
                   handleTemplate={handleTemplate}
-                  name={name}
-                  email={email}
-                  phoneNumber={phoneNumber}
-                  handlePresentationId={handlePresentationId} handleNext={handleNext}/>} />
+                  handlePresentationId={handlePresentationId}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  handleNext={handleNext}
+                  open={open}/>} />
               <Route path="/steps/fill" render={props =>
                 <Fill
                   handleInputs={handleInputs}
+                  handleTripleMoustaches={handleTripleMoustaches}
                   inputs={inputs}
+                  imagesInputs={imagesInputs}
                   handleInitInputs={handleInitInputs}
-                  handleInputName={handleInputName}
-                  handleInputEmail={handleInputEmail}
-                  handleInputPhone={handleInputPhone}
+                  handleImagesInputs={handleImagesInputs}
+                  handleChangeFile={handleChangeFile}
                   selectedTemplate={selectedTemplate}
-                  presentationId={presentationId} handleBack={handleBack} handleNext={handleNext} />} />
-              <Route path="/steps/success" component={Success} />
+                  presentationId={presentationId}
+                  handleBack={handleBack}
+                  handleNext={handleNext}
+                  handleCopyId={handleCopyId}
+                  copyId={copyId}
+                  fakeClick={fakeClick}
+                  fileInput={fileInput}/>}
+                  />
+              <Route path="/steps/success" render = {props =>
+                  <Success
+                  presentationId={presentationId}
+                  photos={this.props.photos}
+                  copyId={copyId}
+                  />} />
             </Switch>
           </main>
         </div>

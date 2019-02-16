@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import '../index.scss';
-import btn_google from '../images/btn_google_signin.png';
+import btn_google from '../images/btn_google.svg';
 import ReactLoading from 'react-loading';
 
 class ApiLogin extends Component {
@@ -67,7 +67,7 @@ class ApiLogin extends Component {
   render() {
     if (!this.props.loadingHome){
       if(!this.props.signIn){
-        return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
+        return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-logo" src={btn_google} alt="google logo" />Sign in with Google</button>
       } else{
         return <Redirect to= '/steps/choose' />
       }
