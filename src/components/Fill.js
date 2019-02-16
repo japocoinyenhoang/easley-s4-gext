@@ -47,12 +47,17 @@ class Fill extends Component {
       let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
-        this.setState({ moustachesArray: [...keywords, ...eraseMoustache] });
+        let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
+        this.setState({ moustachesArray: moustachesNoDup });
       }
+
+      console.log('array sin duplicados', this.state.moustachesArray);
       this.props.handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
+        console.log('he entrado en el triple');
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
-        this.setState({ tripleMoustachesArray: [...keywords, ...eraseTripleMoustache] });
+        let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
+        this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
       }
       this.props.handleImagesInputs(this.state.tripleMoustachesArray);
     });
