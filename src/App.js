@@ -97,40 +97,41 @@ class App extends Component {
     });
   }
 
-  handleTripleMoustaches(file) {
-    const target = file.name;
+  handleTripleMoustaches(file, name) {
+    console.log('esto es file', file);
+    const target = name;
     //tranformar file a base64 y asignar eso a la constante value
-    const value = value;
     const { imagesInputs } = this.state;
     const url = [];
     const imageSave = this.state.images;
-    url.push(imageSave);
-
     let newValue = [];
-    newValue = imagesInputs.map(item => {
-      if (item[0] === target){
-        item[1] = value
-      }
-      return item;
-    });
-    console.log('hemos sido engañaos');
-
-    this.setState({
-      inputs: newValue,
-      images: url
-    });
-
+    url.push(imageSave);
+    const fr = new FileReader();
+    const value = ()=> {fr.readAsDataURL(file).then( () => {
+      newValue = imagesInputs.map(item => {
+        if (item[0] === target){
+          item[1] = value
+        }
+        return item;
+      });
+      console.log('funciono! estoy dentro de triplemoust');
+      this.setState({
+        imagesInputs: newValue,
+        images: url
+      })
+    })};
   }
 
     handleChangeFile(event){
       console.log ('hasta aqui hemos llegado');
+      const name = event.currentTarget.id;
       const myFile = event.currentTarget.files[0];
       const url = [];
       url.push(myFile);
       console.log('este es el archivo', myFile);
       this.setState({
         images: [...this.state.images, ...url],
-      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive).then(this.handleTripleMoustaches(myFile)),
+      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive).then(this.handleTripleMoustaches(myFile, name)),
       console.log(this.state.images));
     }
 
@@ -213,6 +214,7 @@ class App extends Component {
   }
 
   listSlidesReplace() {
+    console.log('cojo input', this.state.inputs);
     let requests = [];
     this.state.inputs.map(item => {
       requests.push({
@@ -227,6 +229,7 @@ class App extends Component {
       return requests;
     });
     this.state.imagesInputs.map(item =>{
+      console.log('cojo imagesinput', this.state.imagesInputs);
       requests.push({
         replaceAllText:{
           containsText:{
