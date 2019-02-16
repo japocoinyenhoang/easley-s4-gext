@@ -108,7 +108,7 @@ class Fill extends Component {
             return (
               <div key={item} className="form-group">
                     <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
+                    <input className="form-control" id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
                   </div>
             );
           })
