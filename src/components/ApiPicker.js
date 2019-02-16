@@ -57,7 +57,7 @@ class ApiPicker extends Component {
       let picker = new window.google.picker.PickerBuilder()
         .addView(window.google.picker.ViewId.PRESENTATIONS)
         .setOAuthToken(oauthToken)
-        .setDeveloperKey(sendApiKey)
+        .setDeveloperKey(process.env.REACT_APP_API_KEY)
         .setCallback(this.pickerCallback)
         .build();
       picker.setVisible(true);

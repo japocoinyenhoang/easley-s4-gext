@@ -21,7 +21,8 @@ class App extends Component {
       loadingHome: true,
       presentationId:'',
       copyId: '',
-      open: false
+      open: false,
+      name: ''
     }
 
     this.fileInput = React.createRef();
@@ -97,7 +98,7 @@ class App extends Component {
     });
   }
 
-  handleTripleMoustaches(file, name) {
+  handleTripleMoustaches(name, file) {
     console.log('esto es file', file);
     const target = name;
     //tranformar file a base64 y asignar eso a la constante value
@@ -130,13 +131,14 @@ class App extends Component {
       url.push(myFile);
       console.log('este es el archivo', myFile);
       this.setState({
+        name: name,
         images: [...this.state.images, ...url],
-      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive).then(this.handleTripleMoustaches(myFile, name)),
+      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive),
       console.log(this.state.images));
     }
 
     uploadImageDrive(){
-      let file=this.state.images[0];
+      let file = this.state.images[0];
       console.log (file);
       console.log ('ya hemos entrado');
           // var file = $('#fileToUpload')[0].files[0];
@@ -151,7 +153,7 @@ class App extends Component {
       form.append('file', file);
       const xhr = new XMLHttpRequest();
       xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.setRequestHeader('Authorization', 'Bearer' + accessToken);
       xhr.responseType = 'json';
 
       xhr.send(form);
@@ -164,8 +166,12 @@ class App extends Component {
         const request = window.gapi.client.drive.permissions.insert({
           'fileId': xhr.response.id,
           'resource': body
-        });
-          console.log(xhr.response); // Retrieve uploaded file ID.
+        })
+        .then(() => {
+          const name = this.state.name;
+          const idImage = xhr.response.id;
+          this.handleTripleMoustaches(name, idImage)})
+        console.log(xhr.response); // Retrieve uploaded file ID.
           return request;
       };
     }
@@ -235,9 +241,10 @@ class App extends Component {
           containsText:{
             text: `{{{${item[0]}}}}`
           },
-          replaceText: item[1]
+          replaceText: `https://drive.google.com/open?id=${item[1]}`
         }
       });
+      console.log('esto es item1', item[1]);
       return requests;
     });
     window.gapi.client.slides.presentations.batchUpdate({
