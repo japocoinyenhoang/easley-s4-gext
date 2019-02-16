@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
@@ -88,10 +88,7 @@ class Fill extends Component {
   }
 
   paintForm() {
-    const { handleInputs, handleChangeFile, fileInput, fakeClick } = this.props;
-    if (this.state.moustachesArray.length === 0 && this.state.tripleMoustachesArray.length === 0) {
-      return (<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
-    } else {
+    const { handleInputs, handleChangeFile, fileInput } = this.props;
       return (
         <form>
           {this.state.moustachesArray.map(item => {
@@ -115,7 +112,6 @@ class Fill extends Component {
           }
         </form>
       )
-    }
   }
 
   handleNewDocument(e){
@@ -156,8 +152,11 @@ class Fill extends Component {
       );
     } else {
       return (
-        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
-      )
+        <Fragment>
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+          <div className="errorMessage">If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.</div>
+        </Fragment>
+        )
     }
   }
 }
