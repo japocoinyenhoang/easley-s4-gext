@@ -11,18 +11,13 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    padding: `${theme.spacing.unit * 3}px`,
-    margin:  `0 ${theme.spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit * 2}px`,
+    margin:  `0 ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
     backgroundColor: "#8bc34a",
     color: theme.palette.primary.contrastText,
   },
   card: {
     flexGrow: 1,
-    padding: `${theme.spacing.unit * 3}px`,
-    margin:  `0 ${theme.spacing.unit * 3}px`,
-  },
-  item: {
-    maxWidth: "250px"
   },
   links: {
     textDecoration:"none",
@@ -30,6 +25,9 @@ const styles = theme => ({
   },
   paperSuccess: {
     color: theme.palette.primary.contrastText,
+  },
+  widthStyle: {
+    margin: `0 ${theme.spacing.unit * 3}px`,
   }
 });
 
@@ -55,26 +53,25 @@ class Success extends Component {
           </Grid>
         </Paper>
 
-        <Grid container className={classes.card} spacing={16} justify="center" alignItems="center">
-          <Grid item xs={12} sm={4} className={classes.item}>
-            <a className={classes.links} href={urlSlide} target="_blank" rel="noopener noreferrer">
-              <CustomCard text="View Presentation" onClick={null} icon="far fa-eye fa-5x"/>
-            </a>
+        <div className={classes.widthStyle}>
+          <Grid container className={classes.card} spacing={16} justify="center" alignItems="center">
+            <Grid item xs={12} sm={4}>
+              <a className={classes.links} href={urlSlide} target="_blank" rel="noopener noreferrer">
+                <CustomCard text="View Presentation" onClick={null} icon="far fa-eye fa-5x"/>
+              </a>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <a className={classes.links} href={urlDownload} download="test.pptx">
+                <CustomCard text="Download in PPTX" onClick={null} icon="fas fa-file-download fa-5x"/>
+              </a>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <a className={classes.links} href={urlDownloadPdf} download="test.pdf">
+                <CustomCard text="Download in PDF" onClick={null} icon="fas fa-file-pdf fa-5x"/>
+              </a>
+            </Grid>
           </Grid>
-
-          <Grid item xs={12} sm={4} className={classes.item}>
-            <a className={classes.links} href={urlDownload} download="test.pptx">
-              <CustomCard text="Download in PPTX" onClick={null} icon="fas fa-file-download fa-5x"/>
-            </a>
-          </Grid>
-
-          <Grid item xs={12} sm={4} className={classes.item}>
-            <a className={classes.links} href={urlDownloadPdf} download="test.pdf">
-              <CustomCard text="Download in PDF" onClick={null} icon="fas fa-file-pdf fa-5x"/>
-            </a>
-          </Grid>
-        </Grid>
-
+        </div>
         <div className="photo__container">
          {/* <img src={this.props.photos} alt="uploaded"/>
         {this.props.photos} */}

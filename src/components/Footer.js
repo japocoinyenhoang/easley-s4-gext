@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    margin: `${theme.spacing.unit * 3}px`,
   },
   item: {
     textAlign: 'center',

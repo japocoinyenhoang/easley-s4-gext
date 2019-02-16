@@ -49,7 +49,7 @@ class Steps extends Component {
                   fileInput={fileInput}/>}
                   />
               <Route path="/steps/success" render = {props =>
-                  <Success
+                <Success
                   presentationId={presentationId}
                   photos={this.props.photos}
                   copyId={copyId}
