@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
@@ -22,7 +23,9 @@ class Footer extends Component {
       <footer>
         <Grid container className={classes.root}>
           <Grid item xs={12} className={classes.item}>
-            Developed in Adalab by <Link className="link__about-us" to="/about">Gext Team</Link> in colaboration with Triporate © | 2019
+            <Typography component="p">
+              Developed in Adalab by <Link className="link__about-us" to="/about">Gext Team</Link> in colaboration with Triporate © | 2019
+            </Typography>
           </Grid>
         </Grid>
       </footer>

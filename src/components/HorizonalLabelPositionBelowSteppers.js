@@ -4,11 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    padding: `${theme.spacing.unit * 3}px`
+    margin: `${theme.spacing.unit * 3}px`
   },
   backButton: {
     marginRight: theme.spacing.unit,
@@ -67,14 +68,14 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
     const { activeStep } = this.state;
 
     return (
-      <div className={classes.root}>
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map(label => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
+        <Paper className={classes.root} elevation={1}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
           ))}
-        </Stepper>
+          </Stepper>
         {/* <div>
           {this.state.activeStep === steps.length ? (
             <div>
@@ -99,7 +100,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
             </div>
           )}
         </div> */}
-      </div>
+      </Paper>
     );
   }
 }

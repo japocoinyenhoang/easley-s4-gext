@@ -11,6 +11,10 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  links: {
+    textDecoration:"none",
+    color: "unset"
+  },
 });
 
 class HeaderHome extends Component {
@@ -20,19 +24,19 @@ class HeaderHome extends Component {
       <header className={classes.root}>
         <Grid container direction="row" justify="flex-end" alignItems="center">
           <Grid item>
-            <IconButton onClick={this.props.handleOpen} color="primary" className={classes.button} aria-label="Add to shopping cart">
-            <i class="fas fa-question-circle"></i>
+            <IconButton onClick={this.props.handleOpen} color="secondary" className={classes.button}>
+            <i class="far fa-question-circle"></i>
             </IconButton>
             <SimpleModal
                 open={this.props.open}
                 handleClose={this.props.handleClose}/>
           </Grid>
           <Grid item>
-            <IconButton color="primary" className={classes.button} aria-label="Add to shopping cart">
-              <Link to="/about">
-                <i class="fas fa-info-circle"></i>
-              </Link>
-            </IconButton>
+            <Link to="/about" className={classes.links}>
+              <IconButton color="secondary" className={classes.button}>
+                  <i class="fas fa-info-circle"></i>
+              </IconButton>
+            </Link>
           </Grid>
         </Grid>
       </header>

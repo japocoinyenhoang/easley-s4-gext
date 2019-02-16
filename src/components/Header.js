@@ -18,6 +18,13 @@ const styles = theme => ({
   marginIcon: {
     marginRight: theme.spacing.unit,
   },
+  links: {
+    textDecoration:"none",
+    color: "unset"
+  },
+  marginButton: {
+    marginLeft: theme.spacing.unit,
+  }
 });
 
 class Header extends Component {
@@ -30,31 +37,31 @@ class Header extends Component {
             <Link to="/"><img src={logoHeader} alt="Gext logo" height="35px"></img></Link>
             <Grid container direction="row" justify="flex-end" alignItems="center">
               <Grid item>
-                <Fab
-                  variant="extended"
-                  size="medium"
-                  color="primary"
-                  aria-label="Add"
-                  className={classes.margin}
-                  onClick={this.props.handleSignoutClick}>
-                  <i className={`fab fa-google ${classes.marginIcon}`}></i>
-                  <span>Sign out</span>
-                </Fab>
-              </Grid>
-              <Grid item>
-                <IconButton onClick={this.props.handleOpen} color="primary" className={classes.button} aria-label="Add to shopping cart">
-                <i className="fas fa-question-circle"></i>
+                <IconButton onClick={this.props.handleOpen} color="secondary" className={classes.button}>
+                <i className="far fa-question-circle"></i>
                 </IconButton>
                 <SimpleModal
                     open={this.props.open}
                     handleClose={this.props.handleClose}/>
               </Grid>
               <Grid item>
-                <IconButton color="primary" className={classes.button} aria-label="Add to shopping cart">
-                  <Link to="/about">
+                <Link to="/about" className={classes.links}>
+                  <IconButton color="secondary" className={classes.button}>
                     <i className="fas fa-info-circle"></i>
-                  </Link>
-                </IconButton>
+                  </IconButton>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Fab
+                  variant="extended"
+                  size="medium"
+                  color="primary"
+                  aria-label="Add"
+                  className={classes.marginButton}
+                  onClick={this.props.handleSignoutClick}>
+                  <i className={`fab fa-google ${classes.marginIcon}`}></i>
+                  <span>Sign out</span>
+                </Fab>
               </Grid>
             </Grid>
           </Toolbar>
