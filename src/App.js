@@ -98,28 +98,28 @@ class App extends Component {
   }
 
   handleTripleMoustaches(file, name) {
-    console.log('esto es file', file);
-    const target = name;
-    //tranformar file a base64 y asignar eso a la constante value
-    const { imagesInputs } = this.state;
-    const url = [];
-    const imageSave = this.state.images;
-    let newValue = [];
-    url.push(imageSave);
-    const fr = new FileReader();
-    const value = ()=> {fr.readAsDataURL(file).then( () => {
-      newValue = imagesInputs.map(item => {
-        if (item[0] === target){
-          item[1] = value
-        }
-        return item;
-      });
-      console.log('funciono! estoy dentro de triplemoust');
-      this.setState({
-        imagesInputs: newValue,
-        images: url
-      })
-    })};
+    // console.log('esto es file', file);
+    // const target = name;
+    // //tranformar file a base64 y asignar eso a la constante value
+    // const { imagesInputs } = this.state;
+    // const url = [];
+    // const imageSave = this.state.images;
+    // let newValue = [];
+    // url.push(imageSave);
+    // const fr = new FileReader();
+    // // const value = ()=> {fr.readAsDataURL(file).then( () => {
+    // //   newValue = imagesInputs.map(item => {
+    //     if (item[0] === target){
+    //       item[1] = value
+    //     }
+    //     return item;
+    // //   // });
+    // //   console.log('funciono! estoy dentro de triplemoust');
+    // //   this.setState({
+    // //     imagesInputs: newValue,
+    // //     images: url
+    // //   })
+    // // })};
   }
 
     handleChangeFile(event){
