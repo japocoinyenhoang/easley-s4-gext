@@ -62,6 +62,7 @@ class ApiPicker extends Component {
         .build();
       picker.setVisible(true);
     }
+
   }
 
   pickerCallback(data) {

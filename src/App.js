@@ -22,7 +22,8 @@ class App extends Component {
       loadingHome: true,
       presentationId:'',
       copyId: '',
-      open: false
+      open: false,
+      uploadedFileId: ''
     }
 
     this.fileInput = React.createRef();
@@ -176,7 +177,6 @@ class App extends Component {
       this.templateInput.current.click();
     }
 
-
     uploadTemplateDrive(){
       let file=this.state.template[0];
       console.log (file);
@@ -184,7 +184,7 @@ class App extends Component {
           // var file = $('#fileToUpload')[0].files[0];
       let metadata = {
         'name': file.name, // Filename at Google Drive
-        'mimeType': file.type, // mimeType at Google Drive
+        'mimeType': '.gslides',// mimeType at Google Drive
         //'parents': ['### folder ID ###'], // Folder ID at Google Drive
       };
       let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
@@ -196,7 +196,11 @@ class App extends Component {
       xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       xhr.responseType = 'json';
       xhr.onload = () => {
-          console.log(xhr.response.id); // Retrieve uploaded file ID.
+        let fileId = xhr.response.id
+        this.setState({
+          uploadedFileId: fileId
+        })
+          console.log(this.state.uploadedFileId); // Retrieve uploaded file ID.
       };
       xhr.send(form);
     }
@@ -267,7 +271,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs, uploadedFileId } = this.state;
     return (
       <div className="app-container container-fluid">
         <Switch>
@@ -309,6 +313,7 @@ class App extends Component {
               handleClose={this.handleClose}
               handleClick={this.handleClick}
               open={open}
+              uploadedFileId={uploadedFileId}
               />} />
           <Route path="/about" render={props =>
             <AboutUs/>} />
