@@ -4,12 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    width: '90%',
+    flexGrow: 1,
+    padding: `${theme.spacing.unit * 3}px`
   },
   backButton: {
     marginRight: theme.spacing.unit,
@@ -76,7 +75,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
             </Step>
           ))}
         </Stepper>
-        <div>
+        {/* <div>
           {this.state.activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>All steps completed</Typography>
@@ -99,7 +98,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     );
   }

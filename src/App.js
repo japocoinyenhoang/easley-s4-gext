@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.scss';
+// import './App.scss';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import AboutUs from './components/AboutUs';
@@ -273,55 +273,50 @@ class App extends Component {
       <React.Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={themeApp}>
-      <div className="app-container container-fluid">
-        <Switch>
-          <Route exact path="/" render={props =>
-            <Home clientId={clientId}
-              discoveryDocs={discoveryDocs}
-              scopes={scopes}
-              updateStateLogin={this.updateStateLogin}
-              signIn={signIn}
-              loadingHome={loadingHome}
-              handleOpen={this.handleOpen}
-              handleClose={this.handleClose}
-              open={open}
-              />} />
-          <Route path="/steps" render={props =>
-            <Steps handleSignoutClick={this.handleSignoutClick}
-              signIn={signIn}
-              clientId={clientId}
-              scopes={scopes}
-              handleInputs={this.handleInputs}
-              handleTripleMoustaches={this.handleTripleMoustaches}
-              inputs={inputs}
-              imagesInputs={imagesInputs}
-              selectedTemplate={selectedTemplate}
-              handleTemplate={this.handleTemplate}
-              handleInitInputs={this.handleInitInputs}
-              handleImagesInputs={this.handleImagesInputs}
-              handleChangeFile={this.handleChangeFile}
-              presentationId= {presentationId}
-              handlePresentationId={this.handlePresentationId}
-              photos={this.state.images.photos}
-              fakeClick={this.fakeClick}
-              fileInput={this.fileInput}
-              handleCopyId={this.handleCopyId}
-              copyId={copyId}
-              handleOpen={this.handleOpen}
-              handleClose={this.handleClose}
-              open={open}
-              handleBack={this.handleBack}
-              handleNext={this.handleNext}
-              />} />
-          <Route path="/about" render={props =>
-            <AboutUs/>} />
-        </Switch>
-        <div className="row">
-          <Footer />
-        </div>
-      </div>
-      </MuiThemeProvider>
-    </React.Fragment>
+            <Switch>
+              <Route exact path="/" render={props =>
+                <Home clientId={clientId}
+                  discoveryDocs={discoveryDocs}
+                  scopes={scopes}
+                  updateStateLogin={this.updateStateLogin}
+                  signIn={signIn}
+                  loadingHome={loadingHome}
+                  handleOpen={this.handleOpen}
+                  handleClose={this.handleClose}
+                  open={open}
+                  />} />
+              <Route path="/steps" render={props =>
+                <Steps handleSignoutClick={this.handleSignoutClick}
+                  signIn={signIn}
+                  clientId={clientId}
+                  scopes={scopes}
+                  handleInputs={this.handleInputs}
+                  handleTripleMoustaches={this.handleTripleMoustaches}
+                  inputs={inputs}
+                  imagesInputs={imagesInputs}
+                  selectedTemplate={selectedTemplate}
+                  handleTemplate={this.handleTemplate}
+                  handleInitInputs={this.handleInitInputs}
+                  handleImagesInputs={this.handleImagesInputs}
+                  handleChangeFile={this.handleChangeFile}
+                  presentationId= {presentationId}
+                  handlePresentationId={this.handlePresentationId}
+                  photos={this.state.images.photos}
+                  fakeClick={this.fakeClick}
+                  fileInput={this.fileInput}
+                  handleCopyId={this.handleCopyId}
+                  copyId={copyId}
+                  handleOpen={this.handleOpen}
+                  handleClose={this.handleClose}
+                  open={open}
+                  handleBack={this.handleBack}
+                  handleNext={this.handleNext}
+                  />} />
+              <Route path="/about" render={props =>
+                <AboutUs/>} />
+            </Switch>
+        </MuiThemeProvider>
+      </React.Fragment>
     );
   }
 }

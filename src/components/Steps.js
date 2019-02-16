@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './Header';
-import Wizard from './Wizard';
 import Choose from './Choose';
 import Fill from './Fill';
 import Success from './Success';
+import Footer from './Footer';
 import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSteppers';
 
 class Steps extends Component {
@@ -18,7 +18,7 @@ class Steps extends Component {
                   handleClose={handleClose}
                   open={open} />
           <main className="main-container">
-          <Wizard/>
+          {/* <Wizard/> */}
             <HorizontalLabelPositionBelowStepper />
             <Switch>
               <Route path="/steps/choose" render={props =>
@@ -56,9 +56,9 @@ class Steps extends Component {
                   />} />
             </Switch>
           </main>
+          <Footer />
         </div>
       );
-
     } else {
       return <Redirect to='/' />
     }

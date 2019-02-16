@@ -90,9 +90,7 @@ class ApiPicker extends Component {
       return <Redirect to='/steps/fill' />
     } else {
       return (
-        <div>
-          <Button type="button" className="btn btn-secondary btn-lg" onClick={this.onApiLoad}>Select template</Button>
-        </div>
+        <Button type="button" onClick={this.onApiLoad}>Select template</Button>
       );
     }
   }
