@@ -90,7 +90,7 @@ class ApiPicker extends Component {
       return <Redirect to='/steps/fill' />
     } else {
       return (
-        <CustomCard text="Select Template" onClick={this.onApiLoad} icon="fas fa-hand-pointer fa-6x"/>
+        <CustomCard text="Select Template" onClick={this.onApiLoad} icon="fas fa-hand-pointer fa-5x"/>
       );
     }
   }
