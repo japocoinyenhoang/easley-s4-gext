@@ -184,7 +184,7 @@ class App extends Component {
           // var file = $('#fileToUpload')[0].files[0];
       let metadata = {
         'name': file.name, // Filename at Google Drive
-        'mimeType': '.gslides',// mimeType at Google Drive
+        'mimeType': 'application/vnd.google-apps.presentation',// mimeType at Google Drive
         //'parents': ['### folder ID ###'], // Folder ID at Google Drive
       };
       let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
