@@ -21,8 +21,7 @@ class App extends Component {
       loadingHome: true,
       presentationId:'',
       copyId: '',
-      open: false,
-      name: ''
+      open: false
     }
 
     this.fileInput = React.createRef();
@@ -77,6 +76,7 @@ class App extends Component {
       this.setState({
         imagesInputs: newArray
       });
+      console.log('aqui capturo los keywords de las imagenes', this.state.imagesInputs)
     }
   }
 
@@ -96,51 +96,44 @@ class App extends Component {
     this.setState({
       inputs: newValue
     });
+    console.log('estado inputs, se guarda clave valor de los inputs de texto', this.state.inputs);
   }
 
-  handleTripleMoustaches(name, file) {
-    console.log('esto es file', file);
-    const target = name;
-    //tranformar file a base64 y asignar eso a la constante value
-    const { imagesInputs } = this.state;
-    const url = [];
-    const imageSave = this.state.images;
-    let newValue = [];
-    url.push(imageSave);
-    const fr = new FileReader();
-    const value = ()=> {fr.readAsDataURL(file).then( () => {
-      newValue = imagesInputs.map(item => {
-        if (item[0] === target){
-          item[1] = value
-        }
-        return item;
-      });
-      console.log('funciono! estoy dentro de triplemoust');
-      this.setState({
-        imagesInputs: newValue,
-        images: url
-      })
-    })};
+  handleTripleMoustaches(idImage, uploadId) {
+    // let imagesArray = [];
+    // let imageToSave = this.state.images;
+    // imagesArray.push(imageToSave);
+    let imagesIdArray = [];
+    imagesIdArray = this.state.imagesInputs.map(item => {
+      if (item[0] === uploadId){
+        item[1] = idImage
+      }
+      return item;
+    });
+    this.setState({
+      imagesInputs: imagesIdArray,
+      // images: imagesArray
+    });
+
   }
 
     handleChangeFile(event){
-      console.log ('hasta aqui hemos llegado');
-      const name = event.currentTarget.id;
+      console.log ('empieza a subir la imagen desde el ordenador');
       const myFile = event.currentTarget.files[0];
+      const uploadId = event.currentTarget.id;
       const url = [];
       url.push(myFile);
-      console.log('este es el archivo', myFile);
+      console.log('esta es la imagen', myFile);
       this.setState({
-        name: name,
-        images: [...this.state.images, ...url],
-      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive),
-      console.log(this.state.images));
+        images: url,
+      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive(uploadId)),
+      console.log('este es el estado de la imagen', this.state.images));
     }
 
-    uploadImageDrive(){
-      let file = this.state.images[0];
-      console.log (file);
-      console.log ('ya hemos entrado');
+    uploadImageDrive(uploadId){
+      console.log('empieza subir la imagen a drive')
+      let file=this.state.images[0];
+      console.log('esta es la imagen que sube a drive', file);
           // var file = $('#fileToUpload')[0].files[0];
       let metadata = {
         'name': file.name, // Filename at Google Drive
@@ -153,7 +146,7 @@ class App extends Component {
       form.append('file', file);
       const xhr = new XMLHttpRequest();
       xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-      xhr.setRequestHeader('Authorization', 'Bearer' + accessToken);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       xhr.responseType = 'json';
 
       xhr.send(form);
@@ -167,12 +160,12 @@ class App extends Component {
           'fileId': xhr.response.id,
           'resource': body
         })
-        .then(() => {
-          const name = this.state.name;
-          const idImage = xhr.response.id;
-          this.handleTripleMoustaches(name, idImage)})
-        console.log(xhr.response); // Retrieve uploaded file ID.
+        .then(()=> {
+          console.log('este es el id de la imagen en drive', xhr.response.id); // Retrieve uploaded file ID.
+          let idImage = xhr.response.id;
+          this.handleTripleMoustaches(idImage, uploadId);
           return request;
+        })
       };
     }
 
@@ -220,7 +213,6 @@ class App extends Component {
   }
 
   listSlidesReplace() {
-    console.log('cojo input', this.state.inputs);
     let requests = [];
     this.state.inputs.map(item => {
       requests.push({
@@ -231,7 +223,6 @@ class App extends Component {
           replaceText: item[1]
         }
       });
-
       return requests;
     });
     this.state.imagesInputs.map(item =>{

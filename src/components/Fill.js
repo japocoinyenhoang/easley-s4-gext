@@ -88,7 +88,7 @@ class Fill extends Component {
   }
 
   paintForm() {
-    const { handleInputs, handleChangeFile, fileInput, fakeClick } = this.props;
+    const { handleInputs, handleChangeFile, fileInput } = this.props;
     if (this.state.moustachesArray.length === 0 && this.state.tripleMoustachesArray.length === 0) {
       return (<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
     } else {
