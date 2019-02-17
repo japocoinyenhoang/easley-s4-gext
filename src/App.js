@@ -20,7 +20,7 @@ class App extends Component {
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
-      presentationId:'',
+      presentationId: '',
       copyId: '',
       open: false,
       uploadedFileId: ''
@@ -45,8 +45,8 @@ class App extends Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.uploadImageDrive =this.uploadImageDrive.bind(this);
-    this.uploadTemplateDrive =this.uploadTemplateDrive.bind(this);
+    this.uploadImageDrive = this.uploadImageDrive.bind(this);
+    this.uploadTemplateDrive = this.uploadTemplateDrive.bind(this);
 
   }
 
@@ -60,9 +60,9 @@ class App extends Component {
 
   handleInitInputs(data) {
     let newArray = [];
-    if(data !== undefined) {
+    if (data !== undefined) {
       data.map(item => {
-        newArray.push([item,'']);
+        newArray.push([item, '']);
         return newArray
       });
 
@@ -74,16 +74,15 @@ class App extends Component {
 
   handleImagesInputs(data) {
     let newArray = [];
-    if(data !== undefined) {
+    if (data !== undefined) {
       data.map(item => {
-        newArray.push([item,'']);
+        newArray.push([item, '']);
         return newArray
       });
 
       this.setState({
         imagesInputs: newArray
       });
-      console.log('aqui capturo los inputs de las imagenes')
     }
   }
 
@@ -94,117 +93,109 @@ class App extends Component {
 
     let newValue = [];
     newValue = inputs.map(item => {
-      if (item[0] === target){
+      if (item[0] === target) {
         item[1] = value
       }
       return item;
     });
 
     this.setState({
-      imagesInputs: newValue
+      inputs: newValue
     });
   }
 
-  handleTripleMoustaches(e) {
-    const target = e.currentTarget.id;
-    const value = e.currentTarget.value;
-    const { inputs } = this.state;
+  handleTripleMoustaches(idImage, uploadId) {
+    let imagesIdArray = [];
+    imagesIdArray = this.state.imagesInputs.map(item => {
+      if (item[0] === uploadId) {
+        item[1] = idImage
+      }
+      return item;
+    });
+    this.setState({
+      imagesInputs: imagesIdArray,
+    });
+
+  }
+
+  handleChangeTemplate(event) {
+    const myFile = event.currentTarget.files[0];
     const url = [];
-    const imageSave = this.state.images;
-    url.push(imageSave);
-
-    let newValue = [];
-    newValue = inputs.map(item => {
-      if (item[0] === target){
-        item[1] = value
-      }
-      return item;
-    });
-    console.log('hemos sido engañaos');
-
+    url.push(myFile);
     this.setState({
-      inputs: newValue,
-      images: url
-    });
-
+      template: url,
+    }, () => this.uploadTemplateDrive());
   }
 
-    handleChangeFile(event){
-      const myFile = event.currentTarget.files[0];
-      const url = [];
-      url.push(myFile);
+  handleClick() {
+    this.templateInput.current.click();
+  }
+
+  uploadTemplateDrive() {
+    let file = this.state.template[0];
+    let metadata = {
+      'name': file.name,
+      'mimeType': 'application/vnd.google-apps.presentation',
+    };
+    let accessToken = window.gapi.auth.getToken().access_token;
+    let form = new FormData();
+    form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+    form.append('file', file);
+    var xhr = new XMLHttpRequest();
+    xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+    xhr.responseType = 'json';
+    xhr.onload = () => {
+      let fileId = xhr.response.id
       this.setState({
-        images: url,
-      }, () => this.uploadImageDrive(), console.log(this.state.images))
+        uploadedFileId: fileId
+      })
+    };
+    xhr.send(form);
+  }
 
-    }
+  handleChangeFile(event) {
+    const myFile = event.currentTarget.files[0];
+    const uploadId = event.currentTarget.id;
+    const url = [];
+    url.push(myFile);
+    this.setState({
+      images: url,
+    }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive(uploadId)));
+  }
 
-    uploadImageDrive(){
-      let file=this.state.images[0];
-
-          // var file = $('#fileToUpload')[0].files[0];
-      let metadata = {
-        'name': file.name, // Filename at Google Drive
-        'mimeType': file.type, // mimeType at Google Drive
-        //'parents': ['### folder ID ###'], // Folder ID at Google Drive
+  uploadImageDrive(uploadId) {
+    let file = this.state.images[0];
+    let metadata = {
+      'name': file.name,
+      'mimeType': file.type,
+    };
+    let accessToken = window.gapi.auth.getToken().access_token;
+    let form = new FormData();
+    form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+    form.append('file', file);
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+    xhr.responseType = 'json';
+    xhr.send(form);
+    xhr.onload = () => {
+      const body = {
+        'value': "default",
+        'type': "anyone",
+        'role': "reader"
       };
-      let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-      let form = new FormData();
-      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-      form.append('file', file);
-      var xhr = new XMLHttpRequest();
-      xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-      xhr.responseType = 'json';
-      xhr.onload = () => {
-      };
-      xhr.send(form);
-    }
-
-    handleChangeTemplate(event){
-      console.log ('hasta aqui hemos llegado');
-      const myFile = event.currentTarget.files[0];
-      const url = [];
-      url.push(myFile);
-      console.log('este es el archivo', myFile);
-      this.setState({
-        template: url,
-      }, () => this.uploadTemplateDrive(),
-      console.log(this.state.template));
-    }
-
-    handleClick (){
-      this.templateInput.current.click();
-    }
-
-    uploadTemplateDrive(){
-      let file=this.state.template[0];
-      console.log (file);
-      console.log ('ya hemos entrado');
-          // var file = $('#fileToUpload')[0].files[0];
-      let metadata = {
-        'name': file.name, // Filename at Google Drive
-        'mimeType': 'application/vnd.google-apps.presentation',// mimeType at Google Drive
-        //'parents': ['### folder ID ###'], // Folder ID at Google Drive
-      };
-      let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-      let form = new FormData();
-      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-      form.append('file', file);
-      var xhr = new XMLHttpRequest();
-      xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-      xhr.responseType = 'json';
-      xhr.onload = () => {
-        let fileId = xhr.response.id
-        this.setState({
-          uploadedFileId: fileId
+      const request = window.gapi.client.drive.permissions.insert({
+        'fileId': xhr.response.id,
+        'resource': body
+      })
+        .then(() => {
+          let idImage = xhr.response.id;
+          this.handleTripleMoustaches(idImage, uploadId);
+          return request;
         })
-          console.log(this.state.uploadedFileId); // Retrieve uploaded file ID.
-      };
-      xhr.send(form);
-    }
-
+    };
+  }
 
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
@@ -228,22 +219,22 @@ class App extends Component {
     })
   }
 
-  handleTemplate(msg, id){
-    this.setState ({
+  handleTemplate(msg, id) {
+    this.setState({
       selectedTemplate: msg
     });
   }
 
-  handlePresentationId(id){
-    this.setState ({
+  handlePresentationId(id) {
+    this.setState({
       presentationId: id
     });
   }
 
-  handleCopyId(id){
-    this.setState ({
+  handleCopyId(id) {
+    this.setState({
       copyId: id
-    },() => {
+    }, () => {
       this.listSlidesReplace();
     }
     );
@@ -262,6 +253,20 @@ class App extends Component {
       });
       return requests;
     });
+    this.state.imagesInputs.map(item => {
+      requests.push({
+        replaceAllShapesWithImage: {
+          imageUrl: item[1] === '' ? 'https://drive.google.com/uc?export=view&id=1IbFzcNbWSBs_o1L_fSp3nUWd8JKRbKnj' : `https://drive.google.com/uc?export=view&id=${item[1]}`,
+          imageReplaceMethod: 'CENTER_INSIDE',
+          containsText: {
+            text: `{{{${item[0]}}}}`,
+            matchCase: false
+          }
+        }
+      });
+      return requests;
+    });
+
     window.gapi.client.slides.presentations.batchUpdate({
       presentationId: this.state.copyId,
       requests: requests
@@ -285,7 +290,7 @@ class App extends Component {
               handleOpen={this.handleOpen}
               handleClose={this.handleClose}
               open={open}
-              />} />
+            />} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
@@ -301,7 +306,7 @@ class App extends Component {
               handleImagesInputs={this.handleImagesInputs}
               handleChangeFile={this.handleChangeFile}
               handleChangeTemplate={this.handleChangeTemplate}
-              presentationId= {presentationId}
+              presentationId={presentationId}
               handlePresentationId={this.handlePresentationId}
               photos={this.state.images.photos}
               fakeClick={this.fakeClick}
@@ -314,9 +319,9 @@ class App extends Component {
               handleClick={this.handleClick}
               open={open}
               uploadedFileId={uploadedFileId}
-              />} />
+            />} />
           <Route path="/about" render={props =>
-            <AboutUs/>} />
+            <AboutUs />} />
         </Switch>
         <div className="row">
           <Footer />

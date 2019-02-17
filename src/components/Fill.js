@@ -36,7 +36,6 @@ class Fill extends Component {
   getId(){
     if (this.props.presentationId !== ''){
       fileId = this.props.presentationId
-      console.log(this.props.presentationId);
     } else if(this.props.uploadedFileId !== '') {
       fileId = this.props.uploadedFileId
     } else {
@@ -59,12 +58,14 @@ class Fill extends Component {
       let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
-        this.setState({ moustachesArray: [...keywords, ...eraseMoustache] });
+        let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
+        this.setState({ moustachesArray: moustachesNoDup });
       }
       this.props.handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
-        this.setState({ tripleMoustachesArray: [...keywords, ...eraseTripleMoustache] });
+        let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
+        this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
       }
       this.props.handleImagesInputs(this.state.tripleMoustachesArray);
     });
@@ -115,7 +116,7 @@ class Fill extends Component {
             return (
               <div key={item} className="form-group">
                     <label htmlFor={item}>{item.toUpperCase()}:</label>
-                    <input className="form-control " id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
+                    <input className="form-control" id={item} type="file" ref={fileInput} onChange={handleChangeFile} />
                   </div>
             );
           })
