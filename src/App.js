@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import './App.scss';
 import Home from './components/Home';
 import Steps from './components/Steps';
 import AboutUs from './components/AboutUs';
@@ -199,6 +198,7 @@ class App extends Component {
       }, ()=>{
         let message = 'You picked: ' + file.name;
         this.handleTemplate(message);
+        this.handleNext();
       } )
     };
     xhr.send(form);
