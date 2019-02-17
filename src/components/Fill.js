@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 
@@ -47,7 +46,16 @@ const styles = theme => ({
   itemBtn:{
     textAlign: "center",
   },
-
+  loading: {
+    padding: `${theme.spacing.unit * 3}px`,
+  },
+  marginAuto: {
+    margin:"auto",
+    padding: `${theme.spacing.unit * 2}px`,
+  },
+  text: {
+    textAlign:"center"
+  }
 });
 
 let keywords = [];
@@ -208,13 +216,24 @@ class Fill extends Component {
               })
               }
               </Grid>
-              <Grid item xs={12} className={classes.itemBtn}>
+              <Grid item xs={6} className={classes.itemBtn}>
+                <Link to="/steps/choose" className={classes.links}>
+                    <Fab
+                      variant="extended"
+                      size="large"
+                      color="secondary"
+                      className={classes.btnSend}
+                      onClick={this.props.handleBack}>
+                      <span>Choose another template</span>
+                    </Fab>
+                  </Link>
+              </Grid>
+              <Grid item xs={6} className={classes.itemBtn}>
                 <Link to="/steps/success" className={classes.links}>
                   <Fab
                     variant="extended"
                     size="large"
                     color="primary"
-                    aria-label="Add"
                     className={classes.btnSend}
                     onClick={this.loadSlidesReplace}>
                     <i className={`fas fa-share-square ${classes.marginIcon}`}></i>
@@ -244,11 +263,11 @@ class Fill extends Component {
           <Paper className={classes.message} elevation={1}>
             <Grid container justify="center" alignItems="center" spacing={16}>
               <Grid item>
-                <i class="far fa-check-circle fa-3x"></i>
+                <i className="far fa-check-circle fa-3x"></i>
               </Grid>
               <Grid item>
               <Typography component="p" className={classes.paperFill}>
-                {selectedTemplate} <Button className={classes.btn} size="small" onClick={this.props.handleBack}><Link className={classes.links} to="/steps/choose">Choose another template</Link></Button>
+                {selectedTemplate}
               </Typography>
               </Grid>
             </Grid>
@@ -258,10 +277,12 @@ class Fill extends Component {
           );
     } else {
       return (
-        <Fragment>
-          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
-          <div className="errorMessage">If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.</div>
-        </Fragment>
+        <div className={classes.loading}>
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
+          <div className={classes.text}>
+            If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.
+          </div>
+        </div>
         )
     }
   }

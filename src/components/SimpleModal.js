@@ -50,10 +50,19 @@ class SimpleModal extends React.Component {
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
               <ol>
-                <li>In your presentation template, write between two curly braces the text fields that you want to change, or between three curly braces the images that you want to insert. For example: {'{{text}}'} or {'{{{image}}}'}</li>
-                <li>Log in to Gext with your Google account and select your presentation template.</li>
-                <li>You already have in your hands the superpowers: The fields of the presentation that you have 'gexted' will automatically appear and you will be able to fill them in order to automatically generate a new copy.</li>
-                <li>Take a look or download your new presentation. And remember: 'With great power comes great responsibility'.</li>
+                <li>
+                  <p>In your presentation template, write between two curly braces the text fields that you want to change, or between three curly braces the images that you want to insert. For example: {'{{text}}'} or {'{{{image}}}'}.</p>
+                  <p>Please, be aware that you must position the images on a different shape. Otherwise, the image will overwrite the texts.</p>
+                </li>
+                <li>
+                  <p>Log in to Gext with your Google account and select your presentation template.</p>
+                </li>
+                <li>
+                  <p>You already have in your hands the superpowers: The fields of the presentation that you have 'gexted' will automatically appear and you will be able to fill them in order to automatically generate a new copy.</p>
+                </li>
+                <li>
+                  <p>Take a look or download your new presentation. And remember: 'With great power comes great responsibility'.</p>
+                </li>
               </ol>
             </Typography>
             <SimpleModalWrapped />

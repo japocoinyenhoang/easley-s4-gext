@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   hidden: {
     display: "none"
-  }
+  },
 });
 
 class Choose extends Component {

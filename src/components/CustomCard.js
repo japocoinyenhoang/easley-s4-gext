@@ -30,7 +30,7 @@ function CustomCard(props) {
       <CardActionArea className={classes.action}>
         <CardContent className={classes.alignItems}>
           <Grid container justify="center" alignItems="center">
-            <Grid item alignItems="center">
+            <Grid item>
               <i className={`${icon} ${classes.iconColor}`}></i>
               <Typography gutterBottom variant="h5" component="h2">
                 {text}

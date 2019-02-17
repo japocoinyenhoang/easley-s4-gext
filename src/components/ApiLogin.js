@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import '../index.scss';
 import ReactLoading from 'react-loading';
 
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -20,6 +20,10 @@ const styles = theme => ({
   },
   marginIcon: {
     marginRight: theme.spacing.unit,
+  },
+  marginAuto: {
+    margin:"auto",
+    padding: `${theme.spacing.unit * 2}px`,
   }
 });
 
@@ -76,7 +80,7 @@ class ApiLogin extends Component {
 
   homeOrSteps(){
     if(this.props.signIn !== true){
-      return  <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+      return  <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={this.props.classes.marginAuto}/>
     } else {
       return <Redirect to= '/steps/choose' />
     }
@@ -89,17 +93,16 @@ class ApiLogin extends Component {
       if(!this.props.signIn){
         return (
         <div className={classes.root}>
-          <Fab
-            variant="extended"
+          <Button
+            variant="outlined"
             size="medium"
-            color="primary"
-            aria-label="Add"
+            color="secondary"
             className={classes.margin}
             onClick={this.handleAuthClick}>
 
             <i className={`fab fa-google ${classes.marginIcon}`}></i>
             <span>Sign in with Google</span>
-          </Fab>
+          </Button>
         </div>
         )
       } else{

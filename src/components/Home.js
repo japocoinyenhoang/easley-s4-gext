@@ -15,7 +15,7 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 2}px`
   },
   itemMain:{
-    textAlign: "center",
+    textAlign: "center"
   },
   hidden: {
     display: "none",
@@ -26,20 +26,21 @@ class Home extends Component {
   render() {
     const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loadingHome, handleOpen, handleClose, open, classes } = this.props;
     return (
-      <Grid container className={classes.root} direction="row" justify="space-between">
-        <Grid item xs={12}>
+      <Grid container className={classes.root} direction="column" justify="space-between">
+        <Grid item>
           <HeaderHome handleOpen={handleOpen}
                       handleClose={handleClose}
-                      open={open} />
+                      open={open}
+                      goBack={false}/>
         </Grid>
-        <Grid item xs={12} className={classes.itemMain}>
+        <Grid item className={classes.itemMain}>
           <main>
             <h1 className={classes.hidden}>Gext, presentations with superpowers</h1>
             <img src={logo} alt="Gext logo" width="300px"></img>
             <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} loadingHome={loadingHome} />
           </main>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item>
           <Footer />
         </Grid>
       </Grid>

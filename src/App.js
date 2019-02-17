@@ -19,7 +19,7 @@ const themeApp = createMuiTheme({
       light: '#5b5b5b',
       main: '#333333',
       dark: '#232323',
-      contrastText: '#000',
+      contrastText: '#fff',
     },
   },
   typography: {
@@ -377,7 +377,9 @@ class App extends Component {
                   uploadedFileId={uploadedFileId}
                   />} />
               <Route path="/about" render={props =>
-                <AboutUs/>} />
+                <AboutUs handleOpen={this.handleOpen}
+                handleClose={this.handleClose}
+                open={open}/>} />
             </Switch>
         </MuiThemeProvider>
       </React.Fragment>

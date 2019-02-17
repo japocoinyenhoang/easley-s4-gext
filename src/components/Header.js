@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import SimpleModal from './SimpleModal';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -52,16 +52,15 @@ class Header extends Component {
                 </Link>
               </Grid>
               <Grid item>
-                <Fab
-                  variant="extended"
+                <Button
+                  variant="outlined"
                   size="medium"
-                  color="primary"
-                  aria-label="Add"
+                  color="secondary"
                   className={classes.marginButton}
                   onClick={this.props.handleSignoutClick}>
                   <i className={`fab fa-google ${classes.marginIcon}`}></i>
                   <span>Sign out</span>
-                </Fab>
+                </Button>
               </Grid>
             </Grid>
           </Toolbar>
