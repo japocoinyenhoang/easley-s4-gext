@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AboutCard from './AboutCard';
 import HeaderHome from './HeaderHome';
+import Footer from './Footer';
 import { Typography } from "@material-ui/core";
 
 const styles = theme => ({
@@ -107,48 +108,10 @@ class AboutUs extends Component {
                 )}
             </Grid>
           </Grid>
+          <Grid item xs={12}>
+            <Footer />
+          </Grid>
         </Grid>
-        {/* <ul className='about-us__list'>
-          <li className='about-us__item'>
-            <div className='about-us__pic'>
-              <img className='profile-pic' src={roxana} alt='profile pic'></img>
-            </div>
-            <h2 className='about-us__title'>Roxana Sánchez Briñas</h2>
-            <p className='about-us__description'>After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on dive bars. Nowadays, I have jumped into the digital world, where I hope to keep evolving and acomplish in life, as her "Sim" does.</p>
-            <ul className='social-media__list'>
-              <li className='social-media__item'>Twitter: https://twitter.com/RoxSBri</li>
-              <li className='social-media__item'>Github: https://github.com/roxsb</li>
-              <li className='social-media__item'>Linkedin: https://www.linkedin.com/in/roxana-sb/</li>
-              <li className='social-media__item'>Correo: rox.san.bri@gmail.com</li>
-            </ul>
-          </li>
-          <li className='about-us__item'>
-            <div className='about-us__pic'>
-              <img className='profile-pic' src={yen} alt='profile pic'></img>
-            </div>
-            <h2 className='about-us__title'>Yen Hoang</h2>
-            <p className='about-us__description'>Future front-end developer, passionate about flex-box, currently trying to keep me afloat in the world of code. Philosophy of life: Work hard and win.</p>
-            <ul className='social-media__list'>
-              <li className='social-media__item'>Twitter: https://twitter.com/JapocoinYH</li>
-              <li className='social-media__item'>Github: https://github.com/japocoinyenhoang</li>
-              <li className='social-media__item'>Linkedin: https://www.linkedin.com/in/YenHoangChu/</li>
-              <li className='social-media__item'>Correo: japocoin@gmail.com</li>
-            </ul>
-          </li>
-          <li className='about-us__item'>
-            <div className='about-us__pic'>
-              <img className='profile-pic' src={laura} alt='profile pic'></img>
-            </div>
-            <h2 className='about-us__title'>Laura Sánchez Redondo</h2>
-            <p className='about-us__description'>I changed my career as a Teacher of Infant Education and English, for UX Design. I discovered Adalab through a group of Spanish Ux Ladies on Twitter and, at the first time, I thought it was the best option to develop my professional career in the technological world. I love being part of this great initiative.</p>
-            <ul className='social-media__list'>
-              <li className='social-media__item'>Twitter: https://twitter.com/babelarr</li>
-              <li className='social-media__item'>Github: https://github.com/babelarr</li>
-              <li className='social-media__item'>Linkedin: https://www.linkedin.com/in/laurasanchezredondo/</li>
-              <li className='social-media__item'>Correo: babelarr@gmail.com</li>
-            </ul>
-          </li>
-        </ul> */}
       </div>
     );
   }

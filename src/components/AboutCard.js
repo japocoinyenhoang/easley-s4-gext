@@ -8,6 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Footer from './Footer';
 
 const styles = theme => ({
   card: {
@@ -16,10 +17,12 @@ const styles = theme => ({
   media: {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover',
-    width: '100px',
-    height: '100px',
-    borderRadius: '50px',
-    margin:'10px'
+    width: '200px',
+    height: '200px',
+    borderRadius: '100%',
+    margin:'0 auto',
+    padding: `${theme.spacing.unit * 3}px`,
+
   },
   links: {
     textDecoration:"none",
