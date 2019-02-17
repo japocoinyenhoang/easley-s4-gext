@@ -29,6 +29,10 @@ const styles = theme => ({
   },
   widthStyle: {
     margin: `0 ${theme.spacing.unit * 3}px`,
+  },
+  marginAuto: {
+    margin:"auto",
+    padding: `${theme.spacing.unit * 2}px`,
   }
 });
 
@@ -86,7 +90,7 @@ class Success extends Component {
     );
     } else {
       return (
-        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto} />
       )
     }
   }

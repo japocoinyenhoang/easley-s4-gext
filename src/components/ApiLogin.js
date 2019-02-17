@@ -20,6 +20,10 @@ const styles = theme => ({
   },
   marginIcon: {
     marginRight: theme.spacing.unit,
+  },
+  marginAuto: {
+    margin:"auto",
+    padding: `${theme.spacing.unit * 2}px`,
   }
 });
 
@@ -76,7 +80,7 @@ class ApiLogin extends Component {
 
   homeOrSteps(){
     if(this.props.signIn !== true){
-      return  <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+      return  <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={this.props.classes.marginAuto}/>
     } else {
       return <Redirect to= '/steps/choose' />
     }

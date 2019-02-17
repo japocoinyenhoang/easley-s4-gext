@@ -46,7 +46,16 @@ const styles = theme => ({
   itemBtn:{
     textAlign: "center",
   },
-
+  loading: {
+    padding: `${theme.spacing.unit * 3}px`,
+  },
+  marginAuto: {
+    margin:"auto",
+    padding: `${theme.spacing.unit * 2}px`,
+  },
+  text: {
+    textAlign:"center"
+  }
 });
 
 let keywords = [];
@@ -215,7 +224,6 @@ class Fill extends Component {
                       color="secondary"
                       className={classes.btnSend}
                       onClick={this.props.handleBack}>
-                      <i className={`far fa-arrow-alt-circle-left ${classes.marginIcon}`}></i>
                       <span>Choose another template</span>
                     </Fab>
                   </Link>
@@ -269,10 +277,12 @@ class Fill extends Component {
           );
     } else {
       return (
-        <Fragment>
-          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
-          <div className="errorMessage">If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.</div>
-        </Fragment>
+        <div className={classes.loading}>
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
+          <div className={classes.text}>
+            If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.
+          </div>
+        </div>
         )
     }
   }

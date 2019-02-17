@@ -18,6 +18,10 @@ const styles = theme => ({
   },
   title: {
     textAlign:"center"
+  },
+  divSize: {
+    maxWidth: 850,
+    margin: 'auto'
   }
 })
 
@@ -96,17 +100,19 @@ class AboutUs extends Component {
             <Typography className={classes.title} variant="h3" component="h2">Gext team</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Grid container className={classes.members} justify="center" alignItems="flex-start" spacing={16}>
-                {
-                  gextTeam.map( item => {
-                    return (
-                      <Grid item xs={12} sm={6}>
-                        <AboutCard name={item.name} description={item.description} photo={item.photo} socialIcons={item.socialIcons}/>
-                      </Grid>
-                    )
-                  }
-                )}
-            </Grid>
+            <div className={classes.divSize}>
+              <Grid container className={classes.members} justify="center" alignItems="flex-start" spacing={16}>
+                  {
+                    gextTeam.map( item => {
+                      return (
+                        <Grid item xs={12} sm={6}>
+                          <AboutCard name={item.name} description={item.description} photo={item.photo} socialIcons={item.socialIcons}/>
+                        </Grid>
+                      )
+                    }
+                  )}
+              </Grid>
+            </div>
           </Grid>
           <Grid item xs={12}>
             <Footer />

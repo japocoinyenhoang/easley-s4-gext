@@ -15,6 +15,10 @@ const styles = theme => ({
     flexGrow: 1,
     minHeight: "100vh"
   },
+  divSize: {
+    maxWidth: 850,
+    margin: 'auto'
+  }
 });
 
 class Steps extends Component {
@@ -31,7 +35,7 @@ class Steps extends Component {
           </Grid>
 
           <Grid item>
-            <main className="main-container">
+            <main className={classes.divSize}>
               <HorizontalLabelPositionBelowStepper activeStep={activeStep}/>
               <Switch>
                 <Route path="/steps/choose" render={props =>
