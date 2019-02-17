@@ -267,7 +267,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs, activeStep } = this.state;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -310,6 +310,7 @@ class App extends Component {
                   open={open}
                   handleBack={this.handleBack}
                   handleNext={this.handleNext}
+                  activeStep={activeStep}
                   />} />
               <Route path="/about" render={props =>
                 <AboutUs/>} />

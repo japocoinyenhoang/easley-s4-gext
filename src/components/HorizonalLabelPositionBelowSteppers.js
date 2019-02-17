@@ -24,48 +24,11 @@ function getSteps() {
   return ['Choose your template', 'Fill the fields', 'Review and download'];
 }
 
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0:
-      return 'Select your template by your Google Drive account...';
-    case 1:
-      return 'Create your document';
-    case 2:
-      return 'View your document and download it';
-    default:
-      return 'Thank you for using Gext';
-  }
-}
-
 class HorizontalLabelPositionBelowStepper extends React.Component {
-  state = {
-    activeStep: 0,
-    chooseRoute: "/steps/choose",
-
-  };
-
-  handleNext = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep + 1,
-    }));
-  };
-
-  handleBack = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1,
-    }));
-  };
-
-  handleReset = () => {
-    this.setState({
-      activeStep: 0,
-    });
-  };
 
   render() {
-    const { classes } = this.props;
+    const { classes, activeStep } = this.props;
     const steps = getSteps();
-    const { activeStep } = this.state;
 
     return (
         <Paper className={classes.root} elevation={1}>
@@ -76,30 +39,6 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
               </Step>
           ))}
           </Stepper>
-        {/* <div>
-          {this.state.activeStep === steps.length ? (
-            <div>
-              <Typography className={classes.instructions}>All steps completed</Typography>
-              <Button onClick={this.handleReset}>Reset</Button>
-            </div>
-          ) : (
-            <div>
-              <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-              <div>
-                <Button
-                  disabled={activeStep === 0}
-                  onClick={this.handleBack}
-                  className={classes.backButton}
-                >
-                  Back
-                </Button>
-                <Button variant="contained" color="primary" onClick={this.handleNext}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>
-              </div>
-            </div>
-          )}
-        </div> */}
       </Paper>
     );
   }

@@ -111,6 +111,7 @@ class Fill extends Component {
         window.gapi.client.load('drive', 'v2').then(execute => {
           this.execute()
         })
+        this.props.handleNext();
       }).catch(error => { console.log(error) });
     }
   }
@@ -235,7 +236,7 @@ class Fill extends Component {
               </Grid>
               <Grid item>
               <Typography component="p" className={classes.paperFill}>
-                {selectedTemplate} <Button className={classes.btn} size="small"><Link className={classes.links} to="/steps/choose">Choose another template</Link></Button>
+                {selectedTemplate} <Button className={classes.btn} size="small" onClick={this.props.handleBack}><Link className={classes.links} to="/steps/choose">Choose another template</Link></Button>
               </Typography>
               </Grid>
             </Grid>
