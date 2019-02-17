@@ -37,10 +37,10 @@ const gextTeam = [{
   description:'Graduated in Sociology, driven by social questions and issues. After studying in Adalab and develop the necessary skills to start a new path on web development, I am very eager to develop my career and never stop learning and growing.',
   photo: 'https://www.elheraldo.co/sites/default/files/articulo/2017/07/18/ss-160826-twip-05-8cf6d4cb83758449fd400c7c3d71aa1f.jpg',
   socialIcons: [
-      ['fas fa-info-circle', 'https://twitter.com/albahniuk'],
-      ['fas fa-info-circle', 'https://github.com/albahniuk'],
-      ['fas fa-info-circle', 'https://www.linkedin.com/in/albalopezfolgar/'],
-      ['fas fa-info-circle', 'albalopezfolgar@gmail.com'],
+      ['fab fa-twitter', 'https://twitter.com/albahniuk'],
+      ['fab fa-github-alt', 'https://github.com/albahniuk'],
+      ['fab fa-linkedin', 'https://www.linkedin.com/in/albalopezfolgar/'],
+      ['far fa-envelope', 'mailto:albalopezfolgar@gmail.com'],
   ],
 },
 {
@@ -48,10 +48,10 @@ const gextTeam = [{
   description:'After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on trendy bars. Nowadays, I have jumped into the digital world, and thanks Adalab I hope to keep evolving and growing in the technological career.',
   photo: 'https://www.elheraldo.co/sites/default/files/articulo/2017/07/18/ss-160826-twip-05-8cf6d4cb83758449fd400c7c3d71aa1f.jpg',
   socialIcons: [
-      ['fas fa-info-circle', 'Twitter: https://twitter.com/RoxSBri'],
-      ['fas fa-info-circle', 'https://github.com/roxsb'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fab fa-twitter', 'Twitter: https://twitter.com/RoxSBri'],
+      ['fab fa-github-alt', 'https://github.com/roxsb'],
+      ['fab fa-linkedin', 'https://www.linkedin.com/in/roxana-sb/'],
+      ['far fa-envelope', 'mailto:rox.san.bri@gmail.com'],
 
   ],
 },
@@ -60,10 +60,10 @@ const gextTeam = [{
   description:'Future front-end developer, passionate about flex-box, currently trying to keep me afloat in the world of code. Philosophy of life: Work hard and win.',
   photo: 'https://www.elheraldo.co/sites/default/files/articulo/2017/07/18/ss-160826-twip-05-8cf6d4cb83758449fd400c7c3d71aa1f.jpg',
   socialIcons: [
-      ['fas fa-info-circle', 'https://twitter.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fab fa-twitter', 'https://twitter.com/japocoinyh'],
+      ['fab fa-github-alt', 'https://github.com/japocoinyenhoang'],
+      ['fab fa-linkedin', 'https://www.linkedin.com/in/yenhoangchu/'],
+      ['far fa-envelope', 'mailto:japocoin@gmail.com'],
   ],
 },
 {
@@ -71,10 +71,10 @@ const gextTeam = [{
   description:'I changed my career as a Teacher of Infant Education and English, for UX Design. I discovered Adalab through a group of Spanish Ux Ladies on Twitter and, at the first time, I thought it was the best option to develop my professional career in the technological world. I love being part of this great initiative.',
   photo: 'https://www.elheraldo.co/sites/default/files/articulo/2017/07/18/ss-160826-twip-05-8cf6d4cb83758449fd400c7c3d71aa1f.jpg',
   socialIcons: [
-      ['fas fa-info-circle', 'https://twitter.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
-      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fab fa-twitter', 'https://twitter.com/babelarr'],
+      ['fab fa-github-alt', 'https://github.com/babelarr'],
+      ['fab fa-linkedin', 'https://www.linkedin.com/in/laurasanchezredondo/'],
+      ['far fa-envelope', 'mailto:babelarr@gmail.com'],
   ],
 }]
 
