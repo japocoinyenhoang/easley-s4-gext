@@ -1,34 +1,77 @@
 import React, { Component } from "react";
 import ReactLoading from 'react-loading';
+import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import CustomCard from "./CustomCard";
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    padding: `${theme.spacing.unit * 2}px`,
+    margin:  `0 ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    backgroundColor: "#8bc34a",
+    color: theme.palette.primary.contrastText,
+  },
+  card: {
+    flexGrow: 1,
+  },
+  links: {
+    textDecoration:"none",
+    color: "unset"
+  },
+  paperSuccess: {
+    color: theme.palette.primary.contrastText,
+  },
+  widthStyle: {
+    margin: `0 ${theme.spacing.unit * 3}px`,
+  }
+});
 
 class Success extends Component {
   render() {
+    const {classes} = this.props;
     let urlSlide = `https://docs.google.com/presentation/d/${this.props.copyId}/`;
     let urlDownload = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pptx`;
     let urlDownloadPdf = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pdf`;
     if (this.props.copyId !== '') {
       return (
-        <div className="success-page container-fluid">
-          <div className="success-page__icons">
-            <i className="fas fa-check"></i>
-            <i className="fas fa-thumbs-up"></i>
-          </div>
-          <div className="row d-flex justify-content-around">
-            <div className="success-page__btn">
-              <a className="link-success" href={urlSlide} target="_blank" rel="noopener noreferrer"><button className="btn btn-outline-primary">View your presentation
-            </button></a>
-            </div>
-            <div className="success-page__btn download-btn">
-              <a className="link-success" href={urlDownload}
-                download="test.pptx"><button className="btn btn-outline-primary">Download PPTX</button></a>
-            </div>
-          </div>
-          <div className="success-page__btn download-btn">
-            <a className="link-success" href={urlDownloadPdf}
-              download="test.pdf"><button className="btn btn-outline-primary">Download PDF</button></a>
-          </div>
+      <div>
+        <Paper className={classes.root} elevation={1}>
+          <Grid container justify="center" alignItems="center" spacing={16}>
+            <Grid item>
+              <i class="far fa-thumbs-up fa-3x"></i>
+            </Grid>
+            <Grid item>
+            <Typography component="p" className={classes.paperSuccess}>
+              Congratulations!! You have completed your presentation.
+            </Typography>
+            </Grid>
+          </Grid>
+        </Paper>
 
+        <div className={classes.widthStyle}>
+          <Grid container className={classes.card} spacing={16} justify="center" alignItems="center">
+            <Grid item xs={12} sm={4}>
+              <a className={classes.links} href={urlSlide} target="_blank" rel="noopener noreferrer">
+                <CustomCard text="View Presentation" onClick={null} icon="far fa-eye fa-5x"/>
+              </a>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <a className={classes.links} href={urlDownload} download="test.pptx">
+                <CustomCard text="Download in PPTX" onClick={null} icon="fas fa-file-download fa-5x"/>
+              </a>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <a className={classes.links} href={urlDownloadPdf} download="test.pdf">
+                <CustomCard text="Download in PDF" onClick={null} icon="fas fa-file-pdf fa-5x"/>
+              </a>
+            </Grid>
+          </Grid>
+        </div>
         <div className="photo__container">
          {/* <img src={this.props.photos} alt="uploaded"/>
         {this.props.photos} */}
@@ -43,4 +86,8 @@ class Success extends Component {
   }
 }
 
-export default Success;
+Success.propTypes={
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Success);

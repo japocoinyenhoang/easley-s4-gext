@@ -2,8 +2,26 @@ import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import '../index.scss';
-import btn_google from '../images/btn_google.svg';
 import ReactLoading from 'react-loading';
+
+import Fab from '@material-ui/core/Fab';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    marginTop: `${theme.spacing.unit * 2}px`,
+  },
+  margin: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  marginIcon: {
+    marginRight: theme.spacing.unit,
+  }
+});
 
 class ApiLogin extends Component {
   constructor(props) {
@@ -65,9 +83,25 @@ class ApiLogin extends Component {
   }
 
   render() {
+    const {classes} = this.props;
+
     if (!this.props.loadingHome){
       if(!this.props.signIn){
-        return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-logo" src={btn_google} alt="google logo" />Sign in with Google</button>
+        return (
+        <div className={classes.root}>
+          <Fab
+            variant="extended"
+            size="medium"
+            color="primary"
+            aria-label="Add"
+            className={classes.margin}
+            onClick={this.handleAuthClick}>
+
+            <i className={`fab fa-google ${classes.marginIcon}`}></i>
+            <span>Sign in with Google</span>
+          </Fab>
+        </div>
+        )
       } else{
         return <Redirect to= '/steps/choose' />
       }
@@ -88,6 +122,7 @@ ApiLogin.propTypes = {
   updateStateLogin: PropTypes.func,
   signIn: PropTypes.bool,
   loadingHome: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
 };
 
-export default ApiLogin;
+export default withStyles(styles)(ApiLogin);

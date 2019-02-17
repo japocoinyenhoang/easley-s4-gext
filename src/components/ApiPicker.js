@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
+import CustomCard from "./CustomCard";
 
 class ApiPicker extends Component {
 
@@ -24,6 +25,7 @@ class ApiPicker extends Component {
   onApiLoad() {
     window.gapi.load('auth2', this.onAuthApiLoad);
     window.gapi.load('picker', this.onPickerApiLoad);
+    this.props.handleNext();
   }
 
   onPickerApiLoad() {
@@ -61,6 +63,7 @@ class ApiPicker extends Component {
         .build();
       picker.setVisible(true);
     }
+
   }
 
   pickerCallback(data) {
@@ -87,9 +90,7 @@ class ApiPicker extends Component {
       return <Redirect to='/steps/fill' />
     } else {
       return (
-        <div>
-          <button type="button" className="btn btn-secondary btn-lg" onClick={this.onApiLoad}>Select template</button>
-        </div>
+        <CustomCard text="Select Template" onClick={this.onApiLoad} icon="fas fa-mouse-pointer fa-5x"/>
       );
     }
   }
