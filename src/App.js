@@ -19,7 +19,7 @@ const themeApp = createMuiTheme({
       light: '#5b5b5b',
       main: '#333333',
       dark: '#232323',
-      contrastText: '#000',
+      contrastText: '#fff',
     },
   },
   typography: {

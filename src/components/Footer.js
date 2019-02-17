@@ -9,11 +9,14 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    margin: `${theme.spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit * 3}px`,
   },
   item: {
     textAlign: 'center',
-  }
+  },
+  links: {
+    textDecoration:"none",
+  },
 });
 
 class Footer extends Component {
@@ -25,7 +28,7 @@ class Footer extends Component {
         <Grid container className={classes.root}>
           <Grid item xs={12} className={classes.item}>
             <Typography component="p">
-              Developed in Adalab by <Link className="link__about-us" to="/about">Gext Team</Link> in colaboration with Triporate © | 2019
+              Developed in Adalab by <Link className={classes.links} to="/about">Gext Team</Link> in colaboration with Triporate © | 2019
             </Typography>
           </Grid>
         </Grid>

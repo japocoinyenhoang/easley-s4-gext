@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 
@@ -208,13 +207,25 @@ class Fill extends Component {
               })
               }
               </Grid>
-              <Grid item xs={12} className={classes.itemBtn}>
+              <Grid item xs={6} className={classes.itemBtn}>
+                <Link to="/steps/choose" className={classes.links}>
+                    <Fab
+                      variant="extended"
+                      size="large"
+                      color="secondary"
+                      className={classes.btnSend}
+                      onClick={this.props.handleBack}>
+                      <i className={`far fa-arrow-alt-circle-left ${classes.marginIcon}`}></i>
+                      <span>Choose another template</span>
+                    </Fab>
+                  </Link>
+              </Grid>
+              <Grid item xs={6} className={classes.itemBtn}>
                 <Link to="/steps/success" className={classes.links}>
                   <Fab
                     variant="extended"
                     size="large"
                     color="primary"
-                    aria-label="Add"
                     className={classes.btnSend}
                     onClick={this.loadSlidesReplace}>
                     <i className={`fas fa-share-square ${classes.marginIcon}`}></i>
@@ -248,7 +259,7 @@ class Fill extends Component {
               </Grid>
               <Grid item>
               <Typography component="p" className={classes.paperFill}>
-                {selectedTemplate} <Button className={classes.btn} size="small" onClick={this.props.handleBack}><Link className={classes.links} to="/steps/choose">Choose another template</Link></Button>
+                {selectedTemplate}
               </Typography>
               </Grid>
             </Grid>
