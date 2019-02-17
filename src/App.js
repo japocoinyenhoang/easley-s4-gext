@@ -72,6 +72,12 @@ class App extends Component {
     this.uploadImageDrive =this.uploadImageDrive.bind(this);
   }
 
+  handleInit = () => {
+    this.setState({
+      activeStep: 0,
+    });
+  };
+
   handleNext = () => {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
@@ -310,6 +316,7 @@ class App extends Component {
                   open={open}
                   handleBack={this.handleBack}
                   handleNext={this.handleNext}
+                  handleInit={this.handleInit}
                   activeStep={activeStep}
                   />} />
               <Route path="/about" render={props =>

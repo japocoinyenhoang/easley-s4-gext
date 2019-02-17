@@ -16,6 +16,11 @@ const styles = theme => ({
 });
 
 class Choose extends Component {
+
+  componentDidMount() {
+    this.props.handleInit();
+  }
+
   render() {
     const { clientId, scopes, handleTemplate, handlePresentationId, handleNext, classes } = this.props;
     return (

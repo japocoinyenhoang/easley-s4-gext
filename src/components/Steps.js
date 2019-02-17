@@ -9,7 +9,7 @@ import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSt
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -29,6 +29,7 @@ class Steps extends Component {
                   handleOpen={handleOpen}
                   handleClose={handleClose}
                   handleNext={handleNext}
+                  handleInit={handleInit}
                   open={open}/>} />
               <Route path="/steps/fill" render={props =>
                 <Fill
