@@ -26,10 +26,10 @@ const gextTeam = [{
   description:'Master in cultural management. Due to my interest in technology and continuous learning I decided to start a new adventure as front-end developer. Hope to keep helping cultural institutions to embrace the XXI Century technology.',
   photo:'https://www.elheraldo.co/sites/default/files/articulo/2017/07/18/ss-160826-twip-05-8cf6d4cb83758449fd400c7c3d71aa1f.jpg',
   socialIcons: [
-    ['fas fa-info-circle', 'https://twitter.com/garcaplay'],
-    ['fas fa-info-circle', 'https://github.com/garcaplay'],
-    ['fas fa-info-circle', 'https://www.linkedin.com/in/silvia-garcía-cacho/'],
-    ['fas fa-info-circle', 'silvia@garca.info'],
+    ['fab fa-twitter', 'https://twitter.com/garcaplay'],
+    ['fab fa-github-alt', 'https://github.com/garcaplay'],
+    ['fab fa-linkedin', 'https://www.linkedin.com/in/silvia-garcía-cacho/'],
+    ['far fa-envelope', 'mailto:silvia@garca.info'],
   ],
 },
 {
@@ -100,7 +100,7 @@ class AboutUs extends Component {
                   gextTeam.map( item => {
                     return (
                       <Grid item xs={12} sm={6}>
-                        <AboutCard name={item.name} description={item.description} photo={item.photo}/>
+                        <AboutCard name={item.name} description={item.description} photo={item.photo} socialIcons={item.socialIcons}/>
                       </Grid>
                     )
                   }

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -16,6 +18,10 @@ const styles = theme => ({
   media: {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover',
+  },
+  links: {
+    textDecoration:"none",
+    color: "unset"
   },
 });
 
@@ -42,12 +48,17 @@ function AboutCard (props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        {
+          socialIcons.map(item => {
+            return(
+              <a href={item[1]} className={classes.links} target="_blank" rel="noopener noreferrer">
+                  <IconButton color="primary" className={classes.button}>
+                    <i className={item[0]}></i>
+                  </IconButton>
+              </a>
+            )
+          })
+        }
       </CardActions>
     </Card>
   );
