@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
-import { sendApiKey } from './Credentials';
 import CustomCard from "./CustomCard";
 
 class ApiPicker extends Component {
@@ -59,7 +58,7 @@ class ApiPicker extends Component {
       let picker = new window.google.picker.PickerBuilder()
         .addView(window.google.picker.ViewId.PRESENTATIONS)
         .setOAuthToken(oauthToken)
-        .setDeveloperKey(sendApiKey)
+        .setDeveloperKey(process.env.REACT_APP_API_KEY)
         .setCallback(this.pickerCallback)
         .build();
       picker.setVisible(true);

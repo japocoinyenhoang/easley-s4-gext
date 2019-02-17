@@ -28,6 +28,26 @@ For example: {{name}} {{{image}}}
 Once you have selected a template, this wonderful application will search all given keywords (following the previous said nomenclature) and autogenerate a useful form where you can change those keywords and images to whatever you need. Finally, you will be redirected to a final page where you can view your document in Drive or download it directly to your computer (in pptx or pdf format).
 
 ## How does the repository works?
+This project has been created with [React](https://reactjs.org/), use [Material Design UI](https://material-ui.com/), depends on [Google Drive API](https://developers.google.com/drive/api/v3/about-sdk?hl=ru) and specifically the [Google Slides API](https://developers.google.com/slides/).
+
+If you are thinking about forking or cloning this project to use it in your local, please be aware that you will need a *developer key*. Google has already a very useful [tutorial](https://developers.google.com/slides/quickstart/javascript) on how to get its *API Keys* and start working on.
+
+Please, be very careful not to push your credential on a public platform (like Github). In order to prevent that, we have set several *.env* extensions on the *.gitignore* file and used the *.env.development.local* file to storage our *developer key*. In this *.env* file you should type the following code:
+
+```
+REACT_APP_API_KEY=YOUR_API_KEY
+```
+
+…where YOUR_API_KEY must be changed by your actual key.
+
+If you prefer to use a value set outside of the project, instead of change YOUR_API_KEY by your key you should declare the variable in your shell and refer it on the *.env* file like:
+
+```
+REACT_APP_API_KEY=${NAME_OF_YOUR_VARIABLE}
+```
+
+Hope it helps you to run our project.
+
 
 ### Credentials through environmental variables
 

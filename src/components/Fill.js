@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
@@ -94,12 +94,17 @@ class Fill extends Component {
       let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
-        this.setState({ moustachesArray: [...keywords, ...eraseMoustache] });
+        let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
+        this.setState({ moustachesArray: moustachesNoDup });
       }
+
+      console.log('array sin duplicados', this.state.moustachesArray);
       this.props.handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
+        console.log('he entrado en el triple');
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
-        this.setState({ tripleMoustachesArray: [...keywords, ...eraseTripleMoustache] });
+        let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
+        this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
       }
       this.props.handleImagesInputs(this.state.tripleMoustachesArray);
     });
@@ -131,10 +136,7 @@ class Fill extends Component {
   }
 
   paintForm() {
-    const { handleInputs, handleChangeFile, fileInput, fakeClick, classes } = this.props;
-    if (this.state.moustachesArray.length === 0 && this.state.tripleMoustachesArray.length === 0) {
-      return (<div className="errorMessage">Sorry but your template has not any keyword to create a form. Please review our 'How to use' section</div>)
-    } else {
+    const { handleInputs, handleChangeFile, fileInput, classes } = this.props;
       return (
         <form>
           <Paper className={classes.form} elevation={1}>
@@ -213,7 +215,6 @@ class Fill extends Component {
           </Paper>
         </form>
       )
-    }
   }
 
   handleNewDocument(e){
@@ -246,8 +247,11 @@ class Fill extends Component {
           );
     } else {
       return (
-        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
-      )
+        <Fragment>
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} />
+          <div className="errorMessage">If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.</div>
+        </Fragment>
+        )
     }
   }
 }
