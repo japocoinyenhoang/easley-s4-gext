@@ -10,15 +10,14 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
+const styles = theme => ({
   card: {
-    maxWidth: 345,
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover',
   },
-};
+});
 
 function AboutCard (props) {
   const { classes, name, description, photo, socialIcons} = props;
@@ -29,7 +28,7 @@ function AboutCard (props) {
           component="img"
           alt={name}
           className={classes.media}
-          height="140"
+          height="200"
           image={photo}
           title={name}
         />

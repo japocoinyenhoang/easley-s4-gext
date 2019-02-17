@@ -30,7 +30,8 @@ class Home extends Component {
         <Grid item xs={12}>
           <HeaderHome handleOpen={handleOpen}
                       handleClose={handleClose}
-                      open={open} />
+                      open={open}
+                      goBack={false}/>
         </Grid>
         <Grid item xs={12} className={classes.itemMain}>
           <main>

@@ -377,7 +377,9 @@ class App extends Component {
                   uploadedFileId={uploadedFileId}
                   />} />
               <Route path="/about" render={props =>
-                <AboutUs/>} />
+                <AboutUs handleOpen={this.handleOpen}
+                handleClose={this.handleClose}
+                open={open}/>} />
             </Switch>
         </MuiThemeProvider>
       </React.Fragment>

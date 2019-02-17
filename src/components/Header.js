@@ -56,7 +56,6 @@ class Header extends Component {
                   variant="extended"
                   size="medium"
                   color="primary"
-                  aria-label="Add"
                   className={classes.marginButton}
                   onClick={this.props.handleSignoutClick}>
                   <i className={`fab fa-google ${classes.marginIcon}`}></i>
