@@ -9,7 +9,7 @@ import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSt
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit, templateInput, handleClick, uploadedFileId, handleChangeTemplate } = this.props;
     if (signIn) {
       return (
         <div className="steps-container">
@@ -30,7 +30,11 @@ class Steps extends Component {
                   handleClose={handleClose}
                   handleNext={handleNext}
                   handleInit={handleInit}
-                  open={open}/>} />
+                  open={open}
+                  handleChangeTemplate={handleChangeTemplate}
+                  templateInput={templateInput}
+                  handleClick={handleClick}
+                  uploadedFileId={uploadedFileId}/>} />
               <Route path="/steps/fill" render={props =>
                 <Fill
                   handleInputs={handleInputs}
@@ -47,7 +51,8 @@ class Steps extends Component {
                   handleCopyId={handleCopyId}
                   copyId={copyId}
                   fakeClick={fakeClick}
-                  fileInput={fileInput}/>}
+                  fileInput={fileInput}
+                  uploadedFileId={uploadedFileId}/>}
                   />
               <Route path="/steps/success" render = {props =>
                 <Success

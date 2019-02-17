@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import ApiPicker from "./ApiPicker";
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,13 +13,34 @@ const styles = theme => ({
   },
   widthStyle: {
     margin:  `0 ${theme.spacing.unit * 3}px`,
+  },
+  hidden: {
+    display: "none"
   }
 });
 
 class Choose extends Component {
+  constructor(props){
+    super(props);
+
+    this.roadToFill = this.roadToFill.bind(this);
+  }
 
   componentDidMount() {
     this.props.handleInit();
+  }
+
+  roadToFill(){
+    if(this.props.uploadedFileId !== '') {
+      return <Redirect to='/steps/fill' />
+      } else {
+      return (
+        <Fragment>
+          <CustomCard text="Upload Template" onClick={this.props.handleClick} icon="fas fa-cloud-upload-alt fa-5x"/>
+          <label htmlFor="upload"></label>
+          <input className={this.props.classes.hidden} id="upload" type="file" ref={this.props.templateInput} onChange={this.props.handleChangeTemplate}/>
+        </Fragment>)
+      }
   }
 
   render() {
@@ -36,7 +58,7 @@ class Choose extends Component {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CustomCard text="Upload Template" onClick={null} icon="fas fa-cloud-upload-alt fa-5x"/>
+          {this.roadToFill()}
           </Grid>
         </Grid>
       </div>

@@ -54,6 +54,7 @@ let keywords = [];
 let eraseMoustache;
 let presentation;
 let eraseTripleMoustache;
+let fileId;
 
 class Fill extends Component {
   constructor(props) {
@@ -72,22 +73,32 @@ class Fill extends Component {
     this.execute = this.execute.bind(this);
     this.loadSlidesReplace = this.loadSlidesReplace.bind(this);
     this.handleNewDocument = this.handleNewDocument.bind(this);
+    this.getId = this.getId.bind(this);
   }
 
   componentDidMount() {
+    this.getId();
+  }
+
+  getId(){
+    if (this.props.presentationId !== ''){
+      fileId = this.props.presentationId
+    } else if(this.props.uploadedFileId !== '') {
+      fileId = this.props.uploadedFileId
+    } else {
+      console.log('file not found');
+    }
     this.loadSlidesApi();
   }
 
   loadSlidesApi() {
-    if (this.props.presentationId !== '') {
-      presentation = this.props.presentationId;
+      presentation = fileId;
       window.gapi.client.load('slides', 'v1').then(this.listSlides);
-    }
   }
 
   listSlides() {
     window.gapi.client.slides.presentations.get({
-      presentationId: this.props.presentationId
+      presentationId: fileId
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
@@ -97,11 +108,8 @@ class Fill extends Component {
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
         this.setState({ moustachesArray: moustachesNoDup });
       }
-
-      console.log('array sin duplicados', this.state.moustachesArray);
       this.props.handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
-        console.log('he entrado en el triple');
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
         let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
         this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
@@ -111,7 +119,7 @@ class Fill extends Component {
   }
 
   loadSlidesReplace() {
-    if (this.props.presentationId !== '') {
+    if (this.props.presentationId || this.props.uploadedFileId !== '') {
       window.gapi.client.load('slides', 'v1').then(f => {
         window.gapi.client.load('drive', 'v2').then(execute => {
           this.execute()
@@ -192,6 +200,9 @@ class Fill extends Component {
                     fullWidth
                     margin='normal'
                     ref={fileInput}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 );
               })
