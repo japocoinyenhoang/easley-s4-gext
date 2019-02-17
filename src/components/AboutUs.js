@@ -1,42 +1,101 @@
 import React, {Component} from "react";
-import laura from '../images/laura.png';
+import laura from '../images/laura.JPG';
 import silvia from '../images/silvia.jpg';
 import alba from '../images/alba.jpg';
 import yen from '../images/yen.jpg';
 import roxana from '../images/roxana.jpg';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import AboutCard from './AboutCard';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+})
+
+
+const gextTeam = [{
+  name:'Silvia García Cacho',
+  description:'Master in cultural management. Due to my interest in technology and continuous learning I decided to start a new adventure as front-end developer. Hope to keep helping cultural institutions to embrace the XXI Century technology.',
+  photo:'https://www.elheraldo.co/sites/default/files/articulo/2017/07/18/ss-160826-twip-05-8cf6d4cb83758449fd400c7c3d71aa1f.jpg',
+  socialIcons: [
+    ['fas fa-info-circle', 'https://twitter.com/garcaplay'],
+    ['fas fa-info-circle', 'https://github.com/garcaplay'],
+    ['fas fa-info-circle', 'https://www.linkedin.com/in/silvia-garcía-cacho/'],
+    ['fas fa-info-circle', 'silvia@garca.info'],
+  ],
+},
+
+{
+  name:'Alba López Folgar',
+  description:'Graduated in Sociology, driven by social questions and issues. After studying in Adalab and develop the necessary skills to start a new path on web development, I am very eager to develop my career and never stop learning and growing.',
+  photo: {alba},
+  socialIcons: [
+
+      ['fas fa-info-circle', 'https://twitter.com/albahniuk'],
+      ['fas fa-info-circle', 'https://github.com/albahniuk'],
+      ['fas fa-info-circle', 'https://www.linkedin.com/in/albalopezfolgar/'],
+      ['fas fa-info-circle', 'albalopezfolgar@gmail.com'],
+  ],
+},
+{
+  name:'Roxana Sánchez Briñas',
+  description:'After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on trendy bars. Nowadays, I have jumped into the digital world, and thanks Adalab I hope to keep evolving and growing in the technological career.',
+  photo: {roxana},
+  socialIcons: [
+
+      ['fas fa-info-circle', 'Twitter: https://twitter.com/RoxSBri'],
+      ['fas fa-info-circle', 'https://github.com/roxsb'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+
+  ],
+},
+{
+  name:'Yen Hoang',
+  description:'Future front-end developer, passionate about flex-box, currently trying to keep me afloat in the world of code. Philosophy of life: Work hard and win.',
+  photo: {yen},
+  socialIcons: [
+
+      ['fas fa-info-circle', 'https://twitter.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+  ],
+},
+{
+  name:'Laura Sánchez Redondo',
+  description:'I changed my career as a Teacher of Infant Education and English, for UX Design. I discovered Adalab through a group of Spanish Ux Ladies on Twitter and, at the first time, I thought it was the best option to develop my professional career in the technological world. I love being part of this great initiative.',
+  photo: {laura},
+  socialIcons: [
+
+      ['fas fa-info-circle', 'https://twitter.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+      ['fas fa-info-circle', 'https://github.com/garcaplay'],
+  ],
+}]
 
 class AboutUs extends Component {
+
   render() {
     return (
-      <div className='section__about-us'>
+      <div>
+        <Grid container justify="center" alignItems="flex-start">
+          <Grid item xs={12} sm={6}>
+            {gextTeam.map(item => {
+              return(
+                <AboutCard name={item.name} description={item.description} photo={item.photo}/>
+              )
+            }
+            )}
+          </Grid>
+        </Grid>
         <ul className='about-us__list'>
-          <li className='about-us__item'>
-            <div className='about-us__pic'>
-              <img className='profile-pic' src={silvia} alt='profile pic'></img>
-            </div>
-            <h2 className='about-us__title'>Silvia García Cacho</h2>
-            <p className='about-us__description'>Master in cultural management. Due to my interest in technology and continuous learning I decided to start a new adventure as front-end developer. Hope to keep helping cultural institutions to embrace the XXI Century technology.</p>
-            <ul className='social-media__list'>
-              <li className='social-media__item'>Twitter: https://twitter.com/garcaplay</li>
-              <li className='social-media__item'>Github: https://github.com/garcaplay</li>
-              <li className='social-media__item'>Linkedin: https://www.linkedin.com/in/silvia-garcía-cacho/</li>
-              <li className='social-media__item'>Correo: silvia@garca.info</li>
-            </ul>
-          </li>
-          <li className='about-us__item'>
-            <div className='about-us__pic'>
-              <img className='profile-pic' src={alba} alt='profile pic'></img>
-            </div>
-            <h2 className='about-us__title'>Alba López Folgar</h2>
-            <p className='about-us__description'>Graduated in Sociology, driven by social questions and issues. After studying in Adalab and develop the necessary skills to start a new path on web development, I am very eager to develop my career and never stop learning and growing.</p>
-            <ul className='social-media__list'>
-              <li className='social-media__item'>Twitter: https://twitter.com/albahniuk</li>
-              <li className='social-media__item'>Github: https://github.com/albahniuk</li>
-              <li className='social-media__item'>Linkedin: https://www.linkedin.com/in/albalopezfolgar/</li>
-              <li className='social-media__item'>Correo: albalopezfolgar@gmail.com</li>
-            </ul>
-          </li>
+
           <li className='about-us__item'>
             <div className='about-us__pic'>
               <img className='profile-pic' src={roxana} alt='profile pic'></img>
@@ -85,4 +144,11 @@ class AboutUs extends Component {
   }
 }
 
-export default AboutUs;
+AboutUs.propTypes = {
+ classes: PropTypes.object.isRequired
+};
+
+export default withStyles (styles)(AboutUs);
+
+
+
