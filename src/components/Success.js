@@ -43,7 +43,7 @@ class Success extends Component {
         <Paper className={classes.root} elevation={1}>
           <Grid container justify="center" alignItems="center" spacing={16}>
             <Grid item>
-              <i class="far fa-thumbs-up fa-3x"></i>
+              <i className="far fa-thumbs-up fa-3x"></i>
             </Grid>
             <Grid item>
             <Typography component="p" className={classes.paperSuccess}>

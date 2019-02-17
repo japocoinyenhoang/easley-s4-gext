@@ -46,7 +46,7 @@ class HeaderHome extends Component {
             <Grid container direction="row" justify="flex-end" alignItems="center">
               <Grid item>
                 <IconButton onClick={this.props.handleOpen} color="secondary" className={classes.button}>
-                <i class="far fa-question-circle"></i>
+                <i className="far fa-question-circle"></i>
                 </IconButton>
                 <SimpleModal
                     open={this.props.open}
@@ -55,7 +55,7 @@ class HeaderHome extends Component {
               <Grid item>
                 <Link to="/about" className={classes.links}>
                   <IconButton color="secondary" className={classes.button}>
-                      <i class="fas fa-info-circle"></i>
+                      <i className="fas fa-info-circle"></i>
                   </IconButton>
                 </Link>
               </Grid>

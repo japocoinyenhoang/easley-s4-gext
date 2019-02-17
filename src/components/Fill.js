@@ -244,7 +244,7 @@ class Fill extends Component {
           <Paper className={classes.message} elevation={1}>
             <Grid container justify="center" alignItems="center" spacing={16}>
               <Grid item>
-                <i class="far fa-check-circle fa-3x"></i>
+                <i className="far fa-check-circle fa-3x"></i>
               </Grid>
               <Grid item>
               <Typography component="p" className={classes.paperFill}>
