@@ -50,11 +50,8 @@ class Fill extends Component {
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
         this.setState({ moustachesArray: moustachesNoDup });
       }
-
-      console.log('array sin duplicados', this.state.moustachesArray);
       this.props.handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
-        console.log('he entrado en el triple');
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
         let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
         this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });

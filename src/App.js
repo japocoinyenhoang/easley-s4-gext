@@ -19,7 +19,7 @@ class App extends Component {
       signIn: false,
       selectedTemplate: '',
       loadingHome: true,
-      presentationId:'',
+      presentationId: '',
       copyId: '',
       open: false
     }
@@ -40,7 +40,7 @@ class App extends Component {
     this.listSlidesReplace = this.listSlidesReplace.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.uploadImageDrive =this.uploadImageDrive.bind(this);
+    this.uploadImageDrive = this.uploadImageDrive.bind(this);
   }
 
   handleOpen = () => {
@@ -53,9 +53,9 @@ class App extends Component {
 
   handleInitInputs(data) {
     let newArray = [];
-    if(data !== undefined) {
+    if (data !== undefined) {
       data.map(item => {
-        newArray.push([item,'']);
+        newArray.push([item, '']);
         return newArray
       });
 
@@ -67,16 +67,15 @@ class App extends Component {
 
   handleImagesInputs(data) {
     let newArray = [];
-    if(data !== undefined) {
+    if (data !== undefined) {
       data.map(item => {
-        newArray.push([item,'']);
+        newArray.push([item, '']);
         return newArray
       });
 
       this.setState({
         imagesInputs: newArray
       });
-      console.log('aqui capturo los keywords de las imagenes', this.state.imagesInputs)
     }
   }
 
@@ -87,7 +86,7 @@ class App extends Component {
 
     let newValue = [];
     newValue = inputs.map(item => {
-      if (item[0] === target){
+      if (item[0] === target) {
         item[1] = value
       }
       return item;
@@ -96,78 +95,64 @@ class App extends Component {
     this.setState({
       inputs: newValue
     });
-    console.log('estado inputs, se guarda clave valor de los inputs de texto', this.state.inputs);
   }
 
   handleTripleMoustaches(idImage, uploadId) {
-    // let imagesArray = [];
-    // let imageToSave = this.state.images;
-    // imagesArray.push(imageToSave);
     let imagesIdArray = [];
     imagesIdArray = this.state.imagesInputs.map(item => {
-      if (item[0] === uploadId){
+      if (item[0] === uploadId) {
         item[1] = idImage
       }
       return item;
     });
     this.setState({
       imagesInputs: imagesIdArray,
-      // images: imagesArray
     });
 
   }
 
-    handleChangeFile(event){
-      console.log ('empieza a subir la imagen desde el ordenador');
-      const myFile = event.currentTarget.files[0];
-      const uploadId = event.currentTarget.id;
-      const url = [];
-      url.push(myFile);
-      console.log('esta es la imagen', myFile);
-      this.setState({
-        images: url,
-      }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive(uploadId)),
-      console.log('este es el estado de la imagen', this.state.images));
-    }
+  handleChangeFile(event) {
+    const myFile = event.currentTarget.files[0];
+    const uploadId = event.currentTarget.id;
+    const url = [];
+    url.push(myFile);
+    this.setState({
+      images: url,
+    }, () => window.gapi.client.load('drive', 'v2').then(this.uploadImageDrive(uploadId)));
+  }
 
-    uploadImageDrive(uploadId){
-      console.log('empieza subir la imagen a drive')
-      let file=this.state.images[0];
-      console.log('esta es la imagen que sube a drive', file);
-          // var file = $('#fileToUpload')[0].files[0];
-      let metadata = {
-        'name': file.name, // Filename at Google Drive
-        'mimeType': file.type, // mimeType at Google Drive
-        //'parents': ['### folder ID ###'], // Folder ID at Google Drive
+  uploadImageDrive(uploadId) {
+    let file = this.state.images[0];
+    let metadata = {
+      'name': file.name,
+      'mimeType': file.type,
+    };
+    let accessToken = window.gapi.auth.getToken().access_token;
+    let form = new FormData();
+    form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+    form.append('file', file);
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+    xhr.responseType = 'json';
+    xhr.send(form);
+    xhr.onload = () => {
+      const body = {
+        'value': "default",
+        'type': "anyone",
+        'role': "reader"
       };
-      let accessToken = window.gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-      let form = new FormData();
-      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-      form.append('file', file);
-      const xhr = new XMLHttpRequest();
-      xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-      xhr.responseType = 'json';
-
-      xhr.send(form);
-      xhr.onload = () => {
-        const body = {
-          'value': "default",
-          'type': "anyone",
-          'role': "reader"
-        };
-        const request = window.gapi.client.drive.permissions.insert({
-          'fileId': xhr.response.id,
-          'resource': body
-        })
-        .then(()=> {
-          console.log('este es el id de la imagen en drive', xhr.response.id); // Retrieve uploaded file ID.
+      const request = window.gapi.client.drive.permissions.insert({
+        'fileId': xhr.response.id,
+        'resource': body
+      })
+        .then(() => {
           let idImage = xhr.response.id;
           this.handleTripleMoustaches(idImage, uploadId);
           return request;
         })
-      };
-    }
+    };
+  }
 
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
@@ -191,22 +176,22 @@ class App extends Component {
     })
   }
 
-  handleTemplate(msg, id){
-    this.setState ({
+  handleTemplate(msg, id) {
+    this.setState({
       selectedTemplate: msg
     });
   }
 
-  handlePresentationId(id){
-    this.setState ({
+  handlePresentationId(id) {
+    this.setState({
       presentationId: id
     });
   }
 
-  handleCopyId(id){
-    this.setState ({
+  handleCopyId(id) {
+    this.setState({
       copyId: id
-    },() => {
+    }, () => {
       this.listSlidesReplace();
     }
     );
@@ -225,19 +210,20 @@ class App extends Component {
       });
       return requests;
     });
-    this.state.imagesInputs.map(item =>{
-      console.log('cojo imagesinput', this.state.imagesInputs);
+    this.state.imagesInputs.map(item => {
       requests.push({
-        replaceAllText:{
-          containsText:{
-            text: `{{{${item[0]}}}}`
-          },
-          replaceText: `https://drive.google.com/open?id=${item[1]}`
+        replaceAllShapesWithImage: {
+          imageUrl: item[1] === '' ? 'https://drive.google.com/uc?export=view&id=1IbFzcNbWSBs_o1L_fSp3nUWd8JKRbKnj' : `https://drive.google.com/uc?export=view&id=${item[1]}`,
+          imageReplaceMethod: 'CENTER_INSIDE',
+          containsText: {
+            text: `{{{${item[0]}}}}`,
+            matchCase: false
+          }
         }
       });
-      console.log('esto es item1', item[1]);
       return requests;
     });
+
     window.gapi.client.slides.presentations.batchUpdate({
       presentationId: this.state.copyId,
       requests: requests
@@ -261,7 +247,7 @@ class App extends Component {
               handleOpen={this.handleOpen}
               handleClose={this.handleClose}
               open={open}
-              />} />
+            />} />
           <Route path="/steps" render={props =>
             <Steps handleSignoutClick={this.handleSignoutClick}
               signIn={signIn}
@@ -276,7 +262,7 @@ class App extends Component {
               handleInitInputs={this.handleInitInputs}
               handleImagesInputs={this.handleImagesInputs}
               handleChangeFile={this.handleChangeFile}
-              presentationId= {presentationId}
+              presentationId={presentationId}
               handlePresentationId={this.handlePresentationId}
               photos={this.state.images.photos}
               fakeClick={this.fakeClick}
@@ -286,9 +272,9 @@ class App extends Component {
               handleOpen={this.handleOpen}
               handleClose={this.handleClose}
               open={open}
-              />} />
+            />} />
           <Route path="/about" render={props =>
-            <AboutUs/>} />
+            <AboutUs />} />
         </Switch>
         <div className="row">
           <Footer />
