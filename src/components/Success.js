@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -55,20 +56,25 @@ class Success extends Component {
 
         <div className={classes.widthStyle}>
           <Grid container className={classes.card} spacing={16} justify="center" alignItems="center">
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6}>
               <a className={classes.links} href={urlSlide} target="_blank" rel="noopener noreferrer">
                 <CustomCard text="View Presentation" onClick={null} icon="far fa-eye fa-5x"/>
               </a>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6}>
               <a className={classes.links} href={urlDownload} download="test.pptx">
                 <CustomCard text="Download in PPTX" onClick={null} icon="fas fa-file-download fa-5x"/>
               </a>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6}>
               <a className={classes.links} href={urlDownloadPdf} download="test.pdf">
                 <CustomCard text="Download in PDF" onClick={null} icon="fas fa-file-pdf fa-5x"/>
               </a>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Link to='/steps/choose' className={classes.links}>
+                <CustomCard text="Create new presentation" onClick={null} icon="fas fa-sync-alt fa-5x"/>
+              </Link>
             </Grid>
           </Grid>
         </div>

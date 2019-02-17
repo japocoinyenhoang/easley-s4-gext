@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import '../index.scss';
 import ReactLoading from 'react-loading';
 
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -89,17 +89,16 @@ class ApiLogin extends Component {
       if(!this.props.signIn){
         return (
         <div className={classes.root}>
-          <Fab
-            variant="extended"
+          <Button
+            variant="outlined"
             size="medium"
-            color="primary"
-            aria-label="Add"
+            color="secondary"
             className={classes.margin}
             onClick={this.handleAuthClick}>
 
             <i className={`fab fa-google ${classes.marginIcon}`}></i>
             <span>Sign in with Google</span>
-          </Fab>
+          </Button>
         </div>
         )
       } else{
