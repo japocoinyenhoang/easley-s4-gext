@@ -44,7 +44,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
 
 HorizontalLabelPositionBelowStepper.propTypes = {
   classes: PropTypes.object,
-  activeStep: PropTypes.func.isRequired
+  activeStep: PropTypes.number.isRequired
 };
 
 export default withStyles(styles)(HorizontalLabelPositionBelowStepper);

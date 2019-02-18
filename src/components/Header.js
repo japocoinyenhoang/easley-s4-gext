@@ -45,7 +45,7 @@ class Header extends Component {
               <Grid item>
                 <Tooltip title="how it works" classes={{tooltip: classes.lightTooltip}}>
 
-                  <IconButton onClick={this.props.handleOpen} color="secondary"   className={classes.button}>
+                  <IconButton onClick={handleOpen} color="secondary"   className={classes.button}>
                     <i className="far fa-question-circle"></i>
                   </IconButton>
                 </Tooltip>
