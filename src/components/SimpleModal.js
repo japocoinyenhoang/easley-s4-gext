@@ -23,12 +23,17 @@ function getModalStyle() {
 const styles = theme => ({
   paper: {
     position: 'absolute',
-    width: theme.spacing.unit * 50,
+    width: theme.spacing.unit * 100,
+    Height: "100vh",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     outline: 'none',
   },
+  title: {
+    textAlign: "center",
+    color: theme.palette.primary.main
+  }
 });
 
 class SimpleModal extends React.Component {
@@ -45,7 +50,7 @@ class SimpleModal extends React.Component {
           onClose={this.props.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="h6" id="modal-title">
+            <Typography className={classes.title} variant="h6" id="modal-title">
               How Gext works?
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
