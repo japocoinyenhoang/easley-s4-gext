@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import logoHeader from '../images/logo__gext_header.svg';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,7 +35,7 @@ const styles = theme => ({
 
 class Header extends Component {
   render() {
-    const {classes} = this.props;
+    const {classes, handleOpen, open, handleClose, handleSignoutClick} = this.props;
     return (
       <header className={classes.root}>
         <AppBar position="static" color="default">
@@ -51,8 +50,8 @@ class Header extends Component {
                   </IconButton>
                 </Tooltip>
                 <SimpleModal
-                    open={this.props.open}
-                    handleClose={this.props.handleClose}/>
+                    open={open}
+                    handleClose={handleClose}/>
               </Grid>
               <Grid item>
                 <Link to="/about" className={classes.links}>
@@ -69,7 +68,7 @@ class Header extends Component {
                   size="medium"
                   color="secondary"
                   className={classes.marginButton}
-                  onClick={this.props.handleSignoutClick}>
+                  onClick={handleSignoutClick}>
                   <i className={`fab fa-google ${classes.marginIcon}`}></i>
                   <span>Sign out</span>
                 </Button>

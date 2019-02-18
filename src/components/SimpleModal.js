@@ -17,13 +17,13 @@ function getModalStyle() {
 
 const styles = theme => ({
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: theme.spacing.unit * 100,
     Height: "100vh",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
-    outline: 'none',
+    outline: "none",
   },
   title: {
     textAlign: "center",
@@ -32,17 +32,15 @@ const styles = theme => ({
 });
 
 class SimpleModal extends React.Component {
-
   render() {
-    const { classes } = this.props;
-
+    const { classes, open, handleClose } = this.props;
     return (
       <div>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={this.props.open}
-          onClose={this.props.handleClose}
+          open={open}
+          onClose={handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
             <Typography className={classes.title} variant="h6" id="modal-title">
@@ -75,9 +73,10 @@ class SimpleModal extends React.Component {
 
 SimpleModal.propTypes = {
   classes: PropTypes.object.isRequired,
+  open: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 };
 
-// We need an intermediary variable for handling the recursive nesting.
 const SimpleModalWrapped = withStyles(styles)(SimpleModal);
 
 export default SimpleModalWrapped;

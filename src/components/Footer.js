@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +11,7 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 3}px`,
   },
   item: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   links: {
     textDecoration:"none",
@@ -22,7 +21,6 @@ const styles = theme => ({
 class Footer extends Component {
   render() {
     const {classes} = this.props;
-
     return (
       <footer>
         <Grid container className={classes.root}>

@@ -89,10 +89,11 @@ class Fill extends Component {
   }
 
   getId(){
-    if (this.props.presentationId !== ''){
-      fileId = this.props.presentationId
-    } else if(this.props.uploadedFileId !== '') {
-      fileId = this.props.uploadedFileId
+    const {presentationId, uploadedFileId} =this.props;
+    if (presentationId !== ''){
+      fileId = presentationId
+    } else if(uploadedFileId !== '') {
+      fileId = uploadedFileId
     } else {
       console.log('file not found');
     }
@@ -105,6 +106,8 @@ class Fill extends Component {
   }
 
   listSlides() {
+    const {handleInitInputs, handleImagesInputs} = this.props;
+    const {moustachesArray, tripleMoustachesArray} = this.state;
     window.gapi.client.slides.presentations.get({
       presentationId: fileId
     }).then(response => {
@@ -116,28 +119,30 @@ class Fill extends Component {
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
         this.setState({ moustachesArray: moustachesNoDup });
       }
-      this.props.handleInitInputs(this.state.moustachesArray);
+      handleInitInputs(moustachesArray);
       if (tripleMoustaches.length > 0) {
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
         let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
         this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
       }
-      this.props.handleImagesInputs(this.state.tripleMoustachesArray);
+      handleImagesInputs(tripleMoustachesArray);
     });
   }
 
   loadSlidesReplace() {
-    if (this.props.presentationId || this.props.uploadedFileId !== '') {
+    const {presentationId, uploadedFileId, handleNext} =this.props;
+    if (presentationId || uploadedFileId !== '') {
       window.gapi.client.load('slides', 'v1').then(f => {
         window.gapi.client.load('drive', 'v2').then(execute => {
           this.execute()
         })
-        this.props.handleNext();
+        handleNext();
       }).catch(error => { console.log(error) });
     }
   }
 
   execute() {
+    const {handleCopyId} = this.props;
     return window.gapi.client.drive.files.copy({
       "title": this.state.newName,
       "fileId": presentation,
@@ -145,14 +150,14 @@ class Fill extends Component {
     })
       .then((response) => {
         let newId = response.result.id;
-        this.props.handleCopyId(newId);
+        handleCopyId(newId);
       },
         function (err) { console.error("Execute error", err); })
       .catch(err => { console.log(err); })
   }
 
   paintForm() {
-    const { handleInputs, handleChangeFile, fileInput, classes } = this.props;
+    const { handleInputs, handleChangeFile, fileInput, classes, handleBack } = this.props;
       return (
         <form>
           <Paper className={classes.form} elevation={1}>
@@ -223,7 +228,7 @@ class Fill extends Component {
                       size="large"
                       color="secondary"
                       className={classes.btnSend}
-                      onClick={this.props.handleBack}>
+                      onClick={handleBack}>
                       <span>Choose another template</span>
                     </Fab>
                   </Link>
@@ -256,7 +261,6 @@ class Fill extends Component {
 
   render() {
     const { selectedTemplate, classes } = this.props;
-
     if (this.state.moustachesArray.length>0 || this.state.tripleMoustachesArray.length>0 ) {
       return (
         <div>
@@ -291,10 +295,11 @@ class Fill extends Component {
 Fill.propTypes = {
   handleInitInputs: PropTypes.func,
   handleImagesInputs: PropTypes.func,
+  handleNext: PropTypes.func,
+  handleCopyId: PropTypes.func,
   handleInputs: PropTypes.func,
-  handleTripleMoustaches: PropTypes.func,
-  inputs: PropTypes.array,
-  selectedTemplate: PropTypes.string,
+  handleChangeFile: PropTypes.func,
+  handleBack: PropTypes.func,
   classes: PropTypes.object.isRequired
 };
 

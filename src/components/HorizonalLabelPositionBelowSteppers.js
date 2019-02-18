@@ -25,11 +25,9 @@ function getSteps() {
 }
 
 class HorizontalLabelPositionBelowStepper extends React.Component {
-
   render() {
     const { classes, activeStep } = this.props;
     const steps = getSteps();
-
     return (
         <Paper className={classes.root} elevation={1}>
           <Stepper activeStep={activeStep} alternativeLabel>
@@ -39,13 +37,14 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
               </Step>
           ))}
           </Stepper>
-      </Paper>
+        </Paper>
     );
   }
 }
 
 HorizontalLabelPositionBelowStepper.propTypes = {
   classes: PropTypes.object,
+  activeStep: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(HorizontalLabelPositionBelowStepper);

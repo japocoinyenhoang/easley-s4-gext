@@ -4,7 +4,6 @@ import HeaderHome from './HeaderHome';
 import logo from '../images/logo__gext.svg';
 import ApiLogin from './ApiLogin';
 import Footer from './Footer';
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
