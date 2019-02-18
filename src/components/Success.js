@@ -75,7 +75,7 @@ class Success extends Component {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Link to='/steps/choose' className={classes.links}>
-                <CustomCard text="Create new presentation" onClick={null} icon="fas fa-sync-alt fa-5x"/>
+                <CustomCard text="Create new presentation" onClick={this.props.resetStatus} icon="fas fa-sync-alt fa-5x"/>
               </Link>
             </Grid>
           </Grid>
