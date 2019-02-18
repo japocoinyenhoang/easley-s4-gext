@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
+
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -63,10 +64,6 @@ let presentation;
 let eraseTripleMoustache;
 let fileId;
 
-const {presentationId, uploadedFileId, handleInitInputs, handleImagesInputs, handleNext, handleCopyId, handleInputs, handleChangeFile, fileInput, classes, handleBack} = this.props;
-const {moustachesArray, tripleMoustachesArray, newName } = this.state;
-
-
 class Fill extends Component {
   constructor(props) {
     super(props);
@@ -91,14 +88,14 @@ class Fill extends Component {
     this.getId();
   }
 
-
   getId(){
+    const {presentationId, uploadedFileId} =this.props;
     if (presentationId !== ''){
       fileId = presentationId
     } else if(uploadedFileId !== '') {
       fileId = uploadedFileId
-    // } else {
-    //   console.log('file not found');
+    } else {
+      console.log('file not found');
     }
     this.loadSlidesApi();
   }
@@ -109,6 +106,8 @@ class Fill extends Component {
   }
 
   listSlides() {
+    const {handleInitInputs, handleImagesInputs} = this.props;
+    const {moustachesArray, tripleMoustachesArray} = this.state;
     window.gapi.client.slides.presentations.get({
       presentationId: fileId
     }).then(response => {
@@ -131,6 +130,7 @@ class Fill extends Component {
   }
 
   loadSlidesReplace() {
+    const {presentationId, uploadedFileId, handleNext} =this.props;
     if (presentationId || uploadedFileId !== '') {
       window.gapi.client.load('slides', 'v1').then(f => {
         window.gapi.client.load('drive', 'v2').then(execute => {
@@ -142,8 +142,9 @@ class Fill extends Component {
   }
 
   execute() {
+    const {handleCopyId} = this.props;
     return window.gapi.client.drive.files.copy({
-      "title": newName,
+      "title": this.state.newName,
       "fileId": presentation,
       "resource": {}
     })
@@ -156,6 +157,7 @@ class Fill extends Component {
   }
 
   paintForm() {
+    const { handleInputs, handleChangeFile, fileInput, classes, handleBack } = this.props;
       return (
         <form>
           <Paper className={classes.form} elevation={1}>
@@ -177,7 +179,7 @@ class Fill extends Component {
                 />
               </Grid>
               <Grid item xs={12}>
-              {moustachesArray.map(item => {
+              {this.state.moustachesArray.map(item => {
                 return (
                   <TextField
                     required
@@ -198,7 +200,7 @@ class Fill extends Component {
               }
               </Grid>
               <Grid item xs={12}>
-              {tripleMoustachesArray.map(item=>{
+              {this.state.tripleMoustachesArray.map(item=>{
                 return (
                   <TextField
                     required
@@ -259,7 +261,6 @@ class Fill extends Component {
 
   render() {
     const { selectedTemplate, classes } = this.props;
-
     if (this.state.moustachesArray.length>0 || this.state.tripleMoustachesArray.length>0 ) {
       return (
         <div>
@@ -294,10 +295,11 @@ class Fill extends Component {
 Fill.propTypes = {
   handleInitInputs: PropTypes.func,
   handleImagesInputs: PropTypes.func,
+  handleNext: PropTypes.func,
+  handleCopyId: PropTypes.func,
   handleInputs: PropTypes.func,
-  handleTripleMoustaches: PropTypes.func,
-  inputs: PropTypes.array,
-  selectedTemplate: PropTypes.string,
+  handleChangeFile: PropTypes.func,
+  handleBack: PropTypes.func,
   classes: PropTypes.object.isRequired
 };
 
