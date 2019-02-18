@@ -41,10 +41,10 @@ const gextTeam = [{
   description:'Graduated in Sociology, driven by social questions and issues. After studying in Adalab and develop the necessary skills to start a new path on web development, I am very eager to develop my career and never stop learning and growing.',
   photo: 'https://drive.google.com/uc?export=view&id=1HCKOLQ_2EjxEEjxWad3WOLsqbuk587QK',
   socialIcons: [
-      ['fab fa-twitter', 'https://twitter.com/albahniuk'],
-      ['fab fa-github-alt', 'https://github.com/albahniuk'],
-      ['fab fa-linkedin', 'https://www.linkedin.com/in/albalopezfolgar/'],
-      ['far fa-envelope', 'mailto:albalopezfolgar@gmail.com'],
+    ['fab fa-twitter', 'https://twitter.com/albahniuk'],
+    ['fab fa-github-alt', 'https://github.com/albahniuk'],
+    ['fab fa-linkedin', 'https://www.linkedin.com/in/albalopezfolgar/'],
+    ['far fa-envelope', 'mailto:albalopezfolgar@gmail.com'],
   ],
 },
 {
@@ -52,11 +52,10 @@ const gextTeam = [{
   description:'After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on trendy bars. Nowadays, I have jumped into the digital world, and thanks Adalab I hope to keep evolving and growing in the technological career.',
   photo: 'https://drive.google.com/uc?export=view&id=1mm16NWv0LslR4Qn15xqQaussiwlcCoqE',
   socialIcons: [
-      ['fab fa-twitter', 'https://twitter.com/RoxSBri'],
-      ['fab fa-github-alt', 'https://github.com/roxsb'],
-      ['fab fa-linkedin', 'https://www.linkedin.com/in/roxana-sb/'],
-      ['far fa-envelope', 'mailto:rox.san.bri@gmail.com'],
-
+    ['fab fa-twitter', 'https://twitter.com/RoxSBri'],
+    ['fab fa-github-alt', 'https://github.com/roxsb'],
+    ['fab fa-linkedin', 'https://www.linkedin.com/in/roxana-sb/'],
+    ['far fa-envelope', 'mailto:rox.san.bri@gmail.com'],
   ],
 },
 {
@@ -64,10 +63,10 @@ const gextTeam = [{
   description:'I changed my career as a Teacher of Infant Education and English, for UX Design. I discovered Adalab through a group of Spanish Ux Ladies on Twitter and, at the first time, I thought it was the best option to develop my professional career in the technological world. I love being part of this great initiative.',
   photo: 'https://drive.google.com/uc?export=view&id=1SU5Fg8xwMgcHnbvJhKvOS47CT6tgDnlT',
   socialIcons: [
-      ['fab fa-twitter', 'https://twitter.com/babelarr'],
-      ['fab fa-github-alt', 'https://github.com/babelarr'],
-      ['fab fa-linkedin', 'https://www.linkedin.com/in/laurasanchezredondo/'],
-      ['far fa-envelope', 'mailto:babelarr@gmail.com'],
+    ['fab fa-twitter', 'https://twitter.com/babelarr'],
+    ['fab fa-github-alt', 'https://github.com/babelarr'],
+    ['fab fa-linkedin', 'https://www.linkedin.com/in/laurasanchezredondo/'],
+    ['far fa-envelope', 'mailto:babelarr@gmail.com'],
   ],
 },
 {
@@ -75,17 +74,15 @@ const gextTeam = [{
   description:'Future front-end developer, passionate about flex-box, currently trying to keep me afloat in the world of code. Philosophy of life: Work hard and win.',
   photo: 'https://drive.google.com/uc?export=view&id=1sK3QIldiWU8nfgz0TdQrfnBsEOra1pM7',
   socialIcons: [
-      ['fab fa-twitter', 'https://twitter.com/japocoinyh'],
-      ['fab fa-github-alt', 'https://github.com/japocoinyenhoang'],
-      ['fab fa-linkedin', 'https://www.linkedin.com/in/yenhoangchu/'],
-      ['far fa-envelope', 'mailto:japocoin@gmail.com'],
+    ['fab fa-twitter', 'https://twitter.com/japocoinyh'],
+    ['fab fa-github-alt', 'https://github.com/japocoinyenhoang'],
+    ['fab fa-linkedin', 'https://www.linkedin.com/in/yenhoangchu/'],
+    ['far fa-envelope', 'mailto:japocoin@gmail.com'],
   ],
 }]
 
-
 class AboutUs extends Component {
   render() {
-
     const {classes, handleOpen, handleClose, open} = this.props;
     return (
       <div>
@@ -102,15 +99,15 @@ class AboutUs extends Component {
           <Grid item xs={12}>
             <div className={classes.divSize}>
               <Grid container className={classes.members} justify="center" alignItems="flex-start" spacing={16}>
-                  {
-                    gextTeam.map( item => {
-                      return (
-                        <Grid item xs={12} sm={6}>
-                          <AboutCard name={item.name} description={item.description} photo={item.photo} socialIcons={item.socialIcons}/>
-                        </Grid>
-                      )
-                    }
-                  )}
+                {
+                  gextTeam.map(item => {
+                    return (
+                      <Grid item xs={12} sm={6}>
+                        <AboutCard name={item.name} description={item.description} photo={item.photo} socialIcons={item.socialIcons}/>
+                      </Grid>
+                    )
+                  })
+                }
               </Grid>
             </div>
           </Grid>
@@ -124,7 +121,7 @@ class AboutUs extends Component {
 }
 
 AboutUs.propTypes = {
- classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles (styles)(AboutUs);

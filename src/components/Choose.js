@@ -39,8 +39,9 @@ class Choose extends Component {
           <CustomCard text="Upload Template from PC" onClick={this.props.handleClick} icon="fas fa-cloud-upload-alt fa-5x"/>
           <label htmlFor="upload"></label>
           <input className={this.props.classes.hidden} id="upload" type="file" ref={this.props.templateInput} onChange={this.props.handleChangeTemplate}/>
-        </Fragment>)
-      }
+        </Fragment>
+      )
+    }
   }
 
   render() {
@@ -67,6 +68,11 @@ class Choose extends Component {
 }
 
 Choose.propTypes={
+  handleClick: PropTypes.func.isRequired,
+  handleChangeTemplate: PropTypes.func.isRequired,
+  uploadedFileId: PropTypes.string.isRequired,
+  templateInput: PropTypes.object.isRequired,
+  handleInit: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 

@@ -46,10 +46,8 @@ class ApiLogin extends Component {
     script.src = 'https://apis.google.com/js/api.js';
     script.onload = this.handleClientLoad;
     script.onreadystatechange = this.handleClientLoad;
-
     const tag = document.getElementsByTagName('script')[0];
     tag.parentNode.insertBefore(script, tag);
-
   }
 
   handleClientLoad() {
@@ -65,7 +63,6 @@ class ApiLogin extends Component {
       })
       .then(() => {
         window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
-
         this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
       });
   }
@@ -87,10 +84,10 @@ class ApiLogin extends Component {
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes, loadingHome, signIn } = this.props;
 
-    if (!this.props.loadingHome){
-      if(!this.props.signIn){
+    if (!loadingHome){
+      if(!signIn){
         return (
         <div className={classes.root}>
           <Button
@@ -99,16 +96,15 @@ class ApiLogin extends Component {
             color="secondary"
             className={classes.margin}
             onClick={this.handleAuthClick}>
-
             <i className={`fab fa-google ${classes.marginIcon}`}></i>
             <span>Sign in with Google</span>
           </Button>
         </div>
         )
-      } else{
+      }else{
         return <Redirect to= '/steps/choose' />
       }
-    } else {
+    }else {
       return(
         <Fragment>
           {this.homeOrSteps()}
@@ -119,12 +115,12 @@ class ApiLogin extends Component {
 }
 
 ApiLogin.propTypes = {
-  discoveryDocs: PropTypes.arrayOf(PropTypes.string),
-  clientId: PropTypes.string,
-  scopes: PropTypes.string,
-  updateStateLogin: PropTypes.func,
-  signIn: PropTypes.bool,
-  loadingHome: PropTypes.bool,
+  discoveryDocs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  clientId: PropTypes.string.isRequired,
+  scopes: PropTypes.string.isRequired,
+  updateStateLogin: PropTypes.func.isRequired,
+  signIn: PropTypes.bool.isRequired,
+  loadingHome: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

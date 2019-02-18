@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import CustomCard from "./CustomCard";
 
 class ApiPicker extends Component {
-
   constructor(props) {
     super(props);
 
@@ -63,27 +62,23 @@ class ApiPicker extends Component {
         .build();
       picker.setVisible(true);
     }
-
   }
 
   pickerCallback(data) {
-    let templateName ='nothing selected';
+    let templateName = 'nothing selected';
     let templateId = '';
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       let doc = data[window.google.picker.Response.DOCUMENTS][0];
       templateName = doc.name;
       templateId = doc.id;
       let message = 'You picked: ' + templateName;
-
       this.props.handleTemplate(message);
       this.props.handlePresentationId(templateId);
-
       this.setState({
         picked: true,
        });
     }
   }
-
 
   render() {
     if (this.state.picked) {
@@ -97,11 +92,11 @@ class ApiPicker extends Component {
 }
 
 ApiPicker.propTypes = {
-  clientId: PropTypes.string,
-  scopes: PropTypes.string,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  phoneNumber: PropTypes.string
+  handlePresentationId: PropTypes.func.isRequired,
+  handleTemplate: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+  scopes: PropTypes.string.isRequired
 };
 
 export default ApiPicker;

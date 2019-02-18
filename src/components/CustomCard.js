@@ -44,6 +44,9 @@ function CustomCard(props) {
 }
 
 CustomCard.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  icon: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
