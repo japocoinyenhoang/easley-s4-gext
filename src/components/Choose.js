@@ -36,7 +36,7 @@ class Choose extends Component {
       } else {
       return (
         <Fragment>
-          <CustomCard text="Upload Template" onClick={this.props.handleClick} icon="fas fa-cloud-upload-alt fa-5x"/>
+          <CustomCard text="Upload Template from PC" onClick={this.props.handleClick} icon="fas fa-cloud-upload-alt fa-5x"/>
           <label htmlFor="upload"></label>
           <input className={this.props.classes.hidden} id="upload" type="file" ref={this.props.templateInput} onChange={this.props.handleChangeTemplate}/>
         </Fragment>)
