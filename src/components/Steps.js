@@ -23,7 +23,7 @@ const styles = theme => ({
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit, templateInput, handleClick, uploadedFileId, handleChangeTemplate, classes } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit, templateInput, handleClick, uploadedFileId, handleChangeTemplate, classes, resetStatus } = this.props;
     if (signIn) {
       return (
         <Grid container className={classes.root} direction="column" justify="space-between">
@@ -76,6 +76,7 @@ class Steps extends Component {
                     presentationId={presentationId}
                     photos={this.props.photos}
                     copyId={copyId}
+                    resetStatus={resetStatus}
                     />} />
               </Switch>
             </main>
