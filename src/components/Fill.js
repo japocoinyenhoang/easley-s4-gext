@@ -107,7 +107,6 @@ class Fill extends Component {
 
   listSlides() {
     const {handleInitInputs, handleImagesInputs} = this.props;
-    const {moustachesArray, tripleMoustachesArray} = this.state;
     window.gapi.client.slides.presentations.get({
       presentationId: fileId
     }).then(response => {
@@ -119,13 +118,13 @@ class Fill extends Component {
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
         this.setState({ moustachesArray: moustachesNoDup });
       }
-      handleInitInputs(moustachesArray);
+      handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
         let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
         this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
       }
-      handleImagesInputs(tripleMoustachesArray);
+      handleImagesInputs(this.state.tripleMoustachesArray);
     });
   }
 
