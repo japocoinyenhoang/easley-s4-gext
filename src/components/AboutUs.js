@@ -17,7 +17,7 @@ const styles = theme => ({
   },
   title: {
     textAlign:"center"
-  }
+  },
 })
 
 const gextTeam = [{
@@ -47,7 +47,7 @@ const gextTeam = [{
   description:'After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on trendy bars. Nowadays, I have jumped into the digital world, and thanks Adalab I hope to keep evolving and growing in the technological career.',
   photo: 'https://drive.google.com/uc?export=view&id=1mm16NWv0LslR4Qn15xqQaussiwlcCoqE',
   socialIcons: [
-      ['fab fa-twitter', 'Twitter: https://twitter.com/RoxSBri'],
+      ['fab fa-twitter', 'https://twitter.com/RoxSBri'],
       ['fab fa-github-alt', 'https://github.com/roxsb'],
       ['fab fa-linkedin', 'https://www.linkedin.com/in/roxana-sb/'],
       ['far fa-envelope', 'mailto:rox.san.bri@gmail.com'],
