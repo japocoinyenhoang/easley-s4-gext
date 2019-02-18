@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import ReactLoading from 'react-loading';
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -64,6 +63,10 @@ let presentation;
 let eraseTripleMoustache;
 let fileId;
 
+const {presentationId, uploadedFileId, handleInitInputs, handleImagesInputs, handleNext, handleCopyId, handleInputs, handleChangeFile, fileInput, classes, handleBack} = this.props;
+const {moustachesArray, tripleMoustachesArray, newName } = this.state;
+
+
 class Fill extends Component {
   constructor(props) {
     super(props);
@@ -88,13 +91,14 @@ class Fill extends Component {
     this.getId();
   }
 
+
   getId(){
-    if (this.props.presentationId !== ''){
-      fileId = this.props.presentationId
-    } else if(this.props.uploadedFileId !== '') {
-      fileId = this.props.uploadedFileId
-    } else {
-      console.log('file not found');
+    if (presentationId !== ''){
+      fileId = presentationId
+    } else if(uploadedFileId !== '') {
+      fileId = uploadedFileId
+    // } else {
+    //   console.log('file not found');
     }
     this.loadSlidesApi();
   }
@@ -116,43 +120,42 @@ class Fill extends Component {
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
         this.setState({ moustachesArray: moustachesNoDup });
       }
-      this.props.handleInitInputs(this.state.moustachesArray);
+      handleInitInputs(moustachesArray);
       if (tripleMoustaches.length > 0) {
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
         let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
         this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
       }
-      this.props.handleImagesInputs(this.state.tripleMoustachesArray);
+      handleImagesInputs(tripleMoustachesArray);
     });
   }
 
   loadSlidesReplace() {
-    if (this.props.presentationId || this.props.uploadedFileId !== '') {
+    if (presentationId || uploadedFileId !== '') {
       window.gapi.client.load('slides', 'v1').then(f => {
         window.gapi.client.load('drive', 'v2').then(execute => {
           this.execute()
         })
-        this.props.handleNext();
+        handleNext();
       }).catch(error => { console.log(error) });
     }
   }
 
   execute() {
     return window.gapi.client.drive.files.copy({
-      "title": this.state.newName,
+      "title": newName,
       "fileId": presentation,
       "resource": {}
     })
       .then((response) => {
         let newId = response.result.id;
-        this.props.handleCopyId(newId);
+        handleCopyId(newId);
       },
         function (err) { console.error("Execute error", err); })
       .catch(err => { console.log(err); })
   }
 
   paintForm() {
-    const { handleInputs, handleChangeFile, fileInput, classes } = this.props;
       return (
         <form>
           <Paper className={classes.form} elevation={1}>
@@ -174,7 +177,7 @@ class Fill extends Component {
                 />
               </Grid>
               <Grid item xs={12}>
-              {this.state.moustachesArray.map(item => {
+              {moustachesArray.map(item => {
                 return (
                   <TextField
                     required
@@ -195,7 +198,7 @@ class Fill extends Component {
               }
               </Grid>
               <Grid item xs={12}>
-              {this.state.tripleMoustachesArray.map(item=>{
+              {tripleMoustachesArray.map(item=>{
                 return (
                   <TextField
                     required
@@ -223,7 +226,7 @@ class Fill extends Component {
                       size="large"
                       color="secondary"
                       className={classes.btnSend}
-                      onClick={this.props.handleBack}>
+                      onClick={handleBack}>
                       <span>Choose another template</span>
                     </Fab>
                   </Link>

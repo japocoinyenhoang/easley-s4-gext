@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import SimpleModal from './SimpleModal';
 import PropTypes from 'prop-types';
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
-
 
 const styles = theme => ({
   root: {
@@ -24,13 +22,13 @@ const styles = theme => ({
 
 class HeaderHome extends Component {
   render() {
-    const {classes} = this.props;
+    const {classes, goBack, handleOpen, open, handleClose} = this.props;
     return (
       <header className={classes.root}>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Grid item>
             {
-              this.props.goBack &&
+              goBack &&
               <Link className={classes.links} to="/">
                 <Fab
                   variant="extended"
@@ -45,12 +43,12 @@ class HeaderHome extends Component {
           <Grid item>
             <Grid container direction="row" justify="flex-end" alignItems="center">
               <Grid item>
-                <IconButton onClick={this.props.handleOpen} color="secondary" className={classes.button}>
+                <IconButton onClick={handleOpen} color="secondary" className={classes.button}>
                   <i className="far fa-question-circle"></i>
                 </IconButton>
                 <SimpleModal
-                    open={this.props.open}
-                    handleClose={this.props.handleClose}/>
+                    open={open}
+                    handleClose={handleClose}/>
               </Grid>
               <Grid item>
                 <Link to="/about" className={classes.links}>

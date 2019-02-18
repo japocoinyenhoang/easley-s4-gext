@@ -56,7 +56,6 @@ class Success extends Component {
             </Grid>
           </Grid>
         </Paper>
-
         <div className={classes.widthStyle}>
           <Grid container className={classes.card} spacing={16} justify="center" alignItems="center">
             <Grid item xs={12} sm={6}>

@@ -17,13 +17,13 @@ const styles = theme => ({
   },
   divSize: {
     maxWidth: 850,
-    margin: 'auto'
+    margin: "auto"
   }
 });
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit, templateInput, handleClick, uploadedFileId, handleChangeTemplate, classes } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId,copyId, activeStep, handleInit, templateInput, handleClick, uploadedFileId, handleChangeTemplate, classes, photos} = this.props;
     if (signIn) {
       return (
         <Grid container className={classes.root} direction="column" justify="space-between">
@@ -33,7 +33,6 @@ class Steps extends Component {
                   handleClose={handleClose}
                   open={open} />
           </Grid>
-
           <Grid item>
             <main className={classes.divSize}>
               <HorizontalLabelPositionBelowStepper activeStep={activeStep}/>
@@ -74,7 +73,7 @@ class Steps extends Component {
                 <Route path="/steps/success" render = {props =>
                   <Success
                     presentationId={presentationId}
-                    photos={this.props.photos}
+                    photos={photos}
                     copyId={copyId}
                     />} />
               </Switch>
