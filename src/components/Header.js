@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import SimpleModal from './SimpleModal';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   root: {
@@ -24,6 +25,12 @@ const styles = theme => ({
   },
   marginButton: {
     marginLeft: theme.spacing.unit,
+  },
+  lightTooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
   }
 });
 
@@ -37,18 +44,23 @@ class Header extends Component {
             <Link to="/"><img src={logoHeader} alt="Gext logo" height="35px"></img></Link>
             <Grid container direction="row" justify="flex-end" alignItems="center">
               <Grid item>
-                <IconButton onClick={this.props.handleOpen} color="secondary" className={classes.button}>
-                <i className="far fa-question-circle"></i>
-                </IconButton>
+                <Tooltip title="how it works" classes={{tooltip: classes.lightTooltip}}>
+
+                  <IconButton onClick={this.props.handleOpen} color="secondary"   className={classes.button}>
+                    <i className="far fa-question-circle"></i>
+                  </IconButton>
+                </Tooltip>
                 <SimpleModal
                     open={this.props.open}
                     handleClose={this.props.handleClose}/>
               </Grid>
               <Grid item>
                 <Link to="/about" className={classes.links}>
-                  <IconButton color="secondary" className={classes.button}>
-                    <i className="fas fa-info-circle"></i>
-                  </IconButton>
+                  <Tooltip title="about us" classes={{tooltip: classes.lightTooltip}}>
+                    <IconButton color="secondary" className={classes.button}>
+                      <i className="fas fa-info-circle"></i>
+                    </IconButton>
+                  </Tooltip>
                 </Link>
               </Grid>
               <Grid item>

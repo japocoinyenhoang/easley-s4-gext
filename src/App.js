@@ -37,7 +37,6 @@ class App extends Component {
 
     this.state = {
       activeStep: 0,
-      chooseRoute: "/steps/choose",
       clientId: '754675357649-76ar45tndb0lcbqr59v1hqlm4aea3lrs.apps.googleusercontent.com',
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/slides/v1/rest"],
       scopes: "https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.photos.readonly",
@@ -57,7 +56,6 @@ class App extends Component {
     this.fileInput = React.createRef();
     this.templateInput = React.createRef();
 
-
     this.updateStateLogin = this.updateStateLogin.bind(this);
     this.handleSignoutClick = this.handleSignoutClick.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
@@ -75,7 +73,7 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.uploadImageDrive = this.uploadImageDrive.bind(this);
     this.uploadTemplateDrive = this.uploadTemplateDrive.bind(this);
-
+    this.resetStatus = this.resetStatus.bind(this);
   }
 
   handleInit = () => {
@@ -93,14 +91,21 @@ class App extends Component {
   handleBack = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1,
+      uploadedFileId: ''
     }));
   }
 
-  handleOpen = () => {
+  resetStatus(){
+    this.setState({
+      uploadedFileId: ''
+    })
+  }
+
+  handleOpen(){
     this.setState({ open: true });
   };
 
-  handleClose = () => {
+  handleClose(){
     this.setState({ open: false });
   };
 
@@ -375,6 +380,7 @@ class App extends Component {
                   templateInput={this.templateInput}
                   handleChangeTemplate={this.handleChangeTemplate}
                   uploadedFileId={uploadedFileId}
+                  resetStatus={this.resetStatus}
                   />} />
               <Route path="/about" render={props =>
                 <AboutUs handleOpen={this.handleOpen}
