@@ -1,7 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from "prop-types";
 import '../index.scss';
-import btn_google from '../images/btn_google_signin.png';
+import ReactLoading from 'react-loading';
+
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    marginTop: `${theme.spacing.unit * 2}px`,
+  },
+  margin: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  marginIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  marginAuto: {
+    margin:"auto",
+    padding: `${theme.spacing.unit * 2}px`,
+  }
+});
 
 class ApiLogin extends Component {
   constructor(props) {
@@ -11,6 +35,7 @@ class ApiLogin extends Component {
     this.initClient = this.initClient.bind(this);
     this.updateSigninStatus = this.updateSigninStatus.bind(this);
     this.handleAuthClick = this.handleAuthClick.bind(this);
+    this.homeOrSteps = this.homeOrSteps.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +49,7 @@ class ApiLogin extends Component {
 
     const tag = document.getElementsByTagName('script')[0];
     tag.parentNode.insertBefore(script, tag);
+
   }
 
   handleClientLoad() {
@@ -48,17 +74,58 @@ class ApiLogin extends Component {
     this.props.updateStateLogin(isSignedIn);
   }
 
-  handleAuthClick(event) {
+  handleAuthClick() {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 
-  render() {
-    if (this.props.signIn) {
-      return <Redirect to='/steps/choose' />
+  homeOrSteps(){
+    if(this.props.signIn !== true){
+      return  <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={this.props.classes.marginAuto}/>
     } else {
-      return <button onClick={this.handleAuthClick} className="btn-login btn btn-light"><img className="google-signin" src={btn_google} alt="google logo" /></button>
+      return <Redirect to= '/steps/choose' />
+    }
+  }
+
+  render() {
+    const {classes} = this.props;
+
+    if (!this.props.loadingHome){
+      if(!this.props.signIn){
+        return (
+        <div className={classes.root}>
+          <Button
+            variant="outlined"
+            size="medium"
+            color="secondary"
+            className={classes.margin}
+            onClick={this.handleAuthClick}>
+
+            <i className={`fab fa-google ${classes.marginIcon}`}></i>
+            <span>Sign in with Google</span>
+          </Button>
+        </div>
+        )
+      } else{
+        return <Redirect to= '/steps/choose' />
+      }
+    } else {
+      return(
+        <Fragment>
+          {this.homeOrSteps()}
+        </Fragment>
+      )
     }
   }
 }
 
-export default ApiLogin;
+ApiLogin.propTypes = {
+  discoveryDocs: PropTypes.arrayOf(PropTypes.string),
+  clientId: PropTypes.string,
+  scopes: PropTypes.string,
+  updateStateLogin: PropTypes.func,
+  signIn: PropTypes.bool,
+  loadingHome: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ApiLogin);
