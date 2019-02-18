@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CustomCard from "./CustomCard";
@@ -38,11 +37,11 @@ const styles = theme => ({
 
 class Success extends Component {
   render() {
-    const {classes} = this.props;
-    let urlSlide = `https://docs.google.com/presentation/d/${this.props.copyId}/`;
-    let urlDownload = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pptx`;
-    let urlDownloadPdf = `https://docs.google.com/presentation/d/${this.props.copyId}/export/pdf`;
-    if (this.props.copyId !== '') {
+    const {classes, copyId} = this.props;
+    let urlSlide = `https://docs.google.com/presentation/d/${copyId}/`;
+    let urlDownload = `https://docs.google.com/presentation/d/${copyId}/export/pptx`;
+    let urlDownloadPdf = `https://docs.google.com/presentation/d/${copyId}/export/pdf`;
+    if (copyId !== '') {
       return (
       <div>
         <Paper className={classes.root} elevation={1}>
@@ -82,10 +81,6 @@ class Success extends Component {
             </Grid>
           </Grid>
         </div>
-        <div className="photo__container">
-         {/* <img src={this.props.photos} alt="uploaded"/>
-        {this.props.photos} */}
-        </div>
       </div>
     );
     } else {
@@ -97,7 +92,8 @@ class Success extends Component {
 }
 
 Success.propTypes={
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  copyId: PropTypes.string
 };
 
 export default withStyles(styles)(Success);
