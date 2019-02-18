@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import { sendApiKey } from './Credentials';
+import PropTypes from "prop-types";
+import CustomCard from "./CustomCard";
 
 class ApiPicker extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       pickerApiLoaded: false,
       oauthToken: '',
       picked: false,
-      message: ''
     }
 
     this.onApiLoad = this.onApiLoad.bind(this);
@@ -23,6 +24,7 @@ class ApiPicker extends Component {
   onApiLoad() {
     window.gapi.load('auth2', this.onAuthApiLoad);
     window.gapi.load('picker', this.onPickerApiLoad);
+    this.props.handleNext();
   }
 
   onPickerApiLoad() {
@@ -55,7 +57,7 @@ class ApiPicker extends Component {
       let picker = new window.google.picker.PickerBuilder()
         .addView(window.google.picker.ViewId.PRESENTATIONS)
         .setOAuthToken(oauthToken)
-        .setDeveloperKey(sendApiKey)
+        .setDeveloperKey(process.env.REACT_APP_API_KEY)
         .setCallback(this.pickerCallback)
         .build();
       picker.setVisible(true);
@@ -63,17 +65,19 @@ class ApiPicker extends Component {
   }
 
   pickerCallback(data) {
-    let url = 'nothing';
+    let templateName = 'nothing selected';
+    let templateId = '';
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       let doc = data[window.google.picker.Response.DOCUMENTS][0];
-      url = doc[window.google.picker.Document.URL];
+      templateName = doc.name;
+      templateId = doc.id;
+      let message = 'You picked: ' + templateName;
+      this.props.handleTemplate(message);
+      this.props.handlePresentationId(templateId);
+      this.setState({
+        picked: true,
+       });
     }
-    let message = 'You picked: ' + url;
-
-    this.setState({
-      picked: true,
-      message: message
-    })
   }
 
   render() {
@@ -81,13 +85,18 @@ class ApiPicker extends Component {
       return <Redirect to='/steps/fill' />
     } else {
       return (
-        <div>
-          <button type="button" className="btn btn-secondary btn-lg" onClick={this.onApiLoad}>Select template</button>
-          <div id="result">{this.state.message}</div>
-        </div>
+        <CustomCard text="Select Template from Drive" onClick={this.onApiLoad} icon="fab fa-google-drive fa-5x"/>
       );
     }
   }
 }
+
+ApiPicker.propTypes = {
+  handlePresentationId: PropTypes.func.isRequired,
+  handleTemplate: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+  scopes: PropTypes.string.isRequired
+};
 
 export default ApiPicker;

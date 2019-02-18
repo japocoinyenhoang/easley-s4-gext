@@ -1,31 +1,54 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import HeaderHome from './HeaderHome';
-import logo from '../images/logo__gext.png';
+import logo from '../images/logo__gext.svg';
 import ApiLogin from './ApiLogin';
+import Footer from './Footer';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    height: "100vh",
+    padding: `${theme.spacing.unit * 2}px`
+  },
+  itemMain:{
+    textAlign: "center"
+  },
+  hidden: {
+    display: "none",
+  }
+});
 
 class Home extends Component {
-
   render() {
-    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn } = this.props;
+    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loadingHome, handleOpen, handleClose, open, classes } = this.props;
     return (
-      <div className="home-page">
-        <div className="row">
-          <HeaderHome />
-        </div>
-        <div className="row home-content">
-          <main className="main-container container-fluid">
-            <h1 className="d-none">Gext, presentations with superpowers</h1>
-            <div className="col-12 d-flex flex-column align-items-center">
-              <img src={logo} alt="Gext logo"></img>
-              <div className="home-page__btn">
-                <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} />
-              </div>
-            </div>
+      <Grid container className={classes.root} direction="column" justify="space-between">
+        <Grid item>
+          <HeaderHome handleOpen={handleOpen}
+                      handleClose={handleClose}
+                      open={open}
+                      goBack={false}/>
+        </Grid>
+        <Grid item className={classes.itemMain}>
+          <main>
+            <h1 className={classes.hidden}>Gext, presentations with superpowers</h1>
+            <img src={logo} alt="Gext logo" width="300px"></img>
+            <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} loadingHome={loadingHome} />
           </main>
-        </div>
-      </div>
+        </Grid>
+        <Grid item>
+          <Footer />
+        </Grid>
+      </Grid>
     );
   }
 }
 
-export default Home;
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Home);

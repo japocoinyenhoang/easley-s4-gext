@@ -1,39 +1,98 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from './Header';
-import Wizard from './Wizard';
 import Choose from './Choose';
 import Fill from './Fill';
 import Success from './Success';
+import Footer from './Footer';
+import HorizontalLabelPositionBelowStepper from './HorizonalLabelPositionBelowSteppers';
+import { withStyles } from '@material-ui/core/styles';
+import { Grid } from "@material-ui/core";
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    minHeight: "100vh"
+  },
+  divSize: {
+    maxWidth: 850,
+    margin: "auto"
+  }
+});
 
 class Steps extends Component {
   render() {
-    const { clientId, scopes, signIn, handleSignoutClick, handleInputName, handleInputEmail, handleInputPhone, name, email, phoneNumber } = this.props;
+    const { clientId, scopes, signIn, handleSignoutClick, inputs, handleInputs, handleTripleMoustaches, selectedTemplate, handleTemplate, presentationId, handlePresentationId, handleInitInputs, handleImagesInputs,handleChangeFile, fileInput, fakeClick, open, handleOpen, handleClose, handleNext, handleBack, imagesInputs, handleCopyId, copyId, activeStep, handleInit, templateInput, handleClick, uploadedFileId, handleChangeTemplate, classes, photos, resetStatus } = this.props;
     if (signIn) {
       return (
-        <div className="steps-container">
-          <Header handleSignoutClick={handleSignoutClick} />
-          <main className="main-container">
-            <Wizard />
-            <Switch>
-              <Route path="/steps/choose" render={props => <Choose clientId={clientId} scopes={scopes} />} />
-              <Route path="/steps/fill" render={props =>
-                <Fill handleInputName={handleInputName}
-                  handleInputEmail={handleInputEmail}
-                  handleInputPhone={handleInputPhone}
-                  name={name}
-                  email={email}
-                  phoneNumber={phoneNumber} />} />
-              <Route path="/steps/success" component={Success} />
-            </Switch>
-          </main>
-        </div>
+        <Grid container className={classes.root} direction="column" justify="space-between">
+          <Grid item>
+            <Header handleSignoutClick={handleSignoutClick}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  open={open} />
+          </Grid>
+          <Grid item>
+            <main className={classes.divSize}>
+              <HorizontalLabelPositionBelowStepper activeStep={activeStep}/>
+              <Switch>
+                <Route path="/steps/choose" render={props =>
+                  <Choose clientId={clientId}
+                    scopes={scopes}
+                    handleTemplate={handleTemplate}
+                    handlePresentationId={handlePresentationId}
+                    handleOpen={handleOpen}
+                    handleClose={handleClose}
+                    handleNext={handleNext}
+                    handleInit={handleInit}
+                    open={open}
+                    handleChangeTemplate={handleChangeTemplate}
+                    templateInput={templateInput}
+                    handleClick={handleClick}
+                    uploadedFileId={uploadedFileId}/>} />
+                <Route path="/steps/fill" render={props =>
+                  <Fill
+                    handleInputs={handleInputs}
+                    handleTripleMoustaches={handleTripleMoustaches}
+                    inputs={inputs}
+                    imagesInputs={imagesInputs}
+                    handleInitInputs={handleInitInputs}
+                    handleImagesInputs={handleImagesInputs}
+                    handleChangeFile={handleChangeFile}
+                    selectedTemplate={selectedTemplate}
+                    presentationId={presentationId}
+                    handleBack={handleBack}
+                    handleNext={handleNext}
+                    handleCopyId={handleCopyId}
+                    copyId={copyId}
+                    fakeClick={fakeClick}
+                    fileInput={fileInput}
+                    uploadedFileId={uploadedFileId}/>}
+                    />
+                <Route path="/steps/success" render = {props =>
+                  <Success
+                    presentationId={presentationId}
+                    photos={photos}
+                    copyId={copyId}
+                    resetStatus={resetStatus}
+                    />} />
+              </Switch>
+            </main>
+          </Grid>
+          <Grid item>
+            <Footer />
+          </Grid>
+        </Grid>
       );
-
     } else {
       return <Redirect to='/' />
     }
   }
 }
 
-export default Steps;
+Steps.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Steps);
