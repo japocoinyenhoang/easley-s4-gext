@@ -261,6 +261,9 @@ class Fill extends Component {
   render() {
     const { selectedTemplate, classes } = this.props;
     if (this.state.moustachesArray.length>0 || this.state.tripleMoustachesArray.length>0 ) {
+    this.setState({
+      loadingForm: false
+    })
       return (
         <div>
           <Paper className={classes.message} elevation={1}>
@@ -278,12 +281,17 @@ class Fill extends Component {
           {this.paintForm()}
         </div>
           );
-    } else {
+  } else if(this.props.loadingForm) {
+    return (
+      <div className={classes.loading}>
+        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
+      </div>
+    )
+  } else if (this.state.moustachesArray === null) {
       return (
         <div className={classes.loading}>
-          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
           <div className={classes.text}>
-            If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.
+            If the page does not refresh automatically in a minute, please check if your template has any keywords. Review our 'How to use' section if necessary.
           </div>
         </div>
         )
