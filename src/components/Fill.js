@@ -112,9 +112,7 @@ class Fill extends Component {
       presentationId: fileId
     }).then(response => {
       let presentation = response.result;
-      console.log(presentation);
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
-      console.log(moustaches);
       if(moustaches === null ) {
         this.setState({ noMoustaches: true, loadingForm: false });
       }
@@ -284,21 +282,20 @@ class Fill extends Component {
           {this.paintForm()}
         </div>
           );
-  } else if(this.state.noMoustaches) {
-    return (
-      <div className={classes.loading}>
-        <div className={classes.text}>
-          Please check if your template has any keywords. Review our 'How to use' section if necessary.
+    } else if (this.state.noMoustaches) {
+      return (
+        <div className={classes.loading}>
+          <div className={classes.text}>
+            Please check if your template has any keywords. Review our 'How to use' section if necessary.
+          </div>
         </div>
-      </div>
       )
-  }
-  else if (this.state.loadingForm) {
-    return (
-      <div className={classes.loading}>
-        <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
-      </div>
-    )
+    } else if (this.state.loadingForm) {
+      return (
+        <div className={classes.loading}>
+          <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
+        </div>
+      )
     }
   }
 }
