@@ -28,7 +28,7 @@ const styles = theme => ({
 const gextTeam = [{
   name:'Silvia García Cacho',
   description:'Master in cultural management. Due to my interest in technology and continuous learning I decided to start a new adventure as front-end developer. Hope to keep helping cultural institutions to embrace the XXI Century technology.',
-  photo:'https://drive.google.com/uc?export=view&id=10WBqOaAbgwgMGwnwlATjIoheib2wyUIb',
+  photo:'https://github.com/Adalab/easley-s4-gext/blob/master/src/images/silvia.jpg?raw=true',
   socialIcons: [
     ['fab fa-twitter', 'https://twitter.com/garcaplay'],
     ['fab fa-github-alt', 'https://github.com/garcaplay'],
@@ -39,7 +39,7 @@ const gextTeam = [{
 {
   name:'Alba López Folgar',
   description:'Graduated in Sociology, driven by social questions and issues. After studying in Adalab and develop the necessary skills to start a new path on web development, I am very eager to develop my career and never stop learning and growing.',
-  photo: 'https://drive.google.com/uc?export=view&id=1HCKOLQ_2EjxEEjxWad3WOLsqbuk587QK',
+  photo: 'https://github.com/Adalab/easley-s4-gext/blob/master/src/images/alba.jpg?raw=true',
   socialIcons: [
     ['fab fa-twitter', 'https://twitter.com/albahniuk'],
     ['fab fa-github-alt', 'https://github.com/albahniuk'],
@@ -50,7 +50,7 @@ const gextTeam = [{
 {
   name:'Roxana Sánchez Briñas',
   description:'After graduating on Fine Arts, I implemented several multidisciplinary projects while serving coffees during the day and photographing "zombies" during the night on trendy bars. Nowadays, I have jumped into the digital world, and thanks Adalab I hope to keep evolving and growing in the technological career.',
-  photo: 'https://drive.google.com/uc?export=view&id=1mm16NWv0LslR4Qn15xqQaussiwlcCoqE',
+  photo: 'https://github.com/Adalab/easley-s4-gext/blob/master/src/images/roxana.jpg?raw=true',
   socialIcons: [
     ['fab fa-twitter', 'https://twitter.com/RoxSBri'],
     ['fab fa-github-alt', 'https://github.com/roxsb'],
@@ -61,7 +61,7 @@ const gextTeam = [{
 {
   name:'Laura Sánchez Redondo',
   description:'I changed my career as a Teacher of Infant Education and English, for UX Design. I discovered Adalab through a group of Spanish Ux Ladies on Twitter and, at the first time, I thought it was the best option to develop my professional career in the technological world. I love being part of this great initiative.',
-  photo: 'https://drive.google.com/uc?export=view&id=1SU5Fg8xwMgcHnbvJhKvOS47CT6tgDnlT',
+  photo: 'https://github.com/Adalab/easley-s4-gext/blob/master/src/images/laura.JPG?raw=true',
   socialIcons: [
     ['fab fa-twitter', 'https://twitter.com/babelarr'],
     ['fab fa-github-alt', 'https://github.com/babelarr'],
@@ -72,7 +72,7 @@ const gextTeam = [{
 {
   name:'Yen Hoang',
   description:'Future front-end developer, passionate about flex-box, currently trying to keep me afloat in the world of code. Philosophy of life: Work hard and win.',
-  photo: 'https://drive.google.com/uc?export=view&id=1sK3QIldiWU8nfgz0TdQrfnBsEOra1pM7',
+  photo: 'https://github.com/Adalab/easley-s4-gext/blob/master/src/images/yen.jpg?raw=true',
   socialIcons: [
     ['fab fa-twitter', 'https://twitter.com/japocoinyh'],
     ['fab fa-github-alt', 'https://github.com/japocoinyenhoang'],
