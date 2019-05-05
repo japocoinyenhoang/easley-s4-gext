@@ -73,7 +73,8 @@ class Fill extends Component {
       moustachesArray: [],
       newName: '',
       presentationIdCopy: '',
-      tripleMoustachesArray: []
+      tripleMoustachesArray: [],
+      noMoustaches: false
     }
 
     this.loadSlidesApi = this.loadSlidesApi.bind(this);
@@ -112,17 +113,20 @@ class Fill extends Component {
     }).then(response => {
       let presentation = response.result;
       let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
+      if(moustaches === null ) {
+        this.setState({ noMoustaches: true, loadingForm: false });
+      }
       let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
-        this.setState({ moustachesArray: moustachesNoDup });
+        this.setState({ moustachesArray: moustachesNoDup, loadingForm: false });
       }
       handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
         let tripleMoustachesNoDup = [...new Set([...keywords, ...eraseTripleMoustache])];
-        this.setState({ tripleMoustachesArray: tripleMoustachesNoDup });
+        this.setState({ tripleMoustachesArray: tripleMoustachesNoDup, loadingForm: false });
       }
       handleImagesInputs(this.state.tripleMoustachesArray);
     });
@@ -278,15 +282,20 @@ class Fill extends Component {
           {this.paintForm()}
         </div>
           );
-    } else {
+    } else if (this.state.noMoustaches) {
+      return (
+        <div className={classes.loading}>
+          <div className={classes.text}>
+            Please check if your template has any keywords. Review our 'How to use' section if necessary.
+          </div>
+        </div>
+      )
+    } else if (this.state.loadingForm) {
       return (
         <div className={classes.loading}>
           <ReactLoading type={'spinningBubbles'} color={'#990099'} height={100} width={100} className={classes.marginAuto}/>
-          <div className={classes.text}>
-            If the page does not refresh automatically in a minute, please check if your template has any keywords. Please review our 'How to use' section if necessary.
-          </div>
         </div>
-        )
+      )
     }
   }
 }
