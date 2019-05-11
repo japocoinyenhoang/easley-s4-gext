@@ -23,7 +23,7 @@ const styles = theme => ({
 
 class Home extends Component {
   render() {
-    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, loadingHome, handleOpen, handleClose, open, classes } = this.props;
+    const { clientId, discoveryDocs, scopes, updateStateLogin, signIn, handleOpen, handleClose, open, classes } = this.props;
     return (
       <Grid container className={classes.root} direction="column" justify="space-between">
         <Grid item>
@@ -36,7 +36,7 @@ class Home extends Component {
           <main>
             <h1 className={classes.hidden}>Gext, presentations with superpowers</h1>
             <img src={logo} alt="Gext logo" width="300px"></img>
-            <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} loadingHome={loadingHome} />
+            <ApiLogin clientId={clientId} discoveryDocs={discoveryDocs} scopes={scopes} updateStateLogin={updateStateLogin} signIn={signIn} />
           </main>
         </Grid>
         <Grid item>

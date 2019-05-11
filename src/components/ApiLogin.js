@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import '../index.scss';
@@ -84,11 +84,10 @@ class ApiLogin extends Component {
   }
 
   render() {
-    const { classes, loadingHome, signIn } = this.props;
+    const { classes, signIn } = this.props;
 
-    if (!loadingHome){
-      if(!signIn){
-        return (
+    if(!signIn) {
+      return (
         <div className={classes.root}>
           <Button
             variant="outlined"
@@ -100,16 +99,9 @@ class ApiLogin extends Component {
             <span>Sign in with Google</span>
           </Button>
         </div>
-        )
-      }else{
-        return <Redirect to= '/steps/choose' />
-      }
-    }else {
-      return(
-        <Fragment>
-          {this.homeOrSteps()}
-        </Fragment>
       )
+    } else {
+      return <Redirect to= '/steps/choose' />
     }
   }
 }
@@ -120,7 +112,6 @@ ApiLogin.propTypes = {
   scopes: PropTypes.string.isRequired,
   updateStateLogin: PropTypes.func.isRequired,
   signIn: PropTypes.bool.isRequired,
-  loadingHome: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

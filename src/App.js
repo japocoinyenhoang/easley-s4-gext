@@ -47,7 +47,6 @@ class App extends Component {
       template: [],
       signIn: false,
       selectedTemplate: '',
-      loadingHome: true,
       presentationId: '',
       copyId: '',
       open: false,
@@ -256,13 +255,11 @@ class App extends Component {
   updateStateLogin(isSignedIn) {
     if (isSignedIn) {
       this.setState({
-        signIn: true,
-        loadingHome: true
+        signIn: true
       })
     } else {
       this.setState({
-        signIn: false,
-        loadingHome: false
+        signIn: false
       })
     }
   }
@@ -270,8 +267,7 @@ class App extends Component {
   handleSignoutClick() {
     window.gapi.auth2.getAuthInstance().signOut();
     this.setState({
-      signIn: false,
-      loadingHome: false,
+      signIn: false
     })
   }
 
@@ -332,7 +328,7 @@ class App extends Component {
   }
 
   render() {
-    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, loadingHome, presentationId, copyId, open, imagesInputs, activeStep, uploadedFileId } = this.state;
+    const { discoveryDocs, clientId, scopes, signIn, inputs, selectedTemplate, presentationId, copyId, open, imagesInputs, activeStep, uploadedFileId } = this.state;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -344,7 +340,6 @@ class App extends Component {
                   scopes={scopes}
                   updateStateLogin={this.updateStateLogin}
                   signIn={signIn}
-                  loadingHome={loadingHome}
                   handleOpen={this.handleOpen}
                   handleClose={this.handleClose}
                   open={open}
