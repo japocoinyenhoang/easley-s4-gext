@@ -112,16 +112,22 @@ class Fill extends Component {
       presentationId: fileId
     }).then(response => {
       let presentation = response.result;
-      let moustaches = JSON.stringify(presentation).match(/(?<!{){{\s*[\w]+\s*}}(?!})/g);
+
+      const regexDouble = /(?={){{\s*[\w]+\s*}}(?!})/g;
+      const regexTriple = /(?={){{{\s*[\w.]+\s*}}}(?!})/g;
+
+      let moustaches = JSON.stringify(presentation).match(regexDouble);
       if(moustaches === null ) {
         this.setState({ noMoustaches: true, loadingForm: false });
       }
-      let tripleMoustaches = JSON.stringify(presentation).match(/(?<!{){{{\s*[\w.]+\s*}}}(?!})/g);
+
+      let tripleMoustaches = JSON.stringify(presentation).match(regexTriple);
       if (moustaches.length > 0) {
         eraseMoustache = moustaches.map(item => item.replace('{{', '').replace('}}', ''));
         let moustachesNoDup = [...new Set([...keywords, ...eraseMoustache])];
         this.setState({ moustachesArray: moustachesNoDup, loadingForm: false });
       }
+
       handleInitInputs(this.state.moustachesArray);
       if (tripleMoustaches.length > 0) {
         eraseTripleMoustache = tripleMoustaches.map(item => item.replace('{{{', '').replace('}}}', ''));
