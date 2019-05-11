@@ -23,10 +23,11 @@ const themeApp = createMuiTheme({
     },
   },
   typography: {
+    useNextVariants: true,
     fontFamily: [
       'Roboto',
       'sans-serif'
-    ].join(','),
+    ],
     fontSize: 16
   }
 });
